@@ -1,0 +1,592 @@
+{
+ "server": "gennemfoert",
+ "tools": [
+  "check_penetration",
+  "export_documents",
+  "get_penetration",
+  "list_penetrations",
+  "project_overview",
+  "search_eta"
+ ],
+ "overview": {
+  "project": "Blok C, etageboliger (fictitious demonstration model)",
+  "model": "blok_c_vvs.ifc",
+  "penetrations": 58,
+  "status": {
+   "TESTET": {
+    "count": 36,
+    "text": "Testet løsning"
+   },
+   "AFVIGELSE": {
+    "count": 17,
+    "text": "Afvigelse: brandteknisk vurdering"
+   },
+   "IKKE_DAEKKET": {
+    "count": 3,
+    "text": "Ingen testet løsning i ETA'en"
+   },
+   "ANDET_SYSTEM": {
+    "count": 1,
+    "text": "Andet system (spjæld / kanalisolering)"
+   },
+   "MANGLER_DATA": {
+    "count": 1,
+    "text": "Mangler data"
+   }
+  },
+  "unrated_crossings_ignored": 1,
+  "eta": "ETA-21/0110 Mulcol Multimastic C System",
+  "outputs": [
+   "out/Gennemfoeringsregister.xlsx",
+   "out/Gennemfoeringsregister.pdf (with QR site labels)",
+   "out/Gennemfoert_afvigelser.bcfzip",
+   "out/blok_c_vvs_gennemfoert.ifc",
+   "out/vurderinger/*.docx"
+  ]
+ },
+ "dev": [
+  {
+   "id": "G-K-10",
+   "storey": "Kælder",
+   "service": "PVC-U Ø200x5,9",
+   "construction": "Teknikrumsvæg, beton 150 (EI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.3.5 (s. 35), afviger på: diameter"
+  },
+  {
+   "id": "G-K-13",
+   "storey": "Kælder",
+   "service": "PVC-U Ø110x3,2",
+   "construction": "Huldæk 220 over Kælder (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.5 (s. 52), afviger på: godstykkelse"
+  },
+  {
+   "id": "G-K-14",
+   "storey": "Kælder",
+   "service": "Kobber Ø22x1, Armaflex AF 13 mm",
+   "construction": "Huldæk 220 over Kælder (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.8 (s. 56), afviger på: isoleringsfabrikat"
+  },
+  {
+   "id": "G-K-15",
+   "storey": "Kælder",
+   "service": "Kobber Ø28x1, Stenuld rørskål 80 kg/m³ 30 mm",
+   "construction": "Huldæk 220 over Kælder (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.4 (s. 48), afviger på: isoleringstykkelse, klassifikation"
+  },
+  {
+   "id": "G-ST-02",
+   "storey": "Stueetage",
+   "service": "PP Ø50x1,8",
+   "construction": "Skaktvæg A1, gips på stålskelet 100 (EI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.1.4 (s. 14), afviger på: diameter"
+  },
+  {
+   "id": "G-ST-09",
+   "storey": "Stueetage",
+   "service": "Stål Ø26,9x2,3, Stenuld rørskål 80 kg/m³ 20 mm",
+   "construction": "Skaktvæg A2, gips på stålskelet 100 (EI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.1.5 (s. 15), afviger på: diameter"
+  },
+  {
+   "id": "G-ST-14",
+   "storey": "Stueetage",
+   "service": "PVC-U Ø110x3,2",
+   "construction": "Huldæk 220 over Stueetage (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.5 (s. 52), afviger på: godstykkelse"
+  },
+  {
+   "id": "G-ST-15",
+   "storey": "Stueetage",
+   "service": "Kobber Ø22x1, Armaflex AF 13 mm",
+   "construction": "Huldæk 220 over Stueetage (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.8 (s. 56), afviger på: isoleringsfabrikat"
+  },
+  {
+   "id": "G-ST-16",
+   "storey": "Stueetage",
+   "service": "Kobber Ø28x1, Stenuld rørskål 80 kg/m³ 30 mm",
+   "construction": "Huldæk 220 over Stueetage (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.4 (s. 48), afviger på: isoleringstykkelse, klassifikation"
+  },
+  {
+   "id": "G-1-02",
+   "storey": "1. sal",
+   "service": "PP Ø50x1,8",
+   "construction": "Skaktvæg A1, gips på stålskelet 100 (EI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.1.4 (s. 14), afviger på: diameter"
+  },
+  {
+   "id": "G-1-09",
+   "storey": "1. sal",
+   "service": "Kabel Ø90",
+   "construction": "Trapperumsvæg, beton 200 (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.1.2 (s. 10), afviger på: diameter"
+  },
+  {
+   "id": "G-1-10",
+   "storey": "1. sal",
+   "service": "PVC-U Ø110x3,2",
+   "construction": "Huldæk 220 over 1. sal (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.5 (s. 52), afviger på: godstykkelse"
+  },
+  {
+   "id": "G-1-12",
+   "storey": "1. sal",
+   "service": "Kobber Ø22x1, Armaflex AF 13 mm",
+   "construction": "Huldæk 220 over 1. sal (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.8 (s. 56), afviger på: isoleringsfabrikat"
+  },
+  {
+   "id": "G-1-14",
+   "storey": "1. sal",
+   "service": "Kobber Ø28x1, Stenuld rørskål 80 kg/m³ 30 mm",
+   "construction": "Huldæk 220 over 1. sal (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.4.4 (s. 48), afviger på: isoleringstykkelse, klassifikation"
+  },
+  {
+   "id": "G-2-01",
+   "storey": "2. sal",
+   "service": "PP Ø50x1,8",
+   "construction": "Skaktvæg A1, gips på stålskelet 100 (EI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.1.4 (s. 14), afviger på: diameter"
+  },
+  {
+   "id": "G-2-03",
+   "storey": "2. sal",
+   "service": "Kabelbakke 200x60 mm",
+   "construction": "Lejlighedsskel, beton 180 (EI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.1.2 (s. 10), afviger på: afstand mellem tætninger"
+  },
+  {
+   "id": "G-2-04",
+   "storey": "2. sal",
+   "service": "Kabelbundt Ø80 (kabler ≤ 16 mm)",
+   "construction": "Lejlighedsskel, beton 180 (EI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-21/0110 A.1.2 (s. 10), afviger på: afstand mellem tætninger"
+  }
+ ],
+ "one": {
+  "id": "G-K-10",
+  "storey": "Kælder",
+  "service": "PVC-U Ø200x5,9",
+  "system": "Afløb",
+  "construction": {
+   "name": "Teknikrumsvæg, beton 150",
+   "kind": "rigid_wall",
+   "thickness_mm": 150,
+   "rating": "EI 60"
+  },
+  "aperture_mm": [
+   340,
+   340
+  ],
+  "separation_to_next_seal_mm": 1480,
+  "ifc": {
+   "service_guid": "03BeLseen8xQ686xqtsLjH",
+   "construction_guid": "1CKvBajmX9zONoGt7YY9pK"
+  },
+  "status": "AFVIGELSE",
+  "status_text": "Afvigelse: brandteknisk vurdering",
+  "action": "Brandteknisk vurdering af afvigelsen, eller ændr til den testede/alternative løsning.",
+  "tested_solutions": [],
+  "nearest_tested": [
+   {
+    "eta": "ETA-21/0110",
+    "section": "A.3.5",
+    "page": 35,
+    "service": "PVC-U pipe up to 160 mm / 4.0-9.5 mm wall thickness",
+    "classification": "EI 240 U/C",
+    "insulation": "None",
+    "board": "FB2 2x60 mm",
+    "wrap": "50 X 10.8 mm (6 layers) Either side of the wall",
+    "deviates": [
+     "diameter"
+    ],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massiv væg",
+      "tested": "massiv væg",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "150 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 200 mm",
+      "tested": "Ø ≤ 160 mm",
+      "ok": false
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "5.9 mm",
+      "tested": "4-9.5 mm",
+      "ok": true
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 240 U/C",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/C",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     },
+     {
+      "parameter": "kantafstand",
+      "designed": "70 mm",
+      "tested": "≥ 25 mm",
+      "ok": true
+     },
+     {
+      "parameter": "afstand mellem tætninger",
+      "designed": "1480 mm",
+      "tested": "≥ 200 mm (ETA afsnit 2, pkt. 5)",
+      "ok": true
+     },
+     {
+      "parameter": "fyldningsgrad",
+      "designed": "27 %",
+      "tested": "≤ 60 % (ETA afsnit 2, pkt. 4)",
+      "ok": true
+     }
+    ]
+   },
+   {
+    "eta": "ETA-21/0110",
+    "section": "A.3.5",
+    "page": 35,
+    "service": "PVC-U pipe up to 125 mm / 4.7-7.4 mm wall thickness",
+    "classification": "EI 240 U/C",
+    "insulation": "None",
+    "board": "FB2 2x60 mm",
+    "wrap": "50 X 7.2 mm (4 layers) Either side of the wall",
+    "deviates": [
+     "diameter"
+    ],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massiv væg",
+      "tested": "massiv væg",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "150 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 200 mm",
+      "tested": "Ø ≤ 125 mm",
+      "ok": false
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "5.9 mm",
+      "tested": "4.7-7.4 mm",
+      "ok": true
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 240 U/C",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/C",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     },
+     {
+      "parameter": "kantafstand",
+      "designed": "70 mm",
+      "tested": "≥ 25 mm",
+      "ok": true
+     },
+     {
+      "parameter": "afstand mellem tætninger",
+      "designed": "1480 mm",
+      "tested": "≥ 200 mm (ETA afsnit 2, pkt. 5)",
+      "ok": true
+     },
+     {
+      "parameter": "fyldningsgrad",
+      "designed": "27 %",
+      "tested": "≤ 60 % (ETA afsnit 2, pkt. 4)",
+      "ok": true
+     }
+    ]
+   }
+  ],
+  "tested_alternatives": [],
+  "conditions": [
+   "Installationer i væg understøttes 270 mm og 470 mm fra begge sider af væggen (ETA afsnit 2, pkt. 6)."
+  ],
+  "questions": [],
+  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person.",
+  "draft_assessment": "out/vurderinger/GV-01_G-K-10.docx"
+ },
+ "check_ok": {
+  "query": {
+   "host_kind": "rigid_floor",
+   "thickness_mm": 200.0,
+   "ei_required": 60,
+   "service_kind": "pipe",
+   "material": "pvc-u",
+   "od_mm": 110.0,
+   "wall_mm": 3.4,
+   "open_system": true,
+   "insulation": {
+    "type": "none"
+   },
+   "hollow_core": false
+  },
+  "status": "TESTET",
+  "status_text": "Testet løsning",
+  "action": "Udfør som testet. Følg betingelserne og dokumentér med foto.",
+  "tested_solutions": [
+   {
+    "eta": "ETA-21/0110",
+    "section": "A.4.5",
+    "page": 52,
+    "service": "PVC-U pipe according to EN 1329-1, EN 1452 and EN 1453-1** 110 mm / 3.4 mm wall thickness.",
+    "classification": "EI 90 U/C",
+    "insulation": "None",
+    "board": "FB2 1x60 mm",
+    "wrap": "50 x 3.6 mm (2 layers) Centrally fitted",
+    "deviates": [],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massivt dæk",
+      "tested": "massivt dæk",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "200 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 110 mm",
+      "tested": "Ø 110 mm",
+      "ok": true
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "3.4 mm",
+      "tested": "3.4 mm",
+      "ok": true
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 90 U/C",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/C",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     }
+    ]
+   }
+  ],
+  "nearest_tested": [],
+  "tested_alternatives": [],
+  "conditions": [
+   "Mulcol Multiwrap: 50 x 3.6 mm (2 layers) Centrally fitted (A.4.5).",
+   "Tætning: Multimastic FB2 1x60 mm, Multimastic C (≤ 1 mm) og Multimastic SP i kanten (A.4.5, s. 52).",
+   "Installationer i dæk understøttes 250 mm og 400 mm fra dækkets overside (ETA afsnit 2, pkt. 6)."
+  ],
+  "questions": [],
+  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+ },
+ "check_dev": {
+  "query": {
+   "host_kind": "rigid_floor",
+   "thickness_mm": 200.0,
+   "ei_required": 60,
+   "service_kind": "pipe",
+   "material": "pvc-u",
+   "od_mm": 125.0,
+   "wall_mm": 3.9,
+   "open_system": true,
+   "insulation": {
+    "type": "none"
+   },
+   "hollow_core": false
+  },
+  "status": "AFVIGELSE",
+  "status_text": "Afvigelse: brandteknisk vurdering",
+  "action": "Brandteknisk vurdering af afvigelsen, eller ændr til den testede/alternative løsning.",
+  "tested_solutions": [],
+  "nearest_tested": [
+   {
+    "eta": "ETA-21/0110",
+    "section": "A.4.5",
+    "page": 52,
+    "service": "PVC-U pipe according to EN 1329-1, EN 1452 and EN 1453-1** 110 mm / 3.4 mm wall thickness.",
+    "classification": "EI 90 U/C",
+    "insulation": "None",
+    "board": "FB2 1x60 mm",
+    "wrap": "50 x 3.6 mm (2 layers) Centrally fitted",
+    "deviates": [
+     "diameter",
+     "godstykkelse"
+    ],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massivt dæk",
+      "tested": "massivt dæk",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "200 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 125 mm",
+      "tested": "Ø 110 mm",
+      "ok": false
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "3.9 mm",
+      "tested": "3.4 mm",
+      "ok": false
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 90 U/C",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/C",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     }
+    ]
+   }
+  ],
+  "tested_alternatives": [],
+  "conditions": [
+   "Installationer i dæk understøttes 250 mm og 400 mm fra dækkets overside (ETA afsnit 2, pkt. 6)."
+  ],
+  "questions": [],
+  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+ },
+ "search": [
+  {
+   "eta": "ETA-21/0110",
+   "section": "A.4.8",
+   "page": 56,
+   "heading": "Multimastic FB2 - 2x60 mm - with copper pipes",
+   "service": "Copper pipe Ø 12-54 mm / 1-1.2 mm wall th.",
+   "classification": "E 240 C/U, EI 60 C/U",
+   "insulation": "9-13 mm Kaiflex ST insulation",
+   "wrap": "50 x 3.6 mm (2 layers)",
+   "seal_max": "2400 x 1200 mm",
+   "construction": [
+    "rigid_floor"
+   ],
+   "min_thickness_mm": 150
+  },
+  {
+   "eta": "ETA-21/0110",
+   "section": "A.4.8",
+   "page": 56,
+   "heading": "Multimastic FB2 - 2x60 mm - with copper pipes",
+   "service": "Copper pipe Ø 12-54 mm / 1-1.2 mm wall th.",
+   "classification": "E 180 C/U, EI 45 C/U",
+   "insulation": "13-25 mm Kaiflex ST insulation",
+   "wrap": "50 x 3.6 mm (2 layers)",
+   "seal_max": "2400 x 1200 mm",
+   "construction": [
+    "rigid_floor"
+   ],
+   "min_thickness_mm": 150
+  }
+ ],
+ "export": {
+  "register_xlsx": "C:\\Users\\testt\\Desktop\\upwork\\github\\gennemfoert\\out\\Gennemfoeringsregister.xlsx",
+  "register_pdf": "C:\\Users\\testt\\Desktop\\upwork\\github\\gennemfoert\\out\\Gennemfoeringsregister.pdf",
+  "bcf": "C:\\Users\\testt\\Desktop\\upwork\\github\\gennemfoert\\out\\Gennemfoert_afvigelser.bcfzip",
+  "bcf_topics": 22,
+  "ifc": "C:\\Users\\testt\\Desktop\\upwork\\github\\gennemfoert\\out\\blok_c_vvs_gennemfoert.ifc",
+  "material_estimate": {
+   "seals": 36,
+   "board_m2": {
+    "Multimastic FB2 60": 2.31,
+    "Multimastic FB1 50": 0.51
+   },
+   "sealant_perimeter_m": 65.2,
+   "multiwrap_pcs": 27
+  }
+ }
+}

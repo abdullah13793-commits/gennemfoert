@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gennemført</title>
+<meta name="description" content="Every penetration of a fire separation, found in the IFC model and checked against the exact tested configuration in the ETA, with the page to prove it.">
+<meta property="og:title" content="Gennemført: penetration seals, valid as tested">
+<meta property="og:description" content="IFC model → ETA rows with page citations → register, QR labels, BCF, IFC, assessment drafts, MCP.">
+<meta property="og:image" content="https://abdullah13793-commits.github.io/gennemfoert/media/cover.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23e8a317'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23111' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f6f8;--bg2:#fff;--panel:#fff;--line:#e3e6eb;--grid:#eceff3;--ink:#0f1720;--ink2:#4a5563;--ink3:#7b8594;--accent:#b7791f;
+  --ok:#16a34a;--dev:#d97706;--bad:#dc2626;--other:#4f5bd5;--miss:#6b7280;--shadow:0 1px 2px rgba(15,23,32,.06),0 8px 24px rgba(15,23,32,.06)}
+:root[data-theme="dark"]{--bg:#0b0d11;--bg2:#10131a;--panel:#141821;--line:#232a36;--grid:#1c222c;--ink:#eef1f5;--ink2:#a9b2bf;--ink3:#727c8a;--accent:#f0b429;
+  --ok:#22c55e;--dev:#f0a020;--bad:#ef4444;--other:#7c8cf0;--miss:#9aa1ab;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0b0d11;--bg2:#10131a;--panel:#141821;--line:#232a36;--grid:#1c222c;--ink:#eef1f5;--ink2:#a9b2bf;--ink3:#727c8a;--accent:#f0b429;
+  --ok:#22c55e;--dev:#f0a020;--bad:#ef4444;--other:#7c8cf0;--miss:#9aa1ab;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.mono{font-family:"JetBrains Mono",Consolas,monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+nav.top{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:22px;height:58px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;color:var(--ink)}
+.brand i{width:22px;height:22px;border-radius:6px;background:#e8a317;display:inline-grid;place-items:center}.brand i::after{content:"";width:9px;height:9px;border-radius:50%;border:2.5px solid #111}
+nav .links{display:flex;gap:18px;margin-left:auto;font-size:14px}nav .links a{color:var(--ink2);white-space:nowrap}
+nav button{background:none;border:1px solid var(--line);color:var(--ink2);border-radius:8px;width:34px;height:34px;cursor:pointer;flex:none}
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;overflow:hidden;background:#06080b}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%;animation:drift 24s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1.03)}to{transform:scale(1.11) translate(-1.5%,-1%)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,11,.55) 0%,rgba(6,8,11,.12) 38%,rgba(6,8,11,.94) 100%)}
+.hero .wrap{position:relative;z-index:2;padding-bottom:70px;color:#f3f5f8}
+.tag{display:inline-flex;gap:6px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid rgba(240,180,41,.55);color:#f0b429}
+.hero h1{font-size:clamp(36px,5.8vw,72px);line-height:1.03;letter-spacing:-.035em;margin:14px 0 16px;font-weight:800;max-width:17ch}
+.hero p{font-size:clamp(17px,2vw,20px);max-width:62ch;color:#c9d1db;margin:0 0 26px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:10px;font-weight:600;font-size:15px;border:1px solid transparent}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}.btn.pri{background:#e8a317;color:#111}.btn.ghost{border-color:rgba(255,255,255,.3);color:#fff;background:rgba(255,255,255,.06)}
+.btn.line{border-color:var(--line);color:var(--ink);background:var(--panel)}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:-38px;position:relative;z-index:5;box-shadow:var(--shadow)}
+.kpi{background:var(--panel);padding:18px}.kpi b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}.kpi span{font-size:13px;color:var(--ink2);line-height:1.35;display:block;margin-top:4px}
+section{padding:96px 0 0}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h2{font-size:clamp(28px,3.6vw,44px);letter-spacing:-.03em;line-height:1.1;margin:10px 0 14px;font-weight:800;max-width:24ch}
+h3{font-size:18px;margin:0 0 6px}
+.sub{color:var(--ink2);max-width:70ch;font-size:17px;margin:0 0 28px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.pad{padding:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}.grid2>*{min-width:0}.grid2.ask{grid-template-columns:1.4fr 1fr}.chat .a{overflow-x:auto}
+.shot{width:100%;display:block;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.muted{color:var(--ink3);font-size:13px}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:s}
+.step{padding:18px;border-radius:12px;background:var(--panel);border:1px solid var(--line);position:relative}
+.step::before{counter-increment:s;content:counter(s,decimal-leading-zero);font:600 11px "JetBrains Mono",monospace;color:var(--accent);display:block;margin-bottom:6px}
+.step b{display:block;font-size:16px;margin-bottom:4px}.step span{font-size:13px;color:var(--ink2);line-height:1.45;display:block}
+.dev{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start}
+.vs{width:100%;border-collapse:collapse;font-size:14px}.vs td,.vs th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.vs th{font-size:11.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em}.vs td.ok{color:var(--ok);font-weight:800}.vs td.no{color:var(--dev);font-weight:800}
+.vs tr.bad td{background:color-mix(in srgb,var(--dev) 10%,transparent)}
+.etaimg{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff;margin:10px 0}
+.etaimg img{display:block;width:100%}.etaimg .hl{position:absolute;left:0;right:0;background:rgba(240,180,41,.28);outline:2px solid #f0a020}
+.etaimg .cap{position:absolute;right:6px;top:6px;font:600 11px Inter;background:rgba(17,24,39,.85);color:#fff;padding:2px 7px;border-radius:5px}
+.ref{font:600 13px "JetBrains Mono",monospace;color:var(--accent)}
+.badge{display:inline-flex;font:700 12px Inter;padding:3px 10px;border-radius:999px;color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:var(--bg2);color:var(--ink2);padding:6px 12px;border-radius:999px;font:500 13px Inter;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chart{position:relative}.chart svg{display:block;width:100%;height:auto;overflow:visible}.chart text{fill:var(--ink3);font:12px Inter,sans-serif}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:12.5px;line-height:1.45;box-shadow:var(--shadow);opacity:0;transition:opacity .12s;z-index:5;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--ink2);margin-top:10px}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.chat{background:#0d1016;border-radius:16px;border:1px solid #232a36;padding:22px;color:#e8ecf1;min-height:540px;font-size:14.5px;box-shadow:var(--shadow)}
+.chat .bar{color:#7b8594;font-size:12.5px;margin-bottom:16px}
+.chat .q{margin-left:auto;max-width:86%;background:#b7791f;color:#fff;padding:12px 16px;border-radius:14px 14px 4px 14px;width:fit-content}
+.chat .tools{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.chat .tool{font:12px "JetBrains Mono",monospace;border:1px solid #8a6a2a;color:#f6d38a;border-radius:999px;padding:3px 10px;opacity:0;transition:all .3s}.chat .tool.on{opacity:1}
+.chat .a{color:#d5dbe3;line-height:1.6}.chat .a b{color:#fff}.chat .a table{border-collapse:collapse;margin:8px 0;font-size:13px}.chat .a td,.chat .a th{border-bottom:1px solid #2a313d;padding:4px 8px;text-align:left}
+.chat .cursor{display:inline-block;width:8px;height:16px;background:#f0b429;vertical-align:-2px;animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
+pre.code{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:12.5px;margin:0}
+.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.proof .card b{font-size:34px;font-weight:800;letter-spacing:-.03em;display:block}
+table.cmp{width:100%;border-collapse:collapse;font-size:14.5px}table.cmp th,table.cmp td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}table.cmp td:first-child{font-weight:600}table.cmp tr.us td{background:color-mix(in srgb,#e8a317 9%,transparent)}
+.tablewrap{overflow-x:auto}
+.phone{max-width:300px;margin:0 auto;border-radius:30px;border:8px solid #1f2937;overflow:hidden;box-shadow:var(--shadow)}.phone img{display:block;width:100%}
+footer{margin-top:110px;border-top:1px solid var(--line);padding:28px 0 50px;color:var(--ink3);font-size:13.5px}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero img{animation:none}}
+@media (max-width:960px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2,.grid2.ask,.dev{grid-template-columns:1fr}.vs{font-size:12.5px}.steps{grid-template-columns:repeat(2,1fr)}.proof{grid-template-columns:repeat(2,1fr)}nav .links{display:none}}
+@media (max-width:560px){.wrap{padding:0 16px}.kpis{grid-template-columns:repeat(2,1fr)}.kpi b{font-size:24px}section{padding-top:70px}.steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <a class="brand" href="#"><i></i>Gennemført</a>
+  <div class="links"><a href="#idea">Valid as tested</a><a href="#project">The project</a><a href="#app">The app</a><a href="#ask">Ask it</a><a href="#proof">Proof</a><a href="app/">Open app</a><a href="https://github.com/abdullah13793-commits/gennemfoert">GitHub ↗</a></div>
+  <button id="theme" aria-label="Toggle theme">◐</button>
+</div></nav>
+
+<header class="hero">
+  <img src="media/hero.jpg" alt="Demonstration block with storeys pulled apart: fire-separating walls and decks as tinted glass, pipes in system colours, a glowing ring at every penetration seal">
+  <div class="wrap">
+    <span class="tag">● Passive fire protection · penetration seals · demonstration building</span>
+    <h1>Every penetration, checked against the exact tested configuration.</h1>
+    <p>Gennemført reads the IFC model, finds every pipe, duct and cable through a fire-separating wall or deck, and compares each seal with the tested rows of its ETA. Every answer comes with the section, the page and the highlighted row.</p>
+    <div class="btns"><a class="btn pri" href="app/">Open the live app →</a><a class="btn ghost" href="#idea">How it works</a><a class="btn ghost" href="https://github.com/abdullah13793-commits/gennemfoert">Source on GitHub</a></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="kpis">
+    <div class="kpi"><b data-n="58">58</b><span>penetrations found in the IFC model</span></div>
+    <div class="kpi"><b data-n="293">293</b><span>tested configurations from the ETA, each with its page</span></div>
+    <div class="kpi"><b>14</b><span>parameters checked per seal</span></div>
+    <div class="kpi"><b>59/59</b><span>planted cases right (hand-written answer key)</span></div>
+    <div class="kpi"><b>600/600</b><span>browser = server on random enquiries</span></div>
+    <div class="kpi"><b>2 s</b><span>from IFC to register</span></div>
+  </div>
+
+  <section id="idea" class="reveal">
+    <div class="eyebrow">01 · Valid only as tested</div>
+    <h2>The small deviations are the ones that slip through.</h2>
+    <p class="sub">A penetration seal is approved for the set-up that was fire-tested: construction, pipe material, diameter, wall thickness, insulation type, thickness and even product. Projects drift in small ways. Here is one of them, exactly as the app shows it.</p>
+    <div class="dev">
+      <div class="card pad">
+        <span class="badge" style="background:var(--dev)">Deviation</span>
+        <h3 style="margin-top:10px">G-K-14 · Copper Ø22×1, Armaflex AF 13 mm</h3>
+        <div class="muted">220 mm hollow-core deck · REI 60 · basement</div>
+        <div style="margin-top:14px" class="ref">Nearest tested: ETA-21/0110 A.4.8 · page 56</div>
+        <div class="etaimg" id="etaimg"><img src="app/data/eta/p56.jpg" alt="ETA-21/0110 Annex A, table A.4.8"><span class="cap">ETA-21/0110 · A.4.8 · p. 56</span></div>
+        <table class="vs" id="vs"></table>
+      </div>
+      <div>
+        <div class="card pad" style="margin-bottom:16px">
+          <h3>One line, with the evidence beside it</h3>
+          <p class="muted" style="margin:0">Same pipe, same diameter, same insulation thickness, same EI. The tested solution names Kaiflex ST; the project uses Armaflex. That is the deviation, and it is the only one. The adviser sees it in seconds instead of re-reading 56 pages.</p>
+        </div>
+        <div class="card pad" style="margin-bottom:16px">
+          <h3>And when one change would fix it, it says so</h3>
+          <p class="muted" style="margin:0">Copper hot water with 30 mm stone wool through the decks has no EI 60 row in this ETA (only E). The tested alternative: 9-13 mm elastomeric insulation with Multiwrap, A.4.8, EI 60.</p>
+        </div>
+        <div class="card pad">
+          <h3>Checked for every seal</h3>
+          <p class="muted" style="margin:0">construction · thickness · material · diameter (incl. the ETA's intermediate-size graphs) · wall thickness · insulation type, thickness and product · classification · pipe-end configuration (open/closed system) · hole size · edge distance · distance between seals · fill ratio</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flow" class="reveal">
+    <div class="eyebrow">02 · The workflow</div>
+    <h2>From the consultant's model to a seal you can document.</h2>
+    <div class="steps">
+      <div class="step"><b>Find</b><span>Every service crossing an EI/REI wall or deck in the IFC: material, size, insulation, system, the architect's opening.</span></div>
+      <div class="step"><b>Check</b><span>Against 293 tested rows extracted from the ETA, 14 parameters, each with section and page.</span></div>
+      <div class="step"><b>Explain</b><span>Deviations named, nearest tested row, a tested alternative when one change would do.</span></div>
+      <div class="step"><b>Document</b><span>Excel/PDF register with QR site labels, BCF issues, seals written into the IFC, assessment drafts.</span></div>
+      <div class="step"><b>Ask</b><span>A phone-enquiry checker in the browser and an MCP server for AI assistants, on the same rules.</span></div>
+    </div>
+  </section>
+
+  <section id="project" class="reveal">
+    <div class="eyebrow">03 · The demonstration project</div>
+    <h2>58 penetrations, sorted in two seconds.</h2>
+    <p class="sub">A fictitious 3-storey apartment block with a basement: hollow-core decks, shafts with lightweight EI 60 walls, concrete party and stair walls, a plant room. Hover the bars.</p>
+    <div class="grid2">
+      <div class="card pad"><h3>Status per storey</h3><div class="chart" id="byStorey"></div><div class="legend" id="leg"></div></div>
+      <div class="card pad"><h3>What the deviations are</h3><p class="muted" style="margin:0 0 6px">Parameter that differs from the nearest tested row, across all deviating seals.</p><div class="chart" id="byParam"></div></div>
+    </div>
+    <img class="shot" src="media/register_labels.png" alt="Penetration register and QR labels" style="margin-top:20px">
+  </section>
+
+  <section id="app" class="reveal">
+    <div class="eyebrow">04 · The app</div>
+    <h2>The model, the register and the ETA in one view.</h2>
+    <p class="sub">Danish interface for the people who use it: advisers, contractors, installers. Status rings in the 3D model, filterable register, a detail card with the ETA row, an instant checker for phone enquiries, and the whole ETA database.</p>
+    <img class="shot" src="media/app_overview.png" alt="App overview: 3D model with status rings and the register">
+    <div class="grid2" style="margin-top:20px;align-items:center">
+      <img class="shot" src="media/app_checker.png" alt="Instant checker for a phone enquiry">
+      <div><div class="phone"><img src="media/app_phone.png" alt="QR label opened on a phone on site"></div><p class="muted" style="text-align:center">Scan the QR label on site: the seal's answer card opens on the phone.</p></div>
+    </div>
+    <div class="btns" style="margin-top:22px"><a class="btn pri" href="app/">Open the live app →</a><a class="btn line" href="app/#G-K-15">See a tested alternative</a><a class="btn line" href="app/downloads/Gennemfoeringsregister.pdf">Register PDF</a></div>
+  </section>
+
+  <section id="ask" class="reveal">
+    <div class="eyebrow">05 · Ask it</div>
+    <h2>A phone enquiry, answered with the page.</h2>
+    <p class="sub">An MCP server exposes the same engine to any AI assistant. Below is a real recorded session with Claude, replayed word for word: the question, the tools it called, the answer.</p>
+    <div class="grid2 ask">
+      <div class="chat"><div class="bar">● ● ● &nbsp; Claude × Gennemført MCP · recorded session</div><div class="q" id="cq"></div><div class="tools" id="ct"></div><div class="a" id="ca"></div></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card pad"><h3>Six tools</h3><p class="muted" style="margin:0 0 10px">check_penetration · search_eta · project_overview · list_penetrations · get_penetration · export_documents</p>
+<pre class="code">{"mcpServers": {"gennemfoert": {
+  "command": "python",
+  "args": ["src/mcp_server.py"]}}}</pre></div>
+        <div class="card pad"><h3>Same answer everywhere</h3><p class="muted" style="margin:0">Register, browser checker and MCP run the same rules: the browser port is tested against the Python engine on 600 random enquiries.</p></div>
+        <button class="btn line" id="replay" style="justify-content:center">↻ Replay the session</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="proof" class="reveal">
+    <div class="eyebrow">06 · Proof</div>
+    <h2>Tested where the answer is known.</h2>
+    <div class="proof">
+      <div class="card pad"><b>59/59</b><span class="muted">planted cases: status, deviating parameter and tested alternative as in a hand-written answer key; no extra finds</span></div>
+      <div class="card pad"><b>18/18</b><span class="muted">enquiries derived by hand from the ETA pages</span></div>
+      <div class="card pad"><b>600/600</b><span class="muted">random enquiries: browser engine identical to the Python engine</span></div>
+      <div class="card pad"><b>58/58</b><span class="muted">seal objects written into the IFC, each filling its opening, with Psets; 22 BCF issues parse</span></div>
+    </div>
+  </section>
+
+  <section id="fit" class="reveal">
+    <div class="eyebrow">07 · Where it fits</div>
+    <h2>Next to the tools that exist, not instead of them.</h2>
+    <div class="card tablewrap"><table class="cmp">
+      <tr><th>Tool</th><th>Strong at</th><th>Gennemført adds</th></tr>
+      <tr><td>Revit firestop plug-ins (e.g. Hilti)</td><td>Detect penetrations and place one manufacturer's firestops in Revit</td><td>Open IFC from any tool, any brand's ETA, the evidence row per seal</td></tr>
+      <tr><td>Manufacturer selectors</td><td>Find a tested solution in one range</td><td>The whole project at once, deviations named, alternatives</td></tr>
+      <tr><td>Model checkers (e.g. Solibri)</td><td>Flag penetrations with no fire-seal object</td><td>Whether the seal is valid as tested, and why not</td></tr>
+      <tr><td>Documentation tools</td><td>Photos and sign-off per installed seal</td><td>The register, labels and evidence before installation</td></tr>
+      <tr class="us"><td>Gennemført</td><td colspan="2">IFC → ETA rows with page citations → register, QR labels, BCF, IFC, assessment drafts, MCP. Decision support: the adviser confirms and a person signs.</td></tr>
+    </table></div>
+  </section>
+</div>
+
+<footer><div class="wrap">
+  The demonstration building and its installations are fictitious. Tested configurations come from the publicly available ETA-21/0110 (Mulcol Multimastic C System, issued by ETA-Danmark A/S, 2021); table excerpts are shown for citation, and the complete document is the reference. Decision support, not approval: every solution is confirmed against the source document and the manufacturer's installation instructions, and every brandteknisk vurdering is written and signed by a person. · <a href="https://github.com/abdullah13793-commits/gennemfoert">Source</a>
+</div></footer>
+
+<script>
+(() => {
+const $ = s => document.querySelector(s), root = document.documentElement;
+try { const t = localStorage.getItem('gf-site'); if (t) root.dataset.theme = t; } catch (e) {}
+$('#theme').onclick = () => { const dark = getComputedStyle(root).getPropertyValue('--bg').trim() === '#0b0d11'; root.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('gf-site', root.dataset.theme); } catch (e) {} draw(); };
+const css = v => getComputedStyle(root).getPropertyValue(v).trim();
+const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const COL = {TESTET:'--ok', AFVIGELSE:'--dev', IKKE_DAEKKET:'--bad', ANDET_SYSTEM:'--other', MANGLER_DATA:'--miss'};
+const EN = {TESTET:'Tested as built', AFVIGELSE:'Deviation', IKKE_DAEKKET:'Not covered', ANDET_SYSTEM:'Other system', MANGLER_DATA:'Missing data'};
+const ORDER = ['TESTET','AFVIGELSE','IKKE_DAEKKET','ANDET_SYSTEM','MANGLER_DATA'];
+const PEN = {'konstruktion':'construction','tykkelse':'thickness','diameter':'diameter','godstykkelse':'wall thickness','isoleringstype':'insulation type',
+  'isoleringstykkelse':'insulation thickness','isoleringsfabrikat':'insulation product','klassifikation':'classification','rørende':'pipe-end config',
+  'hulstørrelse':'hole size','kantafstand':'edge distance','afstand mellem tætninger':'distance between seals','fyldningsgrad':'fill ratio'};
+let REG, S;
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); if (e.target.id === 'ask') play(); } }), {threshold: .12});
+document.querySelectorAll('.reveal').forEach(s => io.observe(s));
+Promise.all(['app/data/register.json','app/data/summary.json','data/mcp_demo.json'].map(u => fetch(u).then(r => r.json()))).then(([r, s, chat]) => {
+  REG = r; S = s; window.CHAT = chat; example(); draw(); });
+
+function example() {
+  const p = REG.find(x => x.id === 'G-K-14'), n = p.nearest[0], m = S.eta.pages[n.page];
+  if (n.row_bbox) { const d = document.createElement('div'); d.className = 'hl';
+    d.style.top = ((n.row_bbox[1] - m.y0) / m.h * 100) + '%'; d.style.height = ((n.row_bbox[3] - n.row_bbox[1]) / m.h * 100) + '%'; $('#etaimg').appendChild(d); }
+  $('#vs').innerHTML = '<tr><th>Parameter</th><th>Designed</th><th>Tested</th><th></th></tr>' + n.checks.filter(c => !['hulstørrelse','kantafstand','fyldningsgrad'].includes(c.c)).map(c =>
+    `<tr class="${c.ok?'':'bad'}"><td>${esc(PEN[c.c] || c.c)}</td><td>${esc(c.a)}</td><td>${esc(c.t)}</td><td class="${c.ok?'ok':'no'}">${c.ok?'✓':'✗'}</td></tr>`).join('');
+}
+function svg(box, w, h) { box.innerHTML = ''; const NS = 'http://www.w3.org/2000/svg'; const s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', `0 0 ${w} ${h}`); box.appendChild(s);
+  const tip = document.createElement('div'); tip.className = 'tip'; box.appendChild(tip);
+  const el = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || s).appendChild(e); return e; }; return [s, el, tip]; }
+function tipAt(tip, box, e, html) { const b = box.getBoundingClientRect(); tip.innerHTML = html; tip.style.opacity = 1; let x = e.clientX - b.left + 12; if (x + tip.offsetWidth > b.width) x -= tip.offsetWidth + 24; tip.style.left = x + 'px'; tip.style.top = (e.clientY - b.top - 10) + 'px'; }
+function draw() {
+  if (!REG) return;
+  // stacked bars per storey (horizontal), 2px gaps
+  const storeys = ['Kælder','Stueetage','1. sal','2. sal'], lbl = {'Kælder':'Basement','Stueetage':'Ground','1. sal':'1st floor','2. sal':'2nd floor'};
+  const box = $('#byStorey'), W = 560, rowH = 34, m = {l: 84, r: 30, t: 6, b: 26}, H = m.t + m.b + storeys.length * (rowH + 14);
+  const [s, el, tip] = svg(box, W, H); const max = Math.max(...storeys.map(st => REG.filter(p => p.storey === st).length));
+  const X = v => m.l + v / max * (W - m.l - m.r);
+  for (let v = 0; v <= max; v += 5) { el('line', {x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, stroke: css('--grid')}); el('text', {x: X(v), y: H - 8, 'text-anchor': 'middle'}).textContent = v; }
+  storeys.forEach((st, i) => {
+    const y = m.t + i * (rowH + 14); let acc = 0;
+    el('text', {x: m.l - 10, y: y + rowH / 2 + 4, 'text-anchor': 'end', style: `fill:${css('--ink2')};font-weight:600`}).textContent = lbl[st];
+    ORDER.forEach(k => { const n = REG.filter(p => p.storey === st && p.status === k).length; if (!n) return;
+      const r = el('rect', {x: X(acc) + 1, y, width: Math.max(1, X(acc + n) - X(acc) - 2), height: rowH, rx: 4, fill: css(COL[k])});
+      r.addEventListener('mousemove', e => tipAt(tip, box, e, `<b>${lbl[st]}</b><br>${EN[k]}: ${n}<br><span style="color:var(--ink3)">${REG.filter(p => p.storey === st && p.status === k).map(p => p.id).join(', ')}</span>`));
+      r.addEventListener('mouseleave', () => tip.style.opacity = 0);
+      if (X(acc + n) - X(acc) > 22) el('text', {x: (X(acc) + X(acc + n)) / 2, y: y + rowH / 2 + 4, 'text-anchor': 'middle', style: 'fill:#fff;font-weight:700'}).textContent = n;
+      acc += n; });
+  });
+  $('#leg').innerHTML = ORDER.map(k => `<span><i style="background:var(${COL[k]})"></i>${EN[k]} (${REG.filter(p => p.status === k).length})</span>`).join('');
+  // deviation parameters
+  const cnt = {}; REG.filter(p => p.status === 'AFVIGELSE').forEach(p => p.nearest[0].deviates.forEach(d => cnt[d] = (cnt[d] || 0) + 1));
+  const rows = Object.entries(cnt).sort((a, b) => b[1] - a[1]);
+  const box2 = $('#byParam'), m2 = {l: 170, r: 30, t: 6, b: 24}, H2 = m2.t + m2.b + rows.length * 38;
+  const [s2, el2, tip2] = svg(box2, W, H2); const mx = Math.max(...rows.map(r => r[1]));
+  const X2 = v => m2.l + v / mx * (W - m2.l - m2.r);
+  rows.forEach(([k, n], i) => { const y = m2.t + i * 38;
+    el2('text', {x: m2.l - 10, y: y + 18, 'text-anchor': 'end', style: `fill:${css('--ink2')}`}).textContent = PEN[k] || k;
+    const r = el2('rect', {x: m2.l, y: y + 4, width: X2(n) - m2.l, height: 22, rx: 4, fill: css('--dev')});
+    el2('text', {x: X2(n) + 6, y: y + 20, style: `fill:${css('--ink')};font-weight:700`}).textContent = n;
+    const ids = REG.filter(p => p.status === 'AFVIGELSE' && p.nearest[0].deviates.includes(k));
+    r.addEventListener('mousemove', e => tipAt(tip2, box2, e, `<b>${PEN[k] || k}</b>: ${n} seals<br>${ids.map(p => p.id + ' ' + esc(p.service.line)).slice(0, 4).join('<br>')}`));
+    r.addEventListener('mouseleave', () => tip2.style.opacity = 0); });
+}
+let timers = [];
+function play() {
+  if (!window.CHAT) { setTimeout(play, 300); return; }
+  timers.forEach(clearTimeout); timers = []; const C = window.CHAT;
+  $('#cq').textContent = ''; $('#ct').innerHTML = ''; $('#ca').innerHTML = '';
+  let i = 0; const q = C.question;
+  const tq = () => { $('#cq').textContent = q.slice(0, ++i); if (i < q.length) timers.push(setTimeout(tq, 14)); else timers.push(setTimeout(tools, 400)); };
+  const tools = () => { C.calls.forEach((c, k) => { const t = document.createElement('span'); t.className = 'tool'; t.textContent = c; $('#ct').appendChild(t); timers.push(setTimeout(() => t.classList.add('on'), 380 * k)); });
+    timers.push(setTimeout(ans, 380 * C.calls.length + 300)); };
+  const md = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  const html = text => { const lines = text.split('\n'); let out = '', tbl = null;
+    for (const l of lines) { if (l.startsWith('|')) { const cells = l.split('|').slice(1, -1).map(c => c.trim()); if (!cells.length || /^-+$/.test(cells[0].replace(/:/g,''))) continue;
+        tbl = tbl || []; tbl.push(cells); continue; }
+      if (tbl) { out += '<table>' + tbl.map((r, j) => '<tr>' + r.map(c => `<${j?'td':'th'}>${md(c)}</${j?'td':'th'}>`).join('') + '</tr>').join('') + '</table>'; tbl = null; }
+      if (l.startsWith('## ')) out += `<h4 style="margin:12px 0 4px;color:#fff">${md(l.slice(3))}</h4>`; else if (l.startsWith('- ')) out += `<div>• ${md(l.slice(2))}</div>`; else if (l.trim()) out += `<p style="margin:6px 0">${md(l)}</p>`; }
+    if (tbl) out += '<table>' + tbl.map((r, j) => '<tr>' + r.map(c => `<${j?'td':'th'}>${md(c)}</${j?'td':'th'}>`).join('') + '</tr>').join('') + '</table>';
+    return out; };
+  const full = C.answer; let k = 0;
+  const ans = () => { k = Math.min(full.length, k + 14); const cut = full.slice(0, k); $('#ca').innerHTML = html(cut) + (k < full.length ? '<span class="cursor"></span>' : '');
+    if (k < full.length) timers.push(setTimeout(ans, 22)); };
+  tq();
+}
+$('#replay').onclick = play;
+})();
+</script>
+</body>
+</html>

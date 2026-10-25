@@ -1,0 +1,12 @@
+{
+ "queries": 600,
+ "identical": 600,
+ "status_mix": {
+  "AFVIGELSE": 201,
+  "ANDET_SYSTEM": 56,
+  "IKKE_DAEKKET": 292,
+  "TESTET": 41,
+  "MANGLER_DATA": 10
+ },
+ "first_diffs": []
+}

@@ -1,0 +1,9 @@
+{
+ "ifc": "blok_c_vvs_gennemfoert.ifc",
+ "seals": 58,
+ "with_psets": 58,
+ "fills_opening": 58,
+ "bcf": "Gennemfoert_afvigelser.bcfzip",
+ "bcf_topics": 22,
+ "bcf_xml_parsed": 46
+}

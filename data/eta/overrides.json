@@ -1,0 +1,59 @@
+{
+ "note": "Rows the PDF text layer garbles (merged cells read across rows). Typed from the rendered page and checked against it. Blank fields inherit from the row above, as merged cells do in the ETA.",
+ "pages": {
+  "23": {"section": "1.7.1", "heading": "Multimastic FB1 - 2x50 mm - with (stainless) steel pipes", "graph_page": 24, "rows": [
+   {"service": "Steel pipe Ø 40 mm / 1-14.2 mm wall th.", "classification": "EI 120 C/U", "position": "Both sides of the wall", "insulation": "500 mm length of 20 mm Stone wool insulation, 80 kg/m³", "seal": "Unlimited width x 1200 mm height (See section 2. 5)", "edge": "25 mm", "find": "40 mm / 1-14.2 mm", "nth": 0},
+   {"service": "Steel pipe Ø 40 mm / 1-14.2 mm wall th.", "classification": "E 120 C/U, EI 90 C/U", "insulation": "500 mm length of 30 mm Stone wool insulation, 80 kg/m³", "find": "40 mm / 1-14.2 mm", "nth": 1},
+   {"service": "Steel pipe Ø 50 mm / 1.2-14.2 mm wall th.", "find": "50 mm / 1.2-14.2"},
+   {"service": "Steel pipe Ø 60 mm / 1.4-14.2 mm wall th.", "find": "60 mm / 1.4-14.2"},
+   {"service": "Steel pipe Ø 75 mm / 1.7-14.2 mm wall th.", "find": "75 mm / 1.7-14.2"},
+   {"service": "Steel pipe Ø 90 mm / 2-14.2 mm wall th.", "find": "90 mm / 2-14.2"},
+   {"service": "Steel pipe Ø 100 mm / 2.2-14.2 mm wall th.", "find": "100 mm / 2.2-14.2"},
+   {"service": "Steel pipe Ø 115 mm / 2.5-14.2 mm wall th.", "find": "115 mm / 2.5-14.2"},
+   {"service": "Steel pipe Ø 140 mm / 3-14.2 mm wall th.", "find": "140 mm / 3-14.2"},
+   {"service": "Steel pipe Ø 165 mm / 3.5-14.2 mm wall th.", "find": "165 mm / 3.5-14.2"},
+   {"service": "Steel pipe Ø 180 mm / 3.8-14.2 mm wall th.", "find": "180 mm / 3.8-14.2"},
+   {"service": "Steel pipe Ø 200 mm / 4.2-14.2 mm wall th.", "find": "200 mm / 4.2-14.2"},
+   {"service": "Steel pipe Ø 219 mm / 4.5-14.2 mm wall th.", "find": "219 mm / 4.5-14.2"}
+  ]},
+  "48": {"section": "4.4", "heading": "Multimastic FB2 - 1x60 mm - with copper pipes", "rows": [
+   {"service": "Copper pipe up to Ø 12 mm / 0.9-14.2 mm wall th.", "classification": "E 240 C/U, EI 45 C/U", "position": "Either side of the floor (or anywhere in between)", "insulation": "1000 mm length of 20 mm Stone wool insulation, 80 kg/m³", "seal": "1200 x 600 mm", "edge": "25 mm", "find": "12 mm / 0.9-14.2"},
+   {"service": "Copper pipe up to Ø 54 mm / 0.9-14.2 mm wall th.", "classification": "E 240 C/U", "find": "54 mm / 0.9-14.2", "nth": 0},
+   {"service": "Copper pipe up to Ø 54 mm / 0.9-14.2 mm wall th.", "classification": "E 120 C/U", "seal": "2400 x 1200 mm", "find": "54 mm / 0.9-14.2", "nth": 1}
+  ]},
+  "49": {"section": "4.4.1", "heading": "Multimastic FB2 - 1x60 mm - with (stainless) steel pipes", "graph_page": 52, "rows": [
+   {"service": "Steel pipe Ø 40 mm / 1.5-14.2 mm wall th.", "classification": "E 240 C/U, EI 60 C/U", "position": "Either side of the floor (or anywhere in between)", "insulation": "1000 mm length of 20 mm Stone wool insulation, 80 kg/m³", "seal": "600 x 1200 mm", "edge": "25 mm", "find": "40 mm / 1.5-14.2", "nth": 0},
+   {"service": "Steel pipe Ø 40 mm / 1.5-14.2 mm wall th.", "classification": "E 240 C/U, EI 90 C/U", "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³", "find": "40 mm / 1.5-14.2", "nth": 1},
+   {"service": "Steel pipe Ø 50 mm / 1.7-14.2 mm wall th.", "find": "50 mm / 1.7-14.2"},
+   {"service": "Steel pipe Ø 60 mm / 1.8-14.2 mm wall th.", "find": "60 mm / 1.8-14.2"},
+   {"service": "Steel pipe Ø 75 mm / 2.1-14.2 mm wall th.", "find": "75 mm / 2.1-14.2"},
+   {"service": "Steel pipe Ø 90 mm / 2.3-14.2 mm wall th.", "find": "90 mm / 2.3-14.2"},
+   {"service": "Steel pipe Ø 100 mm / 2.5-14.2 mm wall th.", "find": "100 mm / 2.5-14.2"},
+   {"service": "Steel pipe Ø 115 mm / 2.8-14.2 mm wall th.", "find": "115 mm / 2.8-14.2"},
+   {"service": "Steel pipe Ø 140 mm / 3.2-14.2 mm wall th.", "find": "140 mm / 3.2-14.2"},
+   {"service": "Steel pipe Ø 165 mm / 3.6-14.2 mm wall th.", "find": "165 mm / 3.6-14.2"},
+   {"service": "Steel pipe Ø 180 mm / 3.9-14.2 mm wall th.", "find": "180 mm / 3.9-14.2"},
+   {"service": "Steel pipe Ø 200 mm / 4.2-14.2 mm wall th.", "find": "200 mm / 4.2-14.2"},
+   {"service": "Steel pipe Ø 219 mm / 4.5-14.2 mm wall th.", "find": "219 mm / 4.5-14.2"}
+  ]},
+  "50": {"section": "4.4.2", "heading": "Multimastic FB2 - 1x60 mm - with (stainless) steel pipes", "graph_page": 51, "rows": [
+   {"service": "Steel pipe Ø 40 mm / 1.5-14.2 mm wall th.", "classification": "E 120 C/U, EI 60 C/U", "position": "Either side of the floor (or anywhere in between)", "insulation": "1000 mm length of 20 mm Stone wool insulation, 80 kg/m³", "seal": "2400 x 1200 mm", "edge": "25 mm", "find": "40 mm / 1.5-14.2", "nth": 0},
+   {"service": "Steel pipe Ø 40 mm / 1.5-14.2 mm wall th.", "classification": "E 120 C/U, EI 90 C/U", "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³", "find": "40 mm / 1.5-14.2", "nth": 1},
+   {"service": "Steel pipe Ø 50 mm / 1.7-14.2 mm wall th.", "find": "50 mm / 1.7-14.2"},
+   {"service": "Steel pipe Ø 60 mm / 1.8-14.2 mm wall th.", "find": "60 mm / 1.8-14.2"},
+   {"service": "Steel pipe Ø 75 mm / 2.1-14.2 mm wall th.", "find": "75 mm / 2.1-14.2"},
+   {"service": "Steel pipe Ø 90 mm / 2.3-14.2 mm wall th.", "find": "90 mm / 2.3-14.2"},
+   {"service": "Steel pipe Ø 100 mm / 2.5-14.2 mm wall th.", "find": "100 mm / 2.5-14.2"},
+   {"service": "Steel pipe Ø 115 mm / 2.8-14.2 mm wall th.", "find": "115 mm / 2.8-14.2"},
+   {"service": "Steel pipe Ø 140 mm / 3.2-14.2 mm wall th.", "find": "140 mm / 3.2-14.2"},
+   {"service": "Steel pipe Ø 165 mm / 3.6-14.2 mm wall th.", "find": "165 mm / 3.6-14.2"},
+   {"service": "Steel pipe Ø 180 mm / 3.9-14.2 mm wall th.", "find": "180 mm / 3.9-14.2"},
+   {"service": "Steel pipe Ø 200 mm / 4.2-14.2 mm wall th.", "find": "200 mm / 4.2-14.2"},
+   {"service": "Steel pipe Ø 219 mm / 4.5-14.2 mm wall th.", "find": "219 mm / 4.5-14.2"}
+  ]},
+  "56": {"section": "4.8", "heading": "Multimastic FB2 - 2x60 mm - with copper pipes", "rows": [
+   {"service": "Copper pipe Ø 12-54 mm / 1-1.2 mm wall th.", "classification": "E 240 C/U, EI 60 C/U", "position": "Either side of the floor (or anywhere in between) with a maximum seal of 2400 x 1200 mm", "insulation": "9-13 mm Kaiflex ST insulation", "wrap": "50 x 3.6 mm (2 layers)", "seal": "2400 x 1200 mm", "edge": "25 mm", "find": "9-13 mm Kaiflex"},
+   {"classification": "E 180 C/U, EI 45 C/U", "insulation": "13-25 mm Kaiflex ST insulation", "find": "13-25 mm Kaiflex"}
+  ]}
+ }
+}

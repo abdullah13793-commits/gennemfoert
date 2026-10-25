@@ -1,0 +1,9 @@
+{
+ "seals": 36,
+ "board_m2": {
+  "Multimastic FB2 60": 2.31,
+  "Multimastic FB1 50": 0.51
+ },
+ "sealant_perimeter_m": 65.2,
+ "multiwrap_pcs": 27
+}

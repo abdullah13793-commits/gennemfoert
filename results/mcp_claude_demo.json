@@ -1,0 +1,37 @@
+{
+ "question": "En VVS-installatør ringer: et 110 mm PVC-U afløbsrør med 3,2 mm godstykkelse skal gennem et 220 mm huldæk med krav EI 60. Er det testet med Multimastic-systemet? Og i demonstrationsprojektet: hvilke gennemføringer kræver en brandteknisk vurdering, og hvorfor? Svar kort på dansk med ETA-afsnit og side.",
+ "calls": [
+  [
+   "ToolSearch",
+   {
+    "query": "select:mcp__gennemfoert__check_penetration,mcp__gennemfoert__project_overview,mcp__gennemfoert__list_penetrations,mcp__gennemfoert__get_penetration",
+    "max_results": 4
+   }
+  ],
+  [
+   "check_penetration",
+   {
+    "construction": "rigid_floor",
+    "thickness_mm": 220,
+    "ei_required": 60,
+    "service": "pipe",
+    "material": "PVC-U",
+    "system": "open",
+    "outer_diameter_mm": 110,
+    "wall_thickness_mm": 3.2,
+    "insulation_type": "none"
+   }
+  ],
+  [
+   "project_overview",
+   {}
+  ],
+  [
+   "list_penetrations",
+   {
+    "status": "AFVIGELSE"
+   }
+  ]
+ ],
+ "answer": "## 1. PVC-U Ø110 × 3,2 mm i 220 mm huldæk, EI 60\n\n**Nej, ikke præcis den løsning.** Status: **AFVIGELSE**.\n\nDen nærmeste testede løsning er **ETA-21/0110, afsnit A.4.5, side 52**: PVC-U Ø110 med **3,4 mm** godstykkelse, klassifikation EI 90 U/C. Den bruger FB2-plade 1×60 mm og manchet 50 × 3,6 mm i 2 lag, monteret centralt.\n\n| Parameter | Projekteret | Testet | OK |\n|---|---|---|---|\n| Dæktykkelse | 220 mm | ≥ 150 mm | ✔ |\n| Diameter | Ø110 | Ø110 | ✔ |\n| **Godstykkelse** | **3,2 mm** | **3,4 mm** | ✘ |\n| Isolering | ingen | ingen | ✔ |\n| Klassifikation | EI 60 | EI 90 U/C | ✔ |\n\nRøret er 0,2 mm tyndere end det testede. Derfor skal der laves en brandteknisk vurdering, eller man skal skifte til et rør med 3,4 mm godstykkelse.\n\n**Betingelse:** Installationen understøttes 250 mm og 400 mm fra dækkets overside (ETA afsnit 2, pkt. 6).\n\n**Huldæk:** Den testede konstruktion er et massivt dæk. Værktøjet regner huldæk med under den kategori, men det bør bekræftes mod ETA'en.\n\n## 2. Demonstrationsprojektet (Blok C, fiktivt)\n\nProjektet har 58 gennemføringer. **17 har en afvigelse og kræver en brandteknisk vurdering**, fordi de ikke svarer til en testet løsning på mindst én parameter:\n\n| Gennemføringer | Installation / konstruktion | Afviger på | ETA |\n|---|---|---|---|\n| G-K-13, G-ST-14, G-1-10 | PVC-U Ø110×3,2, huldæk 220 | godstykkelse | A.4.5, s. 52 |\n| G-K-14, G-ST-15, G-1-12 | Kobber Ø22, Armaflex AF 13 mm, huldæk | isoleringsfabrikat | A.4.8, s. 56 |\n| G-K-15, G-ST-16, G-1-14 | Kobber Ø28, stenuld 30 mm, huldæk | isoleringstykkelse og klassifikation | A.4.4, s. 48 |\n| G-ST-02, G-1-02, G-2-01 | PP Ø50, gips/stålskelet 100 | diameter | A.1.4, s. 14 |\n| G-ST-09 | Stål Ø26,9, stenuld 20 mm, gipsvæg | diameter | A.1.5, s. 15 |\n| G-K-10 | PVC-U Ø200, betonvæg 150 | diameter | A.3.5, s. 35 |\n| G-1-09 | Kabel Ø90, betonvæg 200 | diameter | A.1.2, s. 10 |\n| G-2-03, G-2-04 | Kabelbakke 200×60 / kabelbundt Ø80, beton 180 | afstand mellem tætninger | A.1.2, s. 10 |\n\nFem gennemføringer kan ikke løses med en vurdering af en afvigelse:\n- **3 er ikke dækket** af ETA'en og skal have en anden testet løsning.\n- **1 hører til et andet system** (spjæld eller kanalisolering).\n- **1 mangler data**, så den kan ikke kontrolleres endnu.\n\nSvarene er beslutningsstøtte, ikke en godkendelse. En brandrådgiver skal bekræfte hver løsning mod ETA-21/0110 og producentens monteringsvejledning, og en person skal udarbejde og underskrive den brandtekniske vurdering."
+}
