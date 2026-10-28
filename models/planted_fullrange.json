@@ -1,0 +1,7 @@
+{
+ "note": "Answer key with the full product range (ETA-21/0110 + ETA-20/1322) loaded. Only the cases whose result changes are listed; all others are as in planted.json. Derived by hand from the ETA pages cited.",
+ "overrides": {
+  "afl110_32|floor": {"status": "TESTET", "sections": ["B.1.1.1"], "why": "ETA-20/1322 p. 155: PVC-U up to 110 mm, wall 2.2-8.2 mm, one collar, EI 120 U/U; floor >= 150 mm; annular gap in a floor filled with Multimortar (section 1, item 4)"},
+  "pp75|floor": {"status": "AFVIGELSE", "deviates": ["godstykkelse"], "why": "ETA-20/1322 p. 154: PP up to 110 mm needs wall 2.7-6.3 mm (EI 90 U/U); designed 2.6 mm"}
+ }
+}

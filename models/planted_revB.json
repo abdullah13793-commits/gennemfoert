@@ -1,0 +1,754 @@
+[
+ {
+  "service_guid": "2NiYo4lhHOgPJwSP7QHLjf",
+  "service": "Faldstamme PVC-U 110x3,4 (A1, dæk over Kælder)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "3dfjUCDFTVf9F1$8RH0ZMt",
+  "service": "Faldstamme PVC-U 110x3,4 (A1, dæk over Stueetage)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "2biWqdIK5RqB$1e2B$d$jR",
+  "service": "Faldstamme PVC-U 110x3,4 (A1, dæk over 1. sal)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "0HYXPSH4HICATnreUFT$_R",
+  "service": "Brugsvand koldt Cu 22x1,0 (A1, dæk over Kælder)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "2soIO6QcnGq9PyTD8YH5yb",
+  "service": "Brugsvand koldt Cu 22x1,0 (A1, dæk over Stueetage)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "0UWENiVjLLzhhbN2_D9f_R",
+  "service": "Brugsvand koldt Cu 22x1,0 (A1, dæk over 1. sal)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "1TxJYGkgXIawPfHvJ1fCRh",
+  "service": "Varmestreng stål 42,4x2,6 (A1, dæk over Kælder)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "3wTxq8FxPN_u$n1zSUzXb8",
+  "service": "Varmestreng stål 42,4x2,6 (A1, dæk over Stueetage)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "1dOt0t1IvV6v2K_ZrCIW$c",
+  "service": "Varmestreng stål 42,4x2,6 (A1, dæk over 1. sal)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "2USbeOWOHN4edS$K1HwFMc",
+  "service": "Faldstamme PVC-U 110x3,4 (A2, dæk over Kælder)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "121W1DgVHGPPyMwWUsQRMH",
+  "service": "Faldstamme PVC-U 110x3,4 (A2, dæk over Stueetage)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "1xZmwazpPStPCQymWe9$KY",
+  "service": "Faldstamme PVC-U 110x3,4 (A2, dæk over 1. sal)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "201JV5VR5V$9iDuee9MmAV",
+  "service": "Brugsvand koldt Cu 22x1,0 (A2, dæk over Kælder)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "3Hy0O8bmXJXOAPYa$cMn_T",
+  "service": "Brugsvand koldt Cu 22x1,0 (A2, dæk over Stueetage)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "3DshOhJTLQZ96A7h11ieE5",
+  "service": "Brugsvand koldt Cu 22x1,0 (A2, dæk over 1. sal)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "3KOVmOZlDHBfHcw6MIVfRD",
+  "service": "Varmestreng stål 42,4x2,6 (A2, dæk over Kælder)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "0XoyLPpeLOShT$KeqHSCoB",
+  "service": "Varmestreng stål 42,4x2,6 (A2, dæk over Stueetage)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "14kCeVySXKjREaoOoQfN7E",
+  "service": "Varmestreng stål 42,4x2,6 (A2, dæk over 1. sal)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "2ifCPAOZ9Hifk3vv5Qii12",
+  "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over Kælder)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "36zyZkEiXP3gheGCqJQkdS",
+  "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over Stueetage)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "0eiUIHjaXIfQhwuIvXp1h8",
+  "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over 1. sal)",
+  "key": "afl110_34",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.5"
+  ]
+ },
+ {
+  "service_guid": "2MxIQeey9MC9kYQzpHLv$9",
+  "service": "Brugsvand koldt Cu 22x1,0 (B1, dæk over Kælder)",
+  "key": "kv22_armaflex",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "isoleringsfabrikat"
+  ]
+ },
+ {
+  "service_guid": "34qqQQtbvQOQsmS7kTKu1N",
+  "service": "Brugsvand koldt Cu 22x1,0 (B1, dæk over Stueetage)",
+  "key": "kv22_armaflex",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "isoleringsfabrikat"
+  ]
+ },
+ {
+  "service_guid": "0wkCyiuMXUQhMB7n4Slxfe",
+  "service": "Brugsvand koldt Cu 22x1,0 (B1, dæk over 1. sal)",
+  "key": "kv22_armaflex",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "isoleringsfabrikat"
+  ]
+ },
+ {
+  "service_guid": "1tQOFDA4vQGeGS3CP6xjJU",
+  "service": "Brugsvand varmt Cu 28x1,0 (B1, dæk over Kælder)",
+  "key": "vv28_stenuld",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "AFVIGELSE",
+  "alternative": "A.4.8"
+ },
+ {
+  "service_guid": "1C5WlKf5vJa9yypR_hnrui",
+  "service": "Brugsvand varmt Cu 28x1,0 (B1, dæk over Stueetage)",
+  "key": "vv28_stenuld",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "AFVIGELSE",
+  "alternative": "A.4.8"
+ },
+ {
+  "service_guid": "1TC4t3lO5O6xDM0pF_9u6Q",
+  "service": "Brugsvand varmt Cu 28x1,0 (B1, dæk over 1. sal)",
+  "key": "vv28_stenuld",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "AFVIGELSE",
+  "alternative": "A.4.8"
+ },
+ {
+  "service_guid": "1c13qpn6zSDBVrwuvgr4mI",
+  "service": "Faldstamme PP 75x2,6 (B2, dæk over Kælder)",
+  "key": "pp75",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "IKKE_DAEKKET"
+ },
+ {
+  "service_guid": "0izRK71gDNU95rUKwaZ0lV",
+  "service": "Faldstamme PP 75x2,6 (B2, dæk over Stueetage)",
+  "key": "pp75",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "IKKE_DAEKKET"
+ },
+ {
+  "service_guid": "0XQkppd0XI$B$KS66TlWK8",
+  "service": "Faldstamme PP 75x2,6 (B2, dæk over 1. sal)",
+  "key": "pp75",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "IKKE_DAEKKET"
+ },
+ {
+  "service_guid": "2lKDf9p_5ISfRhdnYq5xPA",
+  "service": "Brugsvand koldt Cu 22x1,0 (B2, dæk over Kælder)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "1iCVlaO9TRCeSGWupIG0AG",
+  "service": "Brugsvand koldt Cu 22x1,0 (B2, dæk over Stueetage)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "2VeunWlY1PoPJ7gebVujMk",
+  "service": "Brugsvand koldt Cu 22x1,0 (B2, dæk over 1. sal)",
+  "key": "kv22_kaiflex",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.8"
+  ]
+ },
+ {
+  "service_guid": "3wnHVMca1KvwOLF6Yc_rjL",
+  "service": "Varmestreng stål 42,4x2,6 (B2, dæk over Kælder)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over Kælder",
+  "host_guid": "06SsQTVdnI_giWHJkC5xDR",
+  "host_kind": "floor",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "2hOef5nkrHEgMqPBNG4FYs",
+  "service": "Varmestreng stål 42,4x2,6 (B2, dæk over Stueetage)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over Stueetage",
+  "host_guid": "2zQGz7IPrLAeSHK3yXcbR0",
+  "host_kind": "floor",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "2YO9VrQpXILOUNrYklQGud",
+  "service": "Varmestreng stål 42,4x2,6 (B2, dæk over 1. sal)",
+  "key": "vb42_stenuld",
+  "host": "Huldæk 220 over 1. sal",
+  "host_guid": "2S60u6UsfNj9PQu8RkPpUV",
+  "host_kind": "floor",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.4.3",
+   "A.4.4.1",
+   "A.4.4.2"
+  ]
+ },
+ {
+  "service_guid": "08cd7ADR1J_9BJIPYI0J5d",
+  "service": "Afløbsgren PP 50x1,8 (skakt A1, Stueetage)",
+  "key": "pp50",
+  "host": "Skaktvæg A1, gips på stålskelet 100",
+  "host_guid": "2UuKGe_oXPHvKZl$ElB1kz",
+  "host_kind": "shaft",
+  "storey": "Stueetage",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "diameter"
+  ]
+ },
+ {
+  "service_guid": "3rZ8eye_vMb8pXdKDBdohr",
+  "service": "Afløbsgren PP 50x1,8 (skakt A1, 1. sal)",
+  "key": "pp50",
+  "host": "Skaktvæg A1, gips på stålskelet 100",
+  "host_guid": "3m7ty_azHNVfE4xzQnZtAb",
+  "host_kind": "shaft",
+  "storey": "1. sal",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "diameter"
+  ]
+ },
+ {
+  "service_guid": "3sZyzG0kjNaOlkV36XEZPU",
+  "service": "Afløbsgren PP 50x1,8 (skakt A1, 2. sal)",
+  "key": "pp50",
+  "host": "Skaktvæg A1, gips på stålskelet 100",
+  "host_guid": "1r2buwZ2bSNvQN$iCUsdAI",
+  "host_kind": "shaft",
+  "storey": "2. sal",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "diameter"
+  ]
+ },
+ {
+  "service_guid": "1mJjrQFxDI$AkhnUMsWiJx",
+  "service": "Brugsvand koldt Cu 15x1,0 (skakt A1, Stueetage)",
+  "key": "kv15_kaiflex",
+  "host": "Skaktvæg A1, gips på stålskelet 100",
+  "host_guid": "2UuKGe_oXPHvKZl$ElB1kz",
+  "host_kind": "shaft",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.1.6.2"
+  ]
+ },
+ {
+  "service_guid": "2oVVwcoJXRvfj68cpO1hew",
+  "service": "Brugsvand koldt Cu 15x1,0 (skakt A1, 1. sal)",
+  "key": "kv15_kaiflex",
+  "host": "Skaktvæg A1, gips på stålskelet 100",
+  "host_guid": "3m7ty_azHNVfE4xzQnZtAb",
+  "host_kind": "shaft",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.1.6.2"
+  ]
+ },
+ {
+  "service_guid": "1JeBHxppPGRRmJAz_8y8S4",
+  "service": "Brugsvand koldt Cu 15x1,0 (skakt A1, 2. sal)",
+  "key": "kv15_kaiflex",
+  "host": "Skaktvæg A1, gips på stålskelet 100",
+  "host_guid": "1r2buwZ2bSNvQN$iCUsdAI",
+  "host_kind": "shaft",
+  "storey": "2. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.1.6.2"
+  ]
+ },
+ {
+  "service_guid": "1XaJxunOvHx8Yll8X0icU0",
+  "service": "Brugsvand koldt Cu 15x1,0 (skakt A2, Stueetage)",
+  "key": "kv15_kaiflex",
+  "host": "Skaktvæg A2, gips på stålskelet 100",
+  "host_guid": "1HCzI5DlfGo93mr3Sd67av",
+  "host_kind": "shaft",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.1.6.2"
+  ]
+ },
+ {
+  "service_guid": "0j46tMeCbPagtA5YFEB2fR",
+  "service": "Ventilationskanal Ø160 (skakt A2, Stueetage)",
+  "key": "kanal160",
+  "host": "Skaktvæg A2, gips på stålskelet 100",
+  "host_guid": "1HCzI5DlfGo93mr3Sd67av",
+  "host_kind": "shaft",
+  "storey": "Stueetage",
+  "status": "ANDET_SYSTEM"
+ },
+ {
+  "service_guid": "2lLJaq2KnUwAQYRUpgD$Gp",
+  "service": "Brugsvand koldt Cu 15x1,0 (skakt B1, 1. sal)",
+  "key": "kv15_kaiflex",
+  "host": "Skaktvæg B1, gips på stålskelet 100",
+  "host_guid": "0zRFGW04TIlQUQ8ZK3fEMD",
+  "host_kind": "shaft",
+  "storey": "1. sal",
+  "status": "TESTET",
+  "sections": [
+   "A.1.6.2"
+  ]
+ },
+ {
+  "service_guid": "1KzOQDbJfTXBAtUvvR2_tj",
+  "service": "Brugsvand rør (ukendt) (skakt B1, 1. sal)",
+  "key": "uden_data",
+  "host": "Skaktvæg B1, gips på stålskelet 100",
+  "host_guid": "0zRFGW04TIlQUQ8ZK3fEMD",
+  "host_kind": "shaft",
+  "storey": "1. sal",
+  "status": "MANGLER_DATA"
+ },
+ {
+  "service_guid": "3_f65nszPIgBPpbAW5lh5k",
+  "service": "Kabelbundt (kabler ≤ 16 mm) (trapperum, stue)",
+  "key": "kabelbundt",
+  "host": "Trapperumsvæg, beton 200",
+  "host_guid": "3jltFvo_5PtAmb2j2Mrh7P",
+  "host_kind": "stair",
+  "storey": "Stueetage",
+  "status": "TESTET"
+ },
+ {
+  "service_guid": "2j8S6tFgvLAvW2pBdODNUU",
+  "service": "Hovedkabel Ø90 (trapperum, 1. sal)",
+  "key": "kabel90",
+  "host": "Trapperumsvæg, beton 200",
+  "host_guid": "3qaVrYzSbKBPhUfPfT8Tj2",
+  "host_kind": "stair",
+  "storey": "1. sal",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "diameter"
+  ]
+ },
+ {
+  "service_guid": "0OZtEFCPHJXwDMV2gZnQdT",
+  "service": "Kabelbakke stål 200x60 (lejlighedsskel, stue)",
+  "key": "kabelbakke",
+  "host": "Lejlighedsskel, beton 180",
+  "host_guid": "1ccC4qRMnI9wCMVtlQPjTi",
+  "host_kind": "party",
+  "storey": "Stueetage",
+  "status": "TESTET"
+ },
+ {
+  "service_guid": "1YGu9fITfNKO4fpcopr7tM",
+  "service": "Faldstamme PVC-U 110x3,4 (lejlighedsskel, stue)",
+  "key": "afl110_34",
+  "host": "Lejlighedsskel, beton 180",
+  "host_guid": "1ccC4qRMnI9wCMVtlQPjTi",
+  "host_kind": "party",
+  "storey": "Stueetage",
+  "status": "TESTET",
+  "sections": [
+   "A.3.5"
+  ]
+ },
+ {
+  "service_guid": "2hsIymExnR7BymI_n6AERK",
+  "service": "Kabelbakke stål 200x60 (lejlighedsskel, 2. sal)",
+  "key": "kabelbakke",
+  "host": "Lejlighedsskel, beton 180",
+  "host_guid": "1z$cJS77fSuOdc97xZKJZL",
+  "host_kind": "party_close",
+  "storey": "2. sal",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "afstand mellem tætninger"
+  ]
+ },
+ {
+  "service_guid": "2NEaMSsHjLaRntfsJpaX29",
+  "service": "Kabelbundt (kabler ≤ 16 mm) (lejlighedsskel, 2. sal)",
+  "key": "kabelbundt",
+  "host": "Lejlighedsskel, beton 180",
+  "host_guid": "1z$cJS77fSuOdc97xZKJZL",
+  "host_kind": "party_close",
+  "storey": "2. sal",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "afstand mellem tætninger"
+  ]
+ },
+ {
+  "service_guid": "0PW3Ng$ePUMg33vA9glI89",
+  "service": "Varmehovedledning stål 60,3x2,9 (teknikrum)",
+  "key": "vb60_stenuld",
+  "host": "Teknikrumsvæg, beton 150",
+  "host_guid": "3Kx1rMpP1Ojfv2Av_o5Elk",
+  "host_kind": "plant",
+  "storey": "Kælder",
+  "status": "TESTET"
+ },
+ {
+  "service_guid": "155WwHJEPUxP6kR139Ncbr",
+  "service": "Varmehovedledning stål 88,9x3,2 (teknikrum)",
+  "key": "vb89_stenuld",
+  "host": "Teknikrumsvæg, beton 150",
+  "host_guid": "3Kx1rMpP1Ojfv2Av_o5Elk",
+  "host_kind": "plant",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.3.4"
+  ]
+ },
+ {
+  "service_guid": "0$tmApOabV18W7C700AkoO",
+  "service": "Kloakledning PE 160x6,2 (teknikrum)",
+  "key": "pe160",
+  "host": "Teknikrumsvæg, beton 150",
+  "host_guid": "3Kx1rMpP1Ojfv2Av_o5Elk",
+  "host_kind": "plant",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.3.5"
+  ]
+ },
+ {
+  "service_guid": "3yYmf7SbbO5fUj5tWq8D4P",
+  "service": "Kloakledning PVC-U 200x5,9 (teknikrum)",
+  "key": "pvc200",
+  "host": "Teknikrumsvæg, beton 150",
+  "host_guid": "3Kx1rMpP1Ojfv2Av_o5Elk",
+  "host_kind": "plant",
+  "storey": "Kælder",
+  "status": "AFVIGELSE",
+  "deviates": [
+   "diameter"
+  ]
+ },
+ {
+  "service_guid": "3JN$tUw8HGaemQOxDrz0WJ",
+  "service": "Gulvvarme Alupex 16x2,25 (teknikrum)",
+  "key": "alupex16",
+  "host": "Teknikrumsvæg, beton 150",
+  "host_guid": "3Kx1rMpP1Ojfv2Av_o5Elk",
+  "host_kind": "plant",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.3.3.1"
+  ]
+ },
+ {
+  "service_guid": "1aeFH6XkvNgwXWJn$UE62f",
+  "service": "Kondensafløb PVC-U 32x1,8 (depot)",
+  "key": "pvc32",
+  "host": "Depotvæg, gips på stålskelet 75",
+  "host_guid": "2oOgFbgIzP9BcNFWBC9BJm",
+  "host_kind": "storage",
+  "storey": "Kælder",
+  "status": "TESTET",
+  "sections": [
+   "A.2.1"
+  ]
+ },
+ {
+  "service_guid": "0DfuB$z4LIbPZ6yfCsvzww",
+  "service": "Kondensafløb PVC-U 32x1,8 (let væg)",
+  "key": "pvc32",
+  "host": "Let skillevæg (ikke brandklassificeret)",
+  "host_guid": "3kFxDiK69NSQL4TlZmL_qi",
+  "host_kind": "unrated",
+  "storey": "Kælder",
+  "status": "IKKE_BRANDADSKILLENDE"
+ }
+]

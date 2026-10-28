@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledelsesoverblik</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23e8a317'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23111' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.ch{min-height:220px}
+.ch h2{font-size:15px}
+details.tbl summary{font-size:12px;color:var(--ink3);cursor:pointer;margin-top:6px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pagehead">
+    <div><div class="eyebrow">M8 · Ledelsesoverblik</div><h1>Rådgivningen i tal</h1>
+      <p>Alt her kommer fra sagsloggen: hvor mange forespørgsler der besvares med en testet løsning uden rådgiver, hvor ofte der mangler oplysninger, hvor lang tid en vurdering tager, og hvilke afvigelser der går igen. De gentagne afvigelser er kandidater til nye tests eller standardløsninger.</p></div>
+    <span class="demo">Simulering: 30 fiktive sager, uge 32–43</span>
+  </div>
+  <div class="grid g4" id="kpis"></div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card ch"><h2>Nye sager pr. uge</h2><div class="note">antal sager pr. kalenderuge</div><div id="c_week"></div></div>
+    <div class="card ch"><h2>Gennemløbstid, modtaget til udsendt</h2><div class="note">antal sager pr. dag-interval · stiplet linje = median</div><div id="c_lead"></div></div>
+    <div class="card ch"><h2>Gennemføringer efter forhåndstjek</h2><div class="note">antal gennemføringer i forespørgslerne</div><div id="c_triage"></div></div>
+    <div class="card ch"><h2>Hyppigste afvigende parametre</h2><div class="note">antal gange parameteren afveg fra nærmeste testede række</div><div id="c_dev"></div></div>
+    <div class="card ch"><h2>Fordeling på region</h2><div class="note">antal sager</div><div id="c_reg"></div></div>
+    <div class="card ch"><h2>Løsningssystem for testede svar</h2><div class="note">antal gennemføringer</div><div id="c_sys"></div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h2>Afgørelser og kontrol pr. rådgiver</h2><div class="tablewrap"><table class="t" id="adv"></table></div>
+    <p class="note">Af sagsloggens hændelser: 'udkast_gemt' (forfatter) og 'kontrol_godkendt' (kontrollant). Ingen rådgiver har kontrolleret eget udkast.</p></div>
+</main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+const { $, esc, num, tip } = GF;
+const [D, CASES] = await GF.load('dashboard', 'cases');
+const chainOk = (await Promise.all(CASES.map(c => GF.verifyChain(c.events)))).every(r => r.ok);
+$('#kpis').innerHTML = [[D.deflected_pct + ' %', 'besvaret uden rådgiver', 'testet løsning ved modtagelsen'], [D.missing_info_pct + ' %', 'manglende oplysninger fanget', 'spurgt før sagen når en rådgiver'],
+  [num(D.lead_days_median) + ' dage', 'median gennemløbstid', D.lead_days.length + ' udsendte vurderinger'], [chainOk ? '✓' : '✗', 'revisionsspor intakt', `${CASES.length} sager verificeret i browseren`]]
+  .map(([v, l, s]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join('');
+
+const W = 520, PADL = 36, PADB = 26, PADT = 18;
+function table(rows, head) { return `<details class="tbl"><summary>Vis som tabel</summary><table class="t">${head ? `<tr>${head.map(h => `<th>${h}</th>`).join('')}</tr>` : ''}${rows.map(r => `<tr>${r.map((x, i) => `<td class="${i ? 'num' : ''}">${esc(x)}</td>`).join('')}</tr>`).join('')}</table></details>`; }
+function vbar(el, data, o) {
+  o = o || {}; const H = 190, max = Math.max(...data.map(d => d[1]), 1), n = data.length, bw = (W - PADL - 8) / n, ticks = o.ticks || niceTicks(max);
+  const top = ticks[ticks.length - 1], y = v => PADT + (H - PADT - PADB) * (1 - v / top);
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.label || '')}">`;
+  ticks.forEach(t => s += `<line class="ax" x1="${PADL}" x2="${W - 4}" y1="${y(t)}" y2="${y(t)}" stroke-opacity="${t ? .6 : 1}"/><text x="${PADL - 6}" y="${y(t) + 4}" text-anchor="end">${t}</text>`);
+  data.forEach((d, i) => { const x = PADL + i * bw + 2, h = y(0) - y(d[1]), w = Math.max(2, bw - 4);
+    s += `<path d="M${x},${y(0)} v${-Math.max(0, h - 4)} q0,-4 4,-4 h${w - 8} q4,0 4,4 v${Math.max(0, h - 4)} z" fill="var(--bar)" data-t="${esc(d[0])}: ${d[1]}${o.unit || ''}"/>`;
+    s += `<rect x="${x - 2}" y="${PADT}" width="${bw}" height="${H - PADT - PADB}" fill="transparent" data-t="${esc(d[0])}: ${d[1]}${o.unit || ''}"/>`;
+    if (n <= 14) s += `<text x="${x + w / 2}" y="${H - 8}" text-anchor="middle">${esc(d[0])}</text>`; });
+  if (o.mark !== undefined) { const mx = PADL + o.mark * bw; s += `<line x1="${mx}" x2="${mx}" y1="${PADT}" y2="${y(0)}" stroke="var(--ink)" stroke-dasharray="4 3" stroke-width="1.5"/><text x="${mx}" y="${PADT - 3}" text-anchor="middle" style="fill:var(--ink)">median ${num(o.markLabel)} d</text>`; }
+  el.innerHTML = s + '</svg>' + table(data.map(d => [d[0], d[1]]), o.head); hover(el);
+}
+function hbar(el, data, o) {
+  o = o || {}; const rowH = 30, H = data.length * rowH + 8, LW = o.lw || 150, max = Math.max(...data.map(d => d[1]), 1);
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">`;
+  data.forEach((d, i) => { const y = 4 + i * rowH, w = Math.max(3, (W - LW - 50) * d[1] / max);
+    s += `<text x="${LW - 8}" y="${y + 18}" text-anchor="end">${esc(d[0])}</text>`;
+    s += `<path d="M${LW},${y + 6} h${w - 4} q4,0 4,4 v8 q0,4 -4,4 h${-(w - 4)} z" fill="${d[2] ? `var(${d[2]})` : 'var(--bar)'}" data-t="${esc(d[0])}: ${d[1]}"/>`;
+    s += `<text x="${LW + w + 6}" y="${y + 18}" style="fill:var(--ink);font-weight:600">${d[1]}</text>`;
+    s += `<rect x="0" y="${y}" width="${W}" height="${rowH}" fill="transparent" data-t="${esc(d[0])}: ${d[1]}"/>`; });
+  el.innerHTML = s + '</svg>' + table(data.map(d => [d[0], d[1]]), o.head); hover(el);
+}
+function niceTicks(max) { const step = max <= 5 ? 1 : max <= 10 ? 2 : max <= 25 ? 5 : 10; const t = []; for (let v = 0; v <= max + step - 1e-9; v += step) t.push(v); if (t[t.length - 1] < max) t.push(t[t.length - 1] + step); return t; }
+function hover(el) { el.querySelectorAll('[data-t]').forEach(m => { m.onmousemove = e => tip(esc(m.dataset.t), e); m.onmouseleave = () => tip(null); }); }
+
+vbar($('#c_week'), Object.entries(D.per_week).map(([w, n]) => [w, n]), {head: ['Uge', 'Sager']});
+const bins = [0, 1, 2, 3, 4, 5, 6, 7].slice(0, -1).map(b => [`${b}–${b + 1}`, D.lead_days.filter(x => x >= b && x < b + 1).length]);
+vbar($('#c_lead'), bins, {mark: D.lead_days_median, markLabel: D.lead_days_median, head: ['Dage', 'Sager']});
+const TL = {BESVARET_TESTET: ['Besvaret: testet', '--ok'], TIL_VURDERING: ['Til vurdering', '--dev'], MANGLER_INFO: ['Mangler info', '--miss'], ANDET_SYSTEM: ['Andet system', '--other']};
+hbar($('#c_triage'), Object.entries(TL).map(([k, [l, c]]) => [l, D.triage[k] || 0, c]), {head: ['Forhåndstjek', 'Gennemføringer']});
+hbar($('#c_dev'), Object.entries(D.deviations).sort((a, b) => b[1] - a[1]).map(([k, v]) => [k, v]), {head: ['Parameter', 'Antal']});
+hbar($('#c_reg'), Object.entries(D.regions).map(([k, v]) => [k === 'ØST' ? 'Øst (Ballerup)' : 'Vest (Kolding)', v]), {head: ['Region', 'Sager']});
+hbar($('#c_sys'), Object.entries(D.systems).sort((a, b) => b[1] - a[1]).map(([k, v]) => [k === '-' ? 'ingen testet løsning' : k, v]), {head: ['System', 'Gennemføringer']});
+
+const adv = {};
+CASES.forEach(c => c.events.forEach(e => { if (!e.actor.startsWith('Rådgiver')) return; const a = adv[e.actor] = adv[e.actor] || {d: 0, k: 0, own: 0};
+  if (e.action === 'udkast_gemt') a.d++; if (e.action === 'kontrol_godkendt') { a.k++; } }));
+$('#adv').innerHTML = '<tr><th>Rådgiver</th><th class="num">Afgørelser skrevet</th><th class="num">Kontroller udført</th></tr>' +
+  Object.entries(adv).sort().map(([n, a]) => `<tr><td>${esc(n)}</td><td class="num">${a.d}</td><td class="num">${a.k}</td></tr>`).join('');
+})();
+</script>
+</body>
+</html>

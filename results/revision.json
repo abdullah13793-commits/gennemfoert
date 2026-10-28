@@ -1,0 +1,94 @@
+{
+ "added": [
+  {
+   "id": "G-ST-09",
+   "service": "Brugsvand koldt Cu 15x1,0 (skakt A2, Stueetage)",
+   "status": "TESTET"
+  }
+ ],
+ "removed": [
+  {
+   "id": "G-ST-09",
+   "service": "Radiatorgren stål 26,9x2,3 (skakt A2, Stueetage)",
+   "status": "AFVIGELSE"
+  }
+ ],
+ "changed": [
+  {
+   "id": "G-K-13",
+   "old_id": "G-K-13",
+   "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over Kælder)",
+   "changes": [
+    {
+     "param": "wall_mm",
+     "old": 3.2,
+     "new": 3.4
+    }
+   ],
+   "old_status": "TESTET",
+   "new_status": "TESTET",
+   "reassess": true
+  },
+  {
+   "id": "G-ST-06",
+   "old_id": "G-ST-06",
+   "service": "Kabelbakke stål 200x60 (lejlighedsskel, stue)",
+   "changes": [
+    {
+     "param": "ei_required",
+     "old": 60,
+     "new": 90
+    }
+   ],
+   "old_status": "TESTET",
+   "new_status": "TESTET",
+   "reassess": true
+  },
+  {
+   "id": "G-ST-07",
+   "old_id": "G-ST-07",
+   "service": "Faldstamme PVC-U 110x3,4 (lejlighedsskel, stue)",
+   "changes": [
+    {
+     "param": "ei_required",
+     "old": 60,
+     "new": 90
+    }
+   ],
+   "old_status": "TESTET",
+   "new_status": "TESTET",
+   "reassess": true
+  },
+  {
+   "id": "G-ST-14",
+   "old_id": "G-ST-14",
+   "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over Stueetage)",
+   "changes": [
+    {
+     "param": "wall_mm",
+     "old": 3.2,
+     "new": 3.4
+    }
+   ],
+   "old_status": "TESTET",
+   "new_status": "TESTET",
+   "reassess": true
+  },
+  {
+   "id": "G-1-10",
+   "old_id": "G-1-10",
+   "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over 1. sal)",
+   "changes": [
+    {
+     "param": "wall_mm",
+     "old": 3.2,
+     "new": 3.4
+    }
+   ],
+   "old_status": "TESTET",
+   "new_status": "TESTET",
+   "reassess": true
+  }
+ ],
+ "unchanged": 52
+}

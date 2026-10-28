@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gennemført 2.0</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23e8a317'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23111' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px;align-items:center;margin:8px 0 22px}
+.hero h1{font-size:38px;line-height:1.08;letter-spacing:-.03em;margin:6px 0 10px}
+.hero p{color:var(--ink2);font-size:15.5px;margin:0 0 14px;max-width:620px}
+.hero .shot{border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--viewer)}
+.hero .shot img{display:block;width:100%}
+.lane{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:14px 14px 16px;margin-bottom:12px}
+.lane h3{margin:0 0 10px}
+.steps{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);gap:8px;overflow-x:auto;padding-bottom:4px}
+.step{position:relative;border:1px solid var(--line);border-radius:11px;padding:10px 11px;background:var(--panel2);font-size:12.5px;color:var(--ink2);text-decoration:none;display:block}
+.step b{display:block;color:var(--ink);font-size:13px;margin-bottom:3px}
+.step .m{font:700 10.5px "JetBrains Mono",monospace;color:var(--accent)}
+.step.old{border-style:dashed}
+.step.gap{border-color:color-mix(in srgb,var(--bad) 55%,var(--line));background:color-mix(in srgb,var(--bad) 7%,var(--panel2))}
+a.step:hover{border-color:var(--accent)}
+.step:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--ink3);font-size:13px;z-index:1}
+.mod{display:flex;flex-direction:column;gap:6px;text-decoration:none}
+.mod:hover{border-color:var(--accent)}
+.mod .m{font:700 11px "JetBrains Mono",monospace;color:var(--accent)}
+.mod b{font-size:15px}
+.mod span{color:var(--ink2);font-size:13px}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.hero h1{font-size:30px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Brandteknisk rådgivning · gennemføringer</div>
+      <h1>Fra fritekst-forespørgsel til kontrolleret udførelse, i ét spor.</h1>
+      <p>Gennemført 2.0 formaliserer rådgiverens arbejde: struktureret forespørgsel med forhåndstjek mod de testede opbygninger, sagsgang med
+        præcedens og 4-øjne-kontrol, udstedte vurderinger der kan verificeres, materialeliste med varenumre og dokumentation til bygherren.
+        Hver beslutning peger på ETA, afsnit og side.</p>
+      <div class="act">
+        <a class="btn pri" href="forespoergsel.html">Send en forespørgsel</a>
+        <a class="btn" href="sager.html">Rådgiverens sager</a>
+        <a class="btn" href="projekt.html">Projekt i 3D</a>
+      </div>
+      <p class="note" style="margin-top:12px">Alle sager, kunder og projekter på siderne er fiktive demonstrationsdata. Testede opbygninger er udtrukket fra de offentlige ETA'er.</p>
+    </div>
+    <a class="shot" href="projekt.html"><img src="assets/hero.jpg" alt="3D-model med gennemføringer farvet efter status" onerror="this.parentNode.style.display='none'"></a>
+  </section>
+
+  <section class="grid g4" id="kpis"></section>
+
+  <section class="sec">
+    <div class="pagehead"><div><div class="eyebrow">Arbejdsgangen</div><h1 style="font-size:22px">Før og efter</h1>
+      <p>Samme seks leverancepunkter som i dag (beskrivelse, afvigelse, faglig vurdering, løsningsmodel, forudsætninger, dokumentation), men som data, så hvert trin kan kontrolleres og genbruges.</p></div></div>
+    <div class="lane"><h3>I dag</h3><div class="steps" id="old"></div></div>
+    <div class="lane"><h3>Med Gennemført 2.0</h3><div class="steps" id="new"></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="pagehead"><div><div class="eyebrow">Moduler</div><h1 style="font-size:22px">Ni moduler, én vidensbase</h1></div></div>
+    <div class="grid g3" id="mods"></div>
+  </section>
+
+  <section class="sec grid g2">
+    <div class="callout"><b>Kvalitetssystem.</b> Hver hændelse i en sag logges med tidspunkt, person og vidensbase-version og kædes med SHA-256. En ændret eller slettet linje opdages. Udsendelse kræver, at en anden rådgiver har kontrolleret udkastet.</div>
+    <div class="callout"><b>Bygherrens kontrolpligt.</b> Fra løsning til tjekliste, foto, underskrift og kontrol pr. tætning, samlet i en dokumentationspakke og en CSV til dokumentationssystemet.</div>
+  </section>
+  <div class="foot">Gennemført 2.0 · beslutningsstøtte, ikke godkendelse · kilder: ETA-21/0110 (Mulcol Multimastic C System), ETA-20/1322 (Mulcol Multicollar Slim) · demonstrationsdata er fiktive.</div>
+</main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+  const { $, esc, num, load } = GF;
+  const OLD = [['Fritekst + filer', 'Kunden beskriver opgaven med egne ord og vedhæfter tegninger.'],
+    ['Opfølgning', 'Rådgiveren læser og ringer eller skriver efter manglende mål og fabrikater.'],
+    ['Opslag i PDF', 'Testede opbygninger findes manuelt i ETA-tabellerne, pr. system.'],
+    ['Vurdering i Word', 'Argumentation skrives fra bunden; tidligere afgørelser findes i hukommelsen.'],
+    ['PDF sendes', 'Ingen kobling til projektets øvrige gennemføringer eller til senere revisioner.', 1],
+    ['Udførelse', 'Dokumentation af tætninger sker et andet sted, ofte uden reference til løsningen.', 1]];
+  const NEW = [['M2', 'Struktureret forespørgsel', 'Felter pr. gennemføring, fotos efter tjekliste, live forhåndstjek.', 'forespoergsel.html'],
+    ['M2', 'Triage og fordeling', 'Testede svar besvares straks; resten fordeles Øst/Vest med frist.', 'sager.html'],
+    ['M1·M4', 'Sag med præcedens', 'Nærmeste ETA-række, afvigelsens signatur og tidligere afgørelser.', 'sager.html'],
+    ['M3', 'Beslutning + 4 øjne', 'Godkendt / betinget / afvist med begrundelse; kontrol af anden rådgiver.', 'sager.html'],
+    ['M4', 'Udstedt + QR', 'PDF med ETA-udsnit, versionsnummer og verifikationskode.', 'verify.html'],
+    ['M7', 'Revision', 'Ny model: hvilke afgørelser gælder ikke længere?', 'projekt.html#revision'],
+    ['M5·M6', 'Tilbud og udførelse', 'Varenumre, tjekliste, foto, kontrol, pakke til bygherren.', 'udfoerelse.html']];
+  $('#old').innerHTML = OLD.map(([b, s, g]) => `<div class="step old ${g ? 'gap' : ''}"><b>${b}</b>${s}</div>`).join('');
+  $('#new').innerHTML = NEW.map(([m, b, s, h]) => `<a class="step" href="${h}"><span class="m">${m}</span><b>${b}</b>${s}</a>`).join('');
+  const MODS = [['M1', 'Vidensbase på tværs af ETA\'er', '678 testede rækker fra to ETA\'er (brandplader og brandmanchetter), med side og rækkeudsnit. Kendte fejl i kilderne er noteret.', 'viden.html'],
+    ['M2', 'Struktureret forespørgsel', 'Erstatter fritekstformularen: komplethedsscore, foto-tjekliste, forhåndstjek og automatisk fordeling.', 'forespoergsel.html'],
+    ['M3', 'Sagsgang og revisionsspor', 'Tilstande, frister, 4-øjne-princip og hash-kædet log, der kan verificeres i browseren.', 'sager.html'],
+    ['M4', 'Præcedens og udstedelse', 'Ens svar på ens afvigelser. Udstedt vurdering med ETA-udsnit og QR-verifikation.', 'sager.html'],
+    ['M5', 'Tilbud med varenumre', 'Fra testet løsning til materialeliste: plader, fuge, manchetter, clips, med beregningsgrundlag.', 'tilbud.html'],
+    ['M6', 'Udførelse og overdragelse', 'Tjekliste pr. tætning ud fra løsningen, foto, underskrift, kontrol og dokumentationspakke.', 'udfoerelse.html'],
+    ['M7', 'Modelrevisioner', 'IFC-revisioner sammenlignes via GlobalId; ændrede gennemføringer kræver ny vurdering.', 'projekt.html#revision'],
+    ['M8', 'Ledelsesoverblik', 'Gennemløbstid, andel besvaret uden rådgiver, hyppigste afvigelser, regioner.', 'overblik.html'],
+    ['M9', 'MCP-server', '14 værktøjer: tjek, forhåndstjek, præcedens, sager, verifikation, tilbud, revision, i Claude eller Copilot.', 'viden.html#mcp']];
+  $('#mods').innerHTML = MODS.map(([m, b, s, h]) => `<a class="card mod" href="${h}"><span class="m">${m}</span><b>${esc(b)}</b><span>${esc(s)}</span></a>`).join('');
+  try {
+    const [d, s] = await load('dashboard', 'summary');
+    const K = [[d.deflected_pct + ' %', 'besvaret uden rådgiver', 'testet løsning fundet ved modtagelsen'],
+      [d.missing_info_pct + ' %', 'manglende oplysninger fanget', 'før sagen når en rådgiver'],
+      [num(d.lead_days_median) + ' d', 'median gennemløbstid', 'modtaget til udsendt, ' + d.cases + ' sager'],
+      [num(s.eta.records, 0), 'testede opbygninger', s.kb.systems.length + ' ETA\'er, ' + s.kb.systems.reduce((a, x) => a + x.sections, 0) + ' tabeller']];
+    $('#kpis').innerHTML = K.map(([v, l, x]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${x}</div></div>`).join('')
+      .replace(/<\/div>$/, '</div>') ;
+    $('#kpis').insertAdjacentHTML('afterend', '<p class="note" style="margin:6px 2px 0">De første tre tal er fra en simulering af 30 fiktive sager over 12 uger (se Ledelse).</p>');
+  } catch (e) { }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forespørgsel</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23e8a317'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23111' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.side{position:sticky;top:66px}
+@media (min-width:641px){.addr{grid-column:span 2}}
+.item{border:1px solid var(--line);border-radius:14px;background:var(--panel);margin-bottom:14px;overflow:hidden}
+.item .ih{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.item .ih input{font-weight:600}
+.item .ib{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;padding:14px}
+.grp{font:700 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:12px 0 6px;grid-column:1/-1}
+.grp:first-child{margin-top:0}
+.photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ph{border:1px dashed var(--line);border-radius:10px;padding:8px;font-size:12px;color:var(--ink2);display:flex;gap:8px;align-items:center;cursor:pointer;min-height:56px;position:relative}
+.ph.has{border-style:solid;border-color:color-mix(in srgb,var(--ok) 60%,var(--line))}
+.ph img{width:44px;height:44px;object-fit:cover;border-radius:6px;flex:none}
+.ph input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.ph .ico{width:44px;height:44px;border-radius:6px;background:var(--panel2);display:grid;place-items:center;font-size:18px;flex:none}
+.live{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.miss{font-size:12px;color:var(--ink2);margin:0;padding-left:16px}
+.verdict{border-top:1px solid var(--line);padding-top:10px}
+.sum .line{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
+.sum .line span:first-child{color:var(--ink2)}
+.receipt{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.receipt .card{max-width:620px;width:100%;max-height:90vh;overflow:auto}
+@media (max-width:980px){.layout{grid-template-columns:1fr}.side{position:static}.item .ib{grid-template-columns:1fr}}
+@media (max-width:640px){.photos{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pagehead">
+    <div><div class="eyebrow">M2 · Struktureret forespørgsel</div><h1>Forespørgsel om brandteknisk vurdering</h1>
+      <p>Én blok pr. gennemføringstype. Hver blok tjekkes mod de testede opbygninger, mens den udfyldes: er løsningen testet, får du den med det samme;
+        afviger den, ser du hvilken parameter; mangler der noget, bliver du spurgt nu og ikke om tre dage.</p></div>
+    <div class="act noprint"><button class="btn" id="example">Indlæs eksempel</button><span class="demo">Demo · sendes ikke, gemmes kun i denne browser</span></div>
+  </div>
+  <div class="layout">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Projekt og kontakt</h3>
+        <div class="form f3" id="proj">
+          <label>Virksomhed<input id="p_company" autocomplete="organization"></label>
+          <label>Kontaktperson<input id="p_contact" autocomplete="name"></label>
+          <label>E-mail<input id="p_email" type="email" autocomplete="email"></label>
+          <label>Telefon<input id="p_phone" type="tel" autocomplete="tel"></label>
+          <label class="addr">Projektadresse (med postnummer)<input id="p_address" placeholder="fx Havnegade 2, 8000 Aarhus C"></label>
+          <label>Bygningstype<select id="p_type"><option>Bolig / etageejendom</option><option>Institution (skole, plejehjem mv.)</option><option>Erhverv / kontor</option><option>Industri / lager</option><option>Andet</option></select></label>
+          <label>Tidshorisont<select id="p_timeline"><option>Snarest muligt</option><option>Inden for 1 måned</option><option>Inden for 3 måneder</option><option selected>Uafklaret</option></select></label>
+          <label>Rolle<select id="p_role"><option>Installatør (VVS/el)</option><option>Isolatør / entreprenør</option><option>Rådgiver / projekterende</option><option>Bygherre</option></select></label>
+        </div>
+      </div>
+      <div id="items"></div>
+      <button class="btn noprint" id="add">+ Tilføj gennemføringstype</button>
+    </div>
+    <aside class="side">
+      <div class="card sum">
+        <h3>Forespørgslen</h3>
+        <div id="sum"></div>
+        <div class="act"><button class="btn pri" id="submit" style="width:100%;justify-content:center">Send forespørgsel</button></div>
+        <p class="note" style="margin-bottom:0">Afsendelse opretter en sag i <a href="sager.html">rådgiverens sagsliste</a> i denne browser. Intet sendes over nettet.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+<div class="receipt" id="receipt"><div class="card" id="rc"></div></div>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+const { $, $$, esc, store, verdictHTML, triageBadge } = GF;
+const S = await GF.engineReady();
+const SLA = {'Snarest muligt': 3, 'Inden for 1 måned': 10, 'Inden for 3 måneder': 20, 'Uafklaret': 10};
+const OFFICE = {'ØST': 'Ballerup', 'VEST': 'Kolding'};
+const PH = GEngine.PHOTOS;
+let items = [], seq = 0;
+
+function blank(o) { return Object.assign({uid: ++seq, title: '', construction: {kind: 'rigid_floor', thickness_mm: null, ei_required: null, hollow_core: false},
+  service: {kind: 'pipe', material: '', od_mm: null, wall_mm: null, system: null, configuration: 'perpendicular', insulation: 'none'},
+  aperture_mm: null, quantity: 1, photos: {}, thumbs: {}}, o || {}); }
+
+const OPT = (arr, v) => arr.map(([k, l]) => `<option value="${esc(k)}" ${String(k) === String(v ?? '') ? 'selected' : ''}>${esc(l)}</option>`).join('');
+const CONS = [['rigid_floor', 'Massivt dæk (beton/letbeton, også huldæk)'], ['rigid_wall', 'Massiv væg (beton, letbeton, murværk)'], ['flexible_wall', 'Let væg (stålskelet med gips)']];
+const SERV = [['pipe', 'Rør'], ['cable', 'Kabel'], ['cable_bundle', 'Kabelbundt'], ['cable_tray', 'Kabelbakke'], ['duct', 'Ventilationskanal']];
+const MATS = [['', 'Vælg…'], ['PVC-U', 'PVC-U'], ['PP', 'PP'], ['PE', 'PE / PE-HD'], ['PP-R', 'PP-R'], ['ABS', 'ABS'], ['Kobber', 'Kobber'], ['Stål', 'Stål / rustfrit'], ['Alupex', 'Alupex (PEX-AL-PEX)']];
+const EIS = [['', 'Vælg…'], [30, 'EI 30'], [45, 'EI 45'], [60, 'EI 60'], [90, 'EI 90'], [120, 'EI 120'], [180, 'EI 180'], [240, 'EI 240']];
+const INS = [['none', 'Ingen isolering'], ['stenuld', 'Stenuld'], ['elastomer', 'Elastomer (cellegummi)'], ['PE-skum', 'PE-skum'], ['PIR', 'PIR/PUR']];
+const PROD = [['', '–'], ['Armaflex AF', 'Armaflex AF'], ['Kaiflex ST', 'Kaiflex ST'], ['K-Flex ST', 'K-Flex ST'], ['Stenuld rørskål', 'Stenuld rørskål'], ['Andet', 'Andet fabrikat']];
+
+function itemHTML(it, i) {
+  const c = it.construction, s = it.service, pipe = s.kind === 'pipe', cab = s.kind === 'cable' || s.kind === 'cable_bundle';
+  const ins = s.insulation === 'none' ? {category: 'none'} : s.insulation;
+  return `<div class="item" data-uid="${it.uid}"><div class="ih"><span class="eyebrow" style="white-space:nowrap">Gennemføring ${i + 1}</span>
+    <input data-k="title" value="${esc(it.title)}" placeholder="Kort titel, fx Faldstamme i dæk over kælder">
+    ${items.length > 1 ? `<button class="btn sm noprint" data-del>Fjern</button>` : ''}</div>
+    <div class="ib"><div class="form">
+      <div class="grp">Konstruktion</div>
+      <label class="full">Type<select data-k="construction.kind">${OPT(CONS, c.kind)}</select></label>
+      <label>Tykkelse (mm)<input data-k="construction.thickness_mm" type="number" step="any" value="${c.thickness_mm ?? ''}"></label>
+      <label>Krævet brandmodstand<select data-k="construction.ei_required">${OPT(EIS, c.ei_required)}</select></label>
+      ${c.kind === 'rigid_floor' ? `<label class="check full"><input type="checkbox" data-k="construction.hollow_core" ${c.hollow_core ? 'checked' : ''}> Huldæk</label>` : ''}
+      <div class="grp">Installation</div>
+      <label>Type<select data-k="service.kind">${OPT(SERV, s.kind)}</select></label>
+      ${pipe ? `<label>Materiale<select data-k="service.material">${OPT(MATS, s.material)}</select></label>
+      <label>Udv. diameter (mm)<input data-k="service.od_mm" type="number" step="any" value="${s.od_mm ?? ''}"></label>
+      <label>Godstykkelse (mm)<input data-k="service.wall_mm" type="number" step="any" value="${s.wall_mm ?? ''}"></label>
+      <label>System<select data-k="service.system">${OPT([['', 'Vælg…'], ['open', 'Åbent (afløb)'], ['closed', 'Lukket (brugsvand, varme)']], s.system)}</select></label>
+      <label>Monteringssituation<select data-k="service.configuration">${OPT(Object.entries(GEngine.CONF_DA), s.configuration)}</select></label>
+      <label>Isolering<select data-k="ins.category">${OPT(INS, ins.category)}</select></label>
+      ${ins.category !== 'none' ? `<label>Fabrikat<select data-k="ins.product">${OPT(PROD, ins.product)}</select></label>
+      <label>Isoleringstykkelse (mm)<input data-k="ins.thickness_mm" type="number" step="any" value="${ins.thickness_mm ?? ''}"></label>` : ''}` : ''}
+      ${cab ? `<label>Kabeldiameter (mm)<input data-k="service.od_mm" type="number" step="any" value="${s.od_mm ?? ''}"></label>
+      ${s.kind === 'cable_bundle' ? `<label>Bundtdiameter (mm)<input data-k="service.bundle_mm" type="number" step="any" value="${s.bundle_mm ?? ''}"></label>` : ''}` : ''}
+      ${s.kind === 'duct' ? `<label>Diameter / mål (mm)<input data-k="service.od_mm" type="number" step="any" value="${s.od_mm ?? ''}"></label>` : ''}
+      <div class="grp">Hul og antal</div>
+      <label>Hul bredde (mm)<input data-k="ap.0" type="number" value="${it.aperture_mm ? it.aperture_mm[0] : ''}"></label>
+      <label>Hul højde (mm)<input data-k="ap.1" type="number" value="${it.aperture_mm ? it.aperture_mm[1] : ''}"></label>
+      <label>Antal ens<input data-k="quantity" type="number" min="1" value="${it.quantity}"></label>
+      <div class="grp">Fotos</div>
+      <div class="photos full">${Object.entries(PH).map(([k, l]) => `<label class="ph ${it.photos[k] ? 'has' : ''}">${it.thumbs[k] ? `<img src="${it.thumbs[k]}" alt="">` : `<span class="ico">${it.photos[k] ? '✓' : '+'}</span>`}<span>${esc(l)}</span>
+        <input type="file" accept="image/*" capture="environment" data-photo="${k}"></label>`).join('')}</div>
+    </div>
+    <div class="liveside"></div></div></div>`;
+}
+
+function live(it) {
+  const [score, miss] = GEngine.completeness(it);
+  const t = GEngine.triage(it), v = t.verdict;
+  const col = score >= 85 ? '--ok' : score >= 60 ? '--dev' : '--bad';
+  let h = `<div class="live"><div class="ring" style="--p:${score};--c:var(${col})"><b>${score}%</b></div>
+    <div><div style="font-weight:700">Komplethed</div><div>${triageBadge(t.triage)}</div></div></div>`;
+  if (miss.length) h += `<details class="more" ${score < 70 ? 'open' : ''}><summary>Mangler (${miss.length})</summary><ul class="miss">${miss.map(m => `<li>${esc(m)}</li>`).join('')}</ul></details>`;
+  h += `<div class="verdict sec">${verdictHTML(v, {nodisc: true, noalt: v.status === 'TESTET', nochecks: v.status === 'TESTET'})}</div>`;
+  return {html: h, t};
+}
+
+function payload(it) { const {uid, thumbs, ...rest} = it; return rest; }
+
+function render() {
+  $('#items').innerHTML = items.map(itemHTML).join('');
+  $$('.item').forEach(el => wire(el));
+  items.forEach(it => update(it));
+  summary();
+}
+function update(it) {
+  const el = $(`.item[data-uid="${it.uid}"]`); if (!el) return;
+  el.querySelector('.liveside').innerHTML = live(payload(it)).html;
+}
+function setPath(it, k, val) {
+  if (k === 'title' || k === 'quantity') { it[k] = k === 'quantity' ? Math.max(1, +val || 1) : val; return false; }
+  if (k.startsWith('ap.')) { const ap = it.aperture_mm || [null, null]; ap[+k[3]] = val === '' ? null : +val; it.aperture_mm = ap[0] && ap[1] ? ap : (ap[0] || ap[1] ? ap : null);
+    if (it.aperture_mm && !(it.aperture_mm[0] && it.aperture_mm[1])) { it._ap = it.aperture_mm; it.aperture_mm = null; } return false; }
+  if (k.startsWith('ins.')) {
+    const f = k.slice(4); let ins = it.service.insulation === 'none' ? {category: 'none'} : {...it.service.insulation};
+    ins[f] = f === 'thickness_mm' ? (val === '' ? null : +val) : val;
+    it.service.insulation = ins.category === 'none' ? 'none' : ins; return f === 'category';
+  }
+  const [g, f] = k.split('.');
+  const numeric = ['thickness_mm', 'ei_required', 'od_mm', 'wall_mm', 'bundle_mm'].includes(f);
+  it[g][f] = f === 'hollow_core' ? val : numeric ? (val === '' ? null : +val) : (val === '' ? null : val);
+  return ['kind'].includes(f);
+}
+function wire(el) {
+  const it = items.find(x => x.uid === +el.dataset.uid);
+  el.querySelectorAll('[data-k]').forEach(inp => {
+    inp.addEventListener(inp.tagName === 'SELECT' || inp.type === 'checkbox' ? 'change' : 'input', () => {
+      const k = inp.dataset.k;
+      let ap = it.aperture_mm || it._ap;
+      if (k.startsWith('ap.')) { ap = (ap || [null, null]).slice(); ap[+k[3]] = inp.value === '' ? null : +inp.value; it._ap = ap; it.aperture_mm = ap[0] && ap[1] ? ap : null; update(it); summary(); save(); return; }
+      const rerender = setPath(it, k, inp.type === 'checkbox' ? inp.checked : inp.value);
+      if (rerender) { render(); } else { update(it); summary(); }
+      save();
+    });
+  });
+  el.querySelectorAll('[data-photo]').forEach(inp => inp.onchange = () => {
+    const f = inp.files[0]; if (!f) return;
+    const k = inp.dataset.photo, img = new Image();
+    img.onload = () => { const c = document.createElement('canvas'), s = 96 / Math.max(img.width, img.height); c.width = img.width * s; c.height = img.height * s;
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); it.thumbs[k] = c.toDataURL('image/jpeg', .7); it.photos[k] = true; URL.revokeObjectURL(img.src); render(); save(); };
+    img.src = URL.createObjectURL(f);
+  });
+  const del = el.querySelector('[data-del]'); if (del) del.onclick = () => { items = items.filter(x => x !== it); render(); save(); };
+}
+const project = () => ({address: $('#p_address').value, building_type: $('#p_type').value, timeline: $('#p_timeline').value, role: $('#p_role').value});
+const customer = () => ({company: $('#p_company').value, contact: $('#p_contact').value, email: $('#p_email').value, phone: $('#p_phone').value});
+function summary() {
+  const res = items.map(it => GEngine.triage(payload(it)));
+  const region = GEngine.regionFor($('#p_address').value);
+  const days = SLA[$('#p_timeline').value] || 10, due = new Date(Date.now() + days * 864e5);
+  const n = k => res.filter(r => r.triage === k).length;
+  const avg = res.length ? Math.round(res.reduce((a, r) => a + r.completeness, 0) / res.length) : 0;
+  const needs = res.some(r => r.triage === 'TIL_VURDERING' || r.triage === 'MANGLER_INFO');
+  $('#sum').innerHTML = [['Gennemføringstyper', items.length], ['Gns. komplethed', avg + ' %'], ['Besvaret med testet løsning', n('BESVARET_TESTET')],
+    ['Til vurdering', n('TIL_VURDERING')], ['Mangler oplysninger', n('MANGLER_INFO')], ['Andet system', n('ANDET_SYSTEM')],
+    ['Fordeles til', `${region} · ${OFFICE[region]}`], ['Svarfrist (mål)', due.toLocaleDateString('da-DK')],
+    ['Rådgiver nødvendig', needs ? 'ja' : 'nej, alt er testet']].map(([a, b]) => `<div class="line"><span>${a}</span><b>${esc(b)}</b></div>`).join('');
+}
+function save() { store.set('draft', {items: items.map(it => ({...it, thumbs: {}})), customer: customer(), project: project()}); }
+
+async function submit() {
+  if (!items.length) return;
+  const all = await GF.load('cases').then(([c]) => c);
+  const local = store.get('inbox', []);
+  const maxNo = Math.max(...[...all, ...local].map(c => +c.id.split('-')[2]));
+  const now = new Date(); now.setMilliseconds(0);
+  const timeline = $('#p_timeline').value, region = GEngine.regionFor($('#p_address').value);
+  const its = items.map((it, i) => { const p = payload(it); const t = GEngine.triage(p); delete p._ap;
+    return {...p, title: p.title || `Gennemføring ${i + 1}`, no: i + 1, completeness: t.completeness, missing: t.missing, verdict: t.verdict, triage: t.triage}; });
+  const needs = its.some(x => x.triage === 'TIL_VURDERING' || x.triage === 'MANGLER_INFO');
+  let status = needs ? 'MODTAGET' : 'BESVARET'; if (its.some(x => x.triage === 'MANGLER_INFO')) status = 'MANGLER_INFO';
+  const pad = n => String(n).padStart(2, '0');
+  const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const c = {id: `BV-${now.getFullYear()}-${String(maxNo + 1).padStart(4, '0')}`, created: iso(now) + 'T' + now.toTimeString().slice(0, 8),
+    due: iso(new Date(now.getTime() + (SLA[timeline] || 10) * 864e5)), region, office: OFFICE[region], customer: customer(), project: project(),
+    items: its, status, assignee: null, events: [], local: true};
+  c.status = 'MODTAGET';
+  await GF.appendEvent(c, 'kunde', 'forespørgsel_modtaget', {items: its.length}, S.kb.version);
+  if (status !== 'MODTAGET') { const from = c.status; c.status = status; await GF.appendEvent(c, 'system', `status:${from}->${status}`, {triage: its.map(x => x.triage)}, S.kb.version); }
+  local.push(c); store.set('inbox', local);
+  $('#rc').innerHTML = `<div class="eyebrow">Kvittering</div><h2 style="font-size:22px;margin:4px 0">Sag ${c.id} er oprettet</h2>
+    <div class="sub">${esc(c.customer.company || 'Ukendt virksomhed')} · ${esc(c.project.address || 'adresse mangler')} · fordelt til ${region} (${OFFICE[region]}) · mål for svar ${new Date(c.due).toLocaleDateString('da-DK')}</div>
+    <table class="t" style="margin-top:12px"><tr><th>#</th><th>Gennemføring</th><th>Komplethed</th><th>Næste skridt</th></tr>
+    ${its.map(x => `<tr><td>${x.no}</td><td>${esc(x.title)}<div class="note">${esc(GF.STATUS[x.verdict.status])}${x.verdict.matches[0] ? ' · ' + esc(x.verdict.matches[0].eta + ' ' + x.verdict.matches[0].section + ', s. ' + x.verdict.matches[0].page) : ''}</div></td><td>${x.completeness} %</td><td>${triageBadge(x.triage)}</td></tr>`).join('')}</table>
+    <p class="note">De testede løsninger kan bruges straks med betingelserne fra ETA'en. Gennemføringer til vurdering behandles af en rådgiver; mangler der oplysninger, står spørgsmålene ovenfor.</p>
+    <div class="act"><a class="btn pri" href="sager.html#${c.id}">Åbn sagen som rådgiver</a><button class="btn" onclick="window.print()">Udskriv</button><button class="btn" id="close">Luk</button></div>`;
+  $('#receipt').style.display = 'flex';
+  $('#close').onclick = () => { $('#receipt').style.display = 'none'; };
+}
+
+function example() {
+  $('#p_company').value = 'Eksempel VVS ApS'; $('#p_contact').value = 'Kontaktperson'; $('#p_email').value = 'kontakt@example.dk'; $('#p_phone').value = '00 00 00 00';
+  $('#p_address').value = 'Havnegade 2, 8000 Aarhus C'; $('#p_type').value = 'Bolig / etageejendom'; $('#p_timeline').value = 'Snarest muligt';
+  const ph = {hul: true, installation: true, konstruktion: true, oversigt: true};
+  items = [blank({title: 'Faldstamme PVC-U i huldæk', construction: {kind: 'rigid_floor', thickness_mm: 220, ei_required: 60, hollow_core: true},
+      service: {kind: 'pipe', material: 'PVC-U', od_mm: 110, wall_mm: 3.2, system: 'open', configuration: 'perpendicular', insulation: 'none'}, aperture_mm: [150, 150], quantity: 12, photos: {...ph}}),
+    blank({title: 'Afløb PP i dæk', construction: {kind: 'rigid_floor', thickness_mm: 220, ei_required: 60, hollow_core: true},
+      service: {kind: 'pipe', material: 'PP', od_mm: 75, wall_mm: 2.6, system: 'open', configuration: 'perpendicular', insulation: 'none'}, aperture_mm: [120, 120], quantity: 6, photos: {...ph}}),
+    blank({title: 'Brugsvand kobber i skaktvæg', construction: {kind: 'flexible_wall', thickness_mm: 100, ei_required: 60},
+      service: {kind: 'pipe', material: 'Kobber', od_mm: 22, wall_mm: 1.0, system: 'closed', configuration: 'perpendicular', insulation: {category: 'elastomer', product: 'Armaflex AF', thickness_mm: 13}},
+      aperture_mm: null, quantity: 8, photos: {hul: true, oversigt: true}})];
+  render(); save();
+}
+
+const d = store.get('draft', null);
+if (d && d.items && d.items.length) {
+  items = d.items.map(x => blank({...x, uid: undefined, thumbs: {}}));
+  Object.entries(d.customer || {}).forEach(([k, v]) => { const e = $('#p_' + k); if (e) e.value = v; });
+  [['address', 'p_address'], ['building_type', 'p_type'], ['timeline', 'p_timeline'], ['role', 'p_role']].forEach(([k, id]) => { if (d.project && d.project[k]) $('#' + id).value = d.project[k]; });
+} else items = [blank()];
+items.forEach(x => { if (!x.uid) x.uid = ++seq; });
+render();
+$('#add').onclick = () => { items.push(blank()); render(); save(); };
+$('#example').onclick = example;
+$('#submit').onclick = submit;
+$$('#proj input,#proj select').forEach(e => e.addEventListener('input', () => { summary(); save(); }));
+window.F = {example, submit, items: () => items};
+})();
+</script>
+</body>
+</html>

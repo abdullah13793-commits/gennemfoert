@@ -9,6 +9,7 @@ from ETA-21/0110 (the answer key in models/planted.json, written by hand from th
 python -m gennemfoert.model  ->  models/blok_c_vvs.ifc, models/planted.json
 """
 import json
+import uuid
 from pathlib import Path
 
 import ifcopenshell.api as api
@@ -108,7 +109,7 @@ class B:
         self.planted = []
         self.n = 0
 
-    def wall(self, storey, name, x0, y0, x1, y1, z0, z1, rating, mat, kind):
+    def wall(self, storey, name, x0, y0, x1, y1, z0, z1, rating, mat, kind, seed=None):
         props = {"LoadBearing": mat.startswith("Beton"), "IsExternal": False}
         if rating:
             props["FireRating"] = rating
@@ -116,15 +117,17 @@ class B:
                     psets={"Pset_WallCommon": props}, predefined="SOLIDWALL" if mat.startswith("Beton") else "PARTITIONING")
         ifcw.assign_material(self.f, w, mat)
         w.Description = kind
+        w.GlobalId = gid(seed or f"wall/{storey}/{x0:.3f}/{y0:.3f}")
         return w
 
     def slab(self, storey, z, x0=0.0, x1=36.0):
         s = element(self.f, "IfcSlab", f"Huldæk 220 over {storey}", [box_solid(self.f, x0, 0, z - SLAB, x1, 12, z)],
                     self.st[storey], psets={"Pset_SlabCommon": {"FireRating": "REI 60", "LoadBearing": True}}, predefined="FLOOR")
         ifcw.assign_material(self.f, s, "Beton, huldæk 220 mm")
+        s.GlobalId = gid(f"slab/{storey}")
         return s
 
-    def service(self, key, storey, p0, axis, length, host, host_kind, center, size, tag):
+    def service(self, key, storey, p0, axis, length, host, host_kind, center, size, tag, seed=None):
         """One straight segment through one host, with its insulation and the architect's opening."""
         f, s = self.f, SERVICES[key]
         self.n += 1
@@ -143,6 +146,7 @@ class B:
             solid = cyl_solid(f, p0, axis, length, r, inner if s["cls"] != "IfcDuctSegment" else 0.0006)
             pre = {"IfcPipeSegment": "RIGIDSEGMENT", "IfcDuctSegment": "RIGIDSEGMENT", "IfcCableSegment": "CABLESEGMENT"}[s["cls"]]
         el = element(f, s["cls"], f"{s['name']} ({tag})", [solid], self.st[storey], predefined=pre)
+        el.GlobalId = gid(seed or f"svc/{key}/{tag}")
         if s["cls"] == "IfcPipeSegment":
             props = {"OuterDiameter": s["od"] / 1000, "NominalDiameter": s["od"] / 1000}
             if s.get("wall"):
@@ -179,12 +183,20 @@ class B:
         return el
 
 
+def gid(seed):
+    """Stable GlobalId from a seed, so unchanged elements keep their id across model revisions."""
+    import ifcopenshell.guid
+    return ifcopenshell.guid.compress(uuid.uuid5(uuid.NAMESPACE_URL, "blok-c/" + seed).hex)
+
+
 def ifcopenshell_guid():
     import ifcopenshell.guid
     return ifcopenshell.guid.new()
 
 
-def build(out=ROOT / "models" / "blok_c_vvs.ifc"):
+def build(out=ROOT / "models" / "blok_c_vvs.ifc", rev="A"):
+    """rev "B": the B1 stack gets 110x3.4 drains, the A2 radiator branch is replaced by a water branch, and the party wall
+    on the ground floor (west) is upgraded to EI 90."""
     b = B()
     f = b.f
     slabs = {n: b.slab(n, z + 3.0) for n, z in LEVELS[:-1]}           # deck above each storey (below the next)
@@ -201,7 +213,8 @@ def build(out=ROOT / "models" / "blok_c_vvs.ifc"):
             walls[(n, "let")] = b.wall(n, "Let skillevæg (ikke brandklassificeret)", 29.95, 0, 30.05, 12, z0, z1, None,
                                        "Gips på stålskelet", "flexible")
         else:
-            walls[(n, "lejl_v")] = b.wall(n, "Lejlighedsskel, beton 180", 7.91, 0, 8.09, 12, z0, z1, "EI 60", "Beton", "rigid")
+            party = "EI 90" if rev == "B" and n == "Stueetage" else "EI 60"
+            walls[(n, "lejl_v")] = b.wall(n, "Lejlighedsskel, beton 180", 7.91, 0, 8.09, 12, z0, z1, party, "Beton", "rigid")
             walls[(n, "lejl_ø")] = b.wall(n, "Lejlighedsskel, beton 180", 27.91, 0, 28.09, 12, z0, z1, "EI 60", "Beton", "rigid")
         # shaft walls (north face of each shaft, where the branches leave)
         for sx, tag in ((6.2, "A1"), (9.8, "A2"), (26.2, "B1"), (29.8, "B2")):
@@ -211,17 +224,18 @@ def build(out=ROOT / "models" / "blok_c_vvs.ifc"):
     # risers through every deck, per shaft
     stacks = {"A1": (6.2, ["afl110_34", "kv22_kaiflex", "vb42_stenuld"]),
               "A2": (9.8, ["afl110_34", "kv22_kaiflex", "vb42_stenuld"]),
-              "B1": (26.2, ["afl110_32", "kv22_armaflex", "vv28_stenuld"]),
+              "B1": (26.2, ["afl110_34" if rev == "B" else "afl110_32", "kv22_armaflex", "vv28_stenuld"]),
               "B2": (29.8, ["pp75", "kv22_kaiflex", "vb42_stenuld"])}
     for tag, (sx, keys) in stacks.items():
         for k, key in enumerate(keys):
             x, y = sx - 0.45 + 0.45 * k, 6.0
             for n, z in LEVELS[:-1]:
                 top = z + 3.0
-                b.service(key, n, (x, y, z + 0.05), (0, 0, 1), 3.05, slabs[n], "floor", (x, y, top), (220, 220), f"{tag}, dæk over {n}")
+                b.service(key, n, (x, y, z + 0.05), (0, 0, 1), 3.05, slabs[n], "floor", (x, y, top), (220, 220), f"{tag}, dæk over {n}",
+                          seed=f"stack/{tag}/{k}/{n}")
     # branches through the shaft walls (north, +y)
     branches = {"A1": [("pp50", LEVELS[1:]), ("kv15_kaiflex", LEVELS[1:])],
-                "A2": [("vb28_stenuld", LEVELS[1:2]), ("kanal160", LEVELS[1:2])],
+                "A2": [("kv15_kaiflex" if rev == "B" else "vb28_stenuld", LEVELS[1:2]), ("kanal160", LEVELS[1:2])],
                 "B1": [("kv15_kaiflex", LEVELS[2:3]), ("uden_data", LEVELS[2:3])]}
     for tag, items in branches.items():
         sx = dict((t, v[0]) for t, v in stacks.items())[tag]
@@ -249,7 +263,7 @@ def build(out=ROOT / "models" / "blok_c_vvs.ifc"):
     b.planted[-1].update(status="IKKE_BRANDADSKILLENDE")
     out.parent.mkdir(parents=True, exist_ok=True)
     f.write(str(out))
-    (out.parent / "planted.json").write_text(json.dumps(b.planted, indent=1, ensure_ascii=False), encoding="utf-8")
+    (out.parent / ("planted.json" if rev == "A" else f"planted_rev{rev}.json")).write_text(json.dumps(b.planted, indent=1, ensure_ascii=False), encoding="utf-8")
     return f, b.planted
 
 

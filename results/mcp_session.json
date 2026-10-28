@@ -3,10 +3,18 @@
  "tools": [
   "check_penetration",
   "export_documents",
+  "find_precedents",
+  "get_case",
   "get_penetration",
+  "knowledge_base",
+  "list_cases",
   "list_penetrations",
+  "precheck_enquiry",
   "project_overview",
-  "search_eta"
+  "quote_project",
+  "revision_impact",
+  "search_eta",
+  "verify_assessment"
  ],
  "overview": {
   "project": "Blok C, etageboliger (fictitious demonstration model)",
@@ -14,16 +22,12 @@
   "penetrations": 58,
   "status": {
    "TESTET": {
-    "count": 36,
+    "count": 39,
     "text": "Testet løsning"
    },
    "AFVIGELSE": {
     "count": 17,
     "text": "Afvigelse: brandteknisk vurdering"
-   },
-   "IKKE_DAEKKET": {
-    "count": 3,
-    "text": "Ingen testet løsning i ETA'en"
    },
    "ANDET_SYSTEM": {
     "count": 1,
@@ -34,14 +38,26 @@
     "text": "Mangler data"
    }
   },
+  "solution_systems": {
+   "Multimastic C": 30,
+   "Multicollar Slim": 9
+  },
+  "site": {
+   "documented": 27,
+   "inspected": 24,
+   "remarks": 3
+  },
   "unrated_crossings_ignored": 1,
-  "eta": "ETA-21/0110 Mulcol Multimastic C System",
+  "knowledge_base": "ETA-21/0110 + ETA-20/1322",
   "outputs": [
    "out/Gennemfoeringsregister.xlsx",
    "out/Gennemfoeringsregister.pdf (with QR site labels)",
    "out/Gennemfoert_afvigelser.bcfzip",
    "out/blok_c_vvs_gennemfoert.ifc",
-   "out/vurderinger/*.docx"
+   "out/vurderinger/*.docx",
+   "out/udstedte_vurderinger/*.pdf",
+   "out/Dokumentationspakke_bygherre.pdf",
+   "out/Dokumentation_brandtaetninger.csv"
   ]
  },
  "dev": [
@@ -52,14 +68,6 @@
    "construction": "Teknikrumsvæg, beton 150 (EI 60)",
    "status": "AFVIGELSE",
    "solution": "Nærmeste testede: ETA-21/0110 A.3.5 (s. 35), afviger på: diameter"
-  },
-  {
-   "id": "G-K-13",
-   "storey": "Kælder",
-   "service": "PVC-U Ø110x3,2",
-   "construction": "Huldæk 220 over Kælder (REI 60)",
-   "status": "AFVIGELSE",
-   "solution": "Nærmeste testede: ETA-21/0110 A.4.5 (s. 52), afviger på: godstykkelse"
   },
   {
    "id": "G-K-14",
@@ -78,6 +86,14 @@
    "solution": "Nærmeste testede: ETA-21/0110 A.4.4 (s. 48), afviger på: isoleringstykkelse, klassifikation"
   },
   {
+   "id": "G-K-16",
+   "storey": "Kælder",
+   "service": "PP Ø75x2,6",
+   "construction": "Huldæk 220 over Kælder (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-20/1322 B.1.1.1 (s. 154), afviger på: godstykkelse"
+  },
+  {
    "id": "G-ST-02",
    "storey": "Stueetage",
    "service": "PP Ø50x1,8",
@@ -92,14 +108,6 @@
    "construction": "Skaktvæg A2, gips på stålskelet 100 (EI 60)",
    "status": "AFVIGELSE",
    "solution": "Nærmeste testede: ETA-21/0110 A.1.5 (s. 15), afviger på: diameter"
-  },
-  {
-   "id": "G-ST-14",
-   "storey": "Stueetage",
-   "service": "PVC-U Ø110x3,2",
-   "construction": "Huldæk 220 over Stueetage (REI 60)",
-   "status": "AFVIGELSE",
-   "solution": "Nærmeste testede: ETA-21/0110 A.4.5 (s. 52), afviger på: godstykkelse"
   },
   {
    "id": "G-ST-15",
@@ -118,6 +126,14 @@
    "solution": "Nærmeste testede: ETA-21/0110 A.4.4 (s. 48), afviger på: isoleringstykkelse, klassifikation"
   },
   {
+   "id": "G-ST-17",
+   "storey": "Stueetage",
+   "service": "PP Ø75x2,6",
+   "construction": "Huldæk 220 over Stueetage (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-20/1322 B.1.1.1 (s. 154), afviger på: godstykkelse"
+  },
+  {
    "id": "G-1-02",
    "storey": "1. sal",
    "service": "PP Ø50x1,8",
@@ -134,14 +150,6 @@
    "solution": "Nærmeste testede: ETA-21/0110 A.1.2 (s. 10), afviger på: diameter"
   },
   {
-   "id": "G-1-10",
-   "storey": "1. sal",
-   "service": "PVC-U Ø110x3,2",
-   "construction": "Huldæk 220 over 1. sal (REI 60)",
-   "status": "AFVIGELSE",
-   "solution": "Nærmeste testede: ETA-21/0110 A.4.5 (s. 52), afviger på: godstykkelse"
-  },
-  {
    "id": "G-1-12",
    "storey": "1. sal",
    "service": "Kobber Ø22x1, Armaflex AF 13 mm",
@@ -156,6 +164,14 @@
    "construction": "Huldæk 220 over 1. sal (REI 60)",
    "status": "AFVIGELSE",
    "solution": "Nærmeste testede: ETA-21/0110 A.4.4 (s. 48), afviger på: isoleringstykkelse, klassifikation"
+  },
+  {
+   "id": "G-1-15",
+   "storey": "1. sal",
+   "service": "PP Ø75x2,6",
+   "construction": "Huldæk 220 over 1. sal (REI 60)",
+   "status": "AFVIGELSE",
+   "solution": "Nærmeste testede: ETA-20/1322 B.1.1.1 (s. 154), afviger på: godstykkelse"
   },
   {
    "id": "G-2-01",
@@ -199,8 +215,8 @@
   ],
   "separation_to_next_seal_mm": 1480,
   "ifc": {
-   "service_guid": "03BeLseen8xQ686xqtsLjH",
-   "construction_guid": "1CKvBajmX9zONoGt7YY9pK"
+   "service_guid": "3yYmf7SbbO5fUj5tWq8D4P",
+   "construction_guid": "3Kx1rMpP1Ojfv2Av_o5Elk"
   },
   "status": "AFVIGELSE",
   "status_text": "Afvigelse: brandteknisk vurdering",
@@ -209,6 +225,7 @@
   "nearest_tested": [
    {
     "eta": "ETA-21/0110",
+    "system": "Multimastic C",
     "section": "A.3.5",
     "page": 35,
     "service": "PVC-U pipe up to 160 mm / 4.0-9.5 mm wall thickness",
@@ -216,6 +233,8 @@
     "insulation": "None",
     "board": "FB2 2x60 mm",
     "wrap": "50 X 10.8 mm (6 layers) Either side of the wall",
+    "configuration": "perpendicular",
+    "collars_per_face": null,
     "deviates": [
      "diameter"
     ],
@@ -285,6 +304,7 @@
    },
    {
     "eta": "ETA-21/0110",
+    "system": "Multimastic C",
     "section": "A.3.5",
     "page": 35,
     "service": "PVC-U pipe up to 125 mm / 4.7-7.4 mm wall thickness",
@@ -292,6 +312,8 @@
     "insulation": "None",
     "board": "FB2 2x60 mm",
     "wrap": "50 X 7.2 mm (4 layers) Either side of the wall",
+    "configuration": "perpendicular",
+    "collars_per_face": null,
     "deviates": [
      "diameter"
     ],
@@ -362,17 +384,19 @@
   ],
   "tested_alternatives": [],
   "conditions": [
-   "Installationer i væg understøttes 270 mm og 470 mm fra begge sider af væggen (ETA afsnit 2, pkt. 6)."
+   "Installationer i væg understøttes 270 mm og 470 mm fra begge sider af væggen (ETA-21/0110 afsnit 2, pkt. 6)."
   ],
   "questions": [],
-  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person.",
+  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person.",
+  "site": null,
   "draft_assessment": "out/vurderinger/GV-01_G-K-10.docx"
  },
- "check_ok": {
+ "check_board": {
   "query": {
    "host_kind": "rigid_floor",
    "thickness_mm": 200.0,
    "ei_required": 60,
+   "hollow_core": false,
    "service_kind": "pipe",
    "material": "pvc-u",
    "od_mm": 110.0,
@@ -381,21 +405,24 @@
    "insulation": {
     "type": "none"
    },
-   "hollow_core": false
+   "configuration": "perpendicular"
   },
   "status": "TESTET",
   "status_text": "Testet løsning",
   "action": "Udfør som testet. Følg betingelserne og dokumentér med foto.",
   "tested_solutions": [
    {
-    "eta": "ETA-21/0110",
-    "section": "A.4.5",
-    "page": 52,
-    "service": "PVC-U pipe according to EN 1329-1, EN 1452 and EN 1453-1** 110 mm / 3.4 mm wall thickness.",
-    "classification": "EI 90 U/C",
+    "eta": "ETA-20/1322",
+    "system": "Multicollar Slim",
+    "section": "B.1.1.1",
+    "page": 155,
+    "service": "PVC-U / PVC-C Ø ≤ 110 mm / 2.2-8.2 mm",
+    "classification": "EI 120 U/U",
     "insulation": "None",
-    "board": "FB2 1x60 mm",
-    "wrap": "50 x 3.6 mm (2 layers) Centrally fitted",
+    "board": null,
+    "wrap": null,
+    "configuration": "perpendicular",
+    "collars_per_face": 1,
     "deviates": [],
     "checks": [
      {
@@ -411,15 +438,21 @@
       "ok": true
      },
      {
+      "parameter": "monteringssituation",
+      "designed": "vinkelret, almindelig",
+      "tested": "vinkelret, almindelig",
+      "ok": true
+     },
+     {
       "parameter": "diameter",
       "designed": "Ø 110 mm",
-      "tested": "Ø 110 mm",
+      "tested": "Ø ≤ 110 mm",
       "ok": true
      },
      {
       "parameter": "godstykkelse",
       "designed": "3.4 mm",
-      "tested": "3.4 mm",
+      "tested": "2.2-8.2 mm",
       "ok": true
      },
      {
@@ -431,62 +464,31 @@
      {
       "parameter": "klassifikation",
       "designed": "EI 60 krævet",
-      "tested": "EI 90 U/C",
+      "tested": "EI 120 U/U",
       "ok": true
      },
      {
       "parameter": "rørende",
       "designed": "U/C",
-      "tested": "U/C",
+      "tested": "U/U",
       "ok": true,
       "note": "åbent system (afløb/ventilation)"
      }
     ]
-   }
-  ],
-  "nearest_tested": [],
-  "tested_alternatives": [],
-  "conditions": [
-   "Mulcol Multiwrap: 50 x 3.6 mm (2 layers) Centrally fitted (A.4.5).",
-   "Tætning: Multimastic FB2 1x60 mm, Multimastic C (≤ 1 mm) og Multimastic SP i kanten (A.4.5, s. 52).",
-   "Installationer i dæk understøttes 250 mm og 400 mm fra dækkets overside (ETA afsnit 2, pkt. 6)."
-  ],
-  "questions": [],
-  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
- },
- "check_dev": {
-  "query": {
-   "host_kind": "rigid_floor",
-   "thickness_mm": 200.0,
-   "ei_required": 60,
-   "service_kind": "pipe",
-   "material": "pvc-u",
-   "od_mm": 125.0,
-   "wall_mm": 3.9,
-   "open_system": true,
-   "insulation": {
-    "type": "none"
    },
-   "hollow_core": false
-  },
-  "status": "AFVIGELSE",
-  "status_text": "Afvigelse: brandteknisk vurdering",
-  "action": "Brandteknisk vurdering af afvigelsen, eller ændr til den testede/alternative løsning.",
-  "tested_solutions": [],
-  "nearest_tested": [
    {
-    "eta": "ETA-21/0110",
-    "section": "A.4.5",
-    "page": 52,
-    "service": "PVC-U pipe according to EN 1329-1, EN 1452 and EN 1453-1** 110 mm / 3.4 mm wall thickness.",
-    "classification": "EI 90 U/C",
+    "eta": "ETA-20/1322",
+    "system": "Multicollar Slim",
+    "section": "B.1.1.1",
+    "page": 154,
+    "service": "PE-HD / PE / ABS / SAN+PVC Ø ≤ 110 mm / 2.7-6.6 mm",
+    "classification": "EI 90 U/U",
     "insulation": "None",
-    "board": "FB2 1x60 mm",
-    "wrap": "50 x 3.6 mm (2 layers) Centrally fitted",
-    "deviates": [
-     "diameter",
-     "godstykkelse"
-    ],
+    "board": null,
+    "wrap": null,
+    "configuration": "perpendicular",
+    "collars_per_face": 1,
+    "deviates": [],
     "checks": [
      {
       "parameter": "konstruktion",
@@ -501,15 +503,476 @@
       "ok": true
      },
      {
+      "parameter": "monteringssituation",
+      "designed": "vinkelret, almindelig",
+      "tested": "vinkelret, almindelig",
+      "ok": true
+     },
+     {
       "parameter": "diameter",
-      "designed": "Ø 125 mm",
-      "tested": "Ø 110 mm",
-      "ok": false
+      "designed": "Ø 110 mm",
+      "tested": "Ø ≤ 110 mm",
+      "ok": true
      },
      {
       "parameter": "godstykkelse",
-      "designed": "3.9 mm",
-      "tested": "3.4 mm",
+      "designed": "3.4 mm",
+      "tested": "2.7-6.6 mm",
+      "ok": true
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 90 U/U",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/U",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     }
+    ]
+   },
+   {
+    "eta": "ETA-20/1322",
+    "system": "Multicollar Slim",
+    "section": "B.1.1.1",
+    "page": 155,
+    "service": "PVC-U / PVC-C Ø ≤ 125 mm / 2.5-4.8 mm",
+    "classification": "EI 60 U/U",
+    "insulation": "None",
+    "board": null,
+    "wrap": null,
+    "configuration": "perpendicular",
+    "collars_per_face": 1,
+    "deviates": [],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massivt dæk",
+      "tested": "massivt dæk",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "200 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "monteringssituation",
+      "designed": "vinkelret, almindelig",
+      "tested": "vinkelret, almindelig",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 110 mm",
+      "tested": "Ø ≤ 125 mm",
+      "ok": true
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "3.4 mm",
+      "tested": "2.5-4.8 mm",
+      "ok": true
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 60 U/U",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/U",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     }
+    ]
+   }
+  ],
+  "nearest_tested": [],
+  "tested_alternatives": [],
+  "conditions": [
+   "Multicollar Slim: 1 manchet pr. side på undersiden af dækket, 3 Multiclips pr. manchet (ETA-20/1322 B.1.1.1, s. 155; afsnit 1, pkt. 5).",
+   "Installationer understøttes højst 450 mm fra væggens begge sider / dækkets overside; min. 10 mm fra manchettens stålbånd til tilstødende konstruktion (ETA-20/1322 afsnit 1, pkt. 3 og afsnit 2, pkt. 3)."
+  ],
+  "questions": [],
+  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+ },
+ "check_collar": {
+  "query": {
+   "host_kind": "rigid_floor",
+   "thickness_mm": 200.0,
+   "ei_required": 60,
+   "hollow_core": false,
+   "service_kind": "pipe",
+   "material": "pvc-u",
+   "od_mm": 110.0,
+   "wall_mm": 3.2,
+   "open_system": true,
+   "insulation": {
+    "type": "none"
+   },
+   "configuration": "perpendicular"
+  },
+  "status": "TESTET",
+  "status_text": "Testet løsning",
+  "action": "Udfør som testet. Følg betingelserne og dokumentér med foto.",
+  "tested_solutions": [
+   {
+    "eta": "ETA-20/1322",
+    "system": "Multicollar Slim",
+    "section": "B.1.1.1",
+    "page": 155,
+    "service": "PVC-U / PVC-C Ø ≤ 110 mm / 2.2-8.2 mm",
+    "classification": "EI 120 U/U",
+    "insulation": "None",
+    "board": null,
+    "wrap": null,
+    "configuration": "perpendicular",
+    "collars_per_face": 1,
+    "deviates": [],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massivt dæk",
+      "tested": "massivt dæk",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "200 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "monteringssituation",
+      "designed": "vinkelret, almindelig",
+      "tested": "vinkelret, almindelig",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 110 mm",
+      "tested": "Ø ≤ 110 mm",
+      "ok": true
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "3.2 mm",
+      "tested": "2.2-8.2 mm",
+      "ok": true
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 120 U/U",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/U",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     }
+    ]
+   },
+   {
+    "eta": "ETA-20/1322",
+    "system": "Multicollar Slim",
+    "section": "B.1.1.1",
+    "page": 154,
+    "service": "PE-HD / PE / ABS / SAN+PVC Ø ≤ 110 mm / 2.7-6.6 mm",
+    "classification": "EI 90 U/U",
+    "insulation": "None",
+    "board": null,
+    "wrap": null,
+    "configuration": "perpendicular",
+    "collars_per_face": 1,
+    "deviates": [],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massivt dæk",
+      "tested": "massivt dæk",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "200 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "monteringssituation",
+      "designed": "vinkelret, almindelig",
+      "tested": "vinkelret, almindelig",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 110 mm",
+      "tested": "Ø ≤ 110 mm",
+      "ok": true
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "3.2 mm",
+      "tested": "2.7-6.6 mm",
+      "ok": true
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 90 U/U",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/U",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     }
+    ]
+   },
+   {
+    "eta": "ETA-20/1322",
+    "system": "Multicollar Slim",
+    "section": "B.1.1.1",
+    "page": 155,
+    "service": "PVC-U / PVC-C Ø ≤ 125 mm / 2.5-4.8 mm",
+    "classification": "EI 60 U/U",
+    "insulation": "None",
+    "board": null,
+    "wrap": null,
+    "configuration": "perpendicular",
+    "collars_per_face": 1,
+    "deviates": [],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massivt dæk",
+      "tested": "massivt dæk",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "200 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "monteringssituation",
+      "designed": "vinkelret, almindelig",
+      "tested": "vinkelret, almindelig",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 110 mm",
+      "tested": "Ø ≤ 125 mm",
+      "ok": true
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "3.2 mm",
+      "tested": "2.5-4.8 mm",
+      "ok": true
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 60 U/U",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/U",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     }
+    ]
+   }
+  ],
+  "nearest_tested": [],
+  "tested_alternatives": [],
+  "conditions": [
+   "Multicollar Slim: 1 manchet pr. side på undersiden af dækket, 3 Multiclips pr. manchet (ETA-20/1322 B.1.1.1, s. 155; afsnit 1, pkt. 5).",
+   "Installationer understøttes højst 450 mm fra væggens begge sider / dækkets overside; min. 10 mm fra manchettens stålbånd til tilstødende konstruktion (ETA-20/1322 afsnit 1, pkt. 3 og afsnit 2, pkt. 3)."
+  ],
+  "questions": [],
+  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+ },
+ "check_dev": {
+  "query": {
+   "host_kind": "rigid_floor",
+   "thickness_mm": 150.0,
+   "ei_required": 60,
+   "hollow_core": false,
+   "service_kind": "pipe",
+   "material": "pp",
+   "od_mm": 75.0,
+   "wall_mm": 2.6,
+   "open_system": true,
+   "insulation": {
+    "type": "none"
+   },
+   "configuration": "perpendicular"
+  },
+  "status": "AFVIGELSE",
+  "status_text": "Afvigelse: brandteknisk vurdering",
+  "action": "Brandteknisk vurdering af afvigelsen, eller ændr til den testede/alternative løsning.",
+  "tested_solutions": [],
+  "nearest_tested": [
+   {
+    "eta": "ETA-20/1322",
+    "system": "Multicollar Slim",
+    "section": "B.1.1.1",
+    "page": 154,
+    "service": "PP Ø ≤ 110 mm / 2.7-6.3 mm",
+    "classification": "EI 90 U/U",
+    "insulation": "None",
+    "board": null,
+    "wrap": null,
+    "configuration": "perpendicular",
+    "collars_per_face": 1,
+    "deviates": [
+     "godstykkelse"
+    ],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massivt dæk",
+      "tested": "massivt dæk",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "150 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "monteringssituation",
+      "designed": "vinkelret, almindelig",
+      "tested": "vinkelret, almindelig",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 75 mm",
+      "tested": "Ø ≤ 110 mm",
+      "ok": true
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "2.6 mm",
+      "tested": "2.7-6.3 mm",
+      "ok": false
+     },
+     {
+      "parameter": "isoleringstype",
+      "designed": "ingen",
+      "tested": "ingen",
+      "ok": true
+     },
+     {
+      "parameter": "klassifikation",
+      "designed": "EI 60 krævet",
+      "tested": "EI 90 U/U",
+      "ok": true
+     },
+     {
+      "parameter": "rørende",
+      "designed": "U/C",
+      "tested": "U/U",
+      "ok": true,
+      "note": "åbent system (afløb/ventilation)"
+     }
+    ]
+   },
+   {
+    "eta": "ETA-20/1322",
+    "system": "Multicollar Slim",
+    "section": "B.1.1.1",
+    "page": 154,
+    "service": "PP Ø ≤ 110 mm / 2.7-14.6 mm",
+    "classification": "EI 90 U/C",
+    "insulation": "None",
+    "board": null,
+    "wrap": null,
+    "configuration": "perpendicular",
+    "collars_per_face": 1,
+    "deviates": [
+     "godstykkelse"
+    ],
+    "checks": [
+     {
+      "parameter": "konstruktion",
+      "designed": "massivt dæk",
+      "tested": "massivt dæk",
+      "ok": true
+     },
+     {
+      "parameter": "tykkelse",
+      "designed": "150 mm",
+      "tested": "≥ 150 mm",
+      "ok": true
+     },
+     {
+      "parameter": "monteringssituation",
+      "designed": "vinkelret, almindelig",
+      "tested": "vinkelret, almindelig",
+      "ok": true
+     },
+     {
+      "parameter": "diameter",
+      "designed": "Ø 75 mm",
+      "tested": "Ø ≤ 110 mm",
+      "ok": true
+     },
+     {
+      "parameter": "godstykkelse",
+      "designed": "2.6 mm",
+      "tested": "2.7-14.6 mm",
       "ok": false
      },
      {
@@ -536,57 +999,1638 @@
   ],
   "tested_alternatives": [],
   "conditions": [
-   "Installationer i dæk understøttes 250 mm og 400 mm fra dækkets overside (ETA afsnit 2, pkt. 6)."
+   "Installationer understøttes højst 450 mm fra væggens begge sider / dækkets overside (ETA-20/1322 afsnit 1, pkt. 3)."
   ],
   "questions": [],
-  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+  "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+ },
+ "prec": {
+  "status": "AFVIGELSE",
+  "nearest_tested": {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.1.1.1",
+   "page": 17,
+   "service": "PP Ø ≤ 110 mm / 2.7-6.3 mm",
+   "classification": "EI 120 U/U",
+   "insulation": "None",
+   "board": null,
+   "wrap": null,
+   "configuration": "perpendicular",
+   "collars_per_face": 1,
+   "deviates": [
+    "godstykkelse"
+   ],
+   "checks": [
+    {
+     "parameter": "konstruktion",
+     "designed": "let væg",
+     "tested": "let væg / massiv væg",
+     "ok": true
+    },
+    {
+     "parameter": "tykkelse",
+     "designed": "100 mm",
+     "tested": "≥ 100 mm",
+     "ok": true
+    },
+    {
+     "parameter": "monteringssituation",
+     "designed": "vinkelret, almindelig",
+     "tested": "vinkelret, almindelig",
+     "ok": true
+    },
+    {
+     "parameter": "diameter",
+     "designed": "Ø 50 mm",
+     "tested": "Ø ≤ 110 mm",
+     "ok": true
+    },
+    {
+     "parameter": "godstykkelse",
+     "designed": "1.2 mm",
+     "tested": "2.7-6.3 mm",
+     "ok": false
+    },
+    {
+     "parameter": "isoleringstype",
+     "designed": "ingen",
+     "tested": "ingen",
+     "ok": true
+    },
+    {
+     "parameter": "klassifikation",
+     "designed": "EI 60 krævet",
+     "tested": "EI 120 U/U",
+     "ok": true
+    },
+    {
+     "parameter": "rørende",
+     "designed": "U/C",
+     "tested": "U/U",
+     "ok": true,
+     "note": "åbent system (afløb/ventilation)"
+    }
+   ]
+  },
+  "signature": [
+   {
+    "param": "godstykkelse",
+    "direction": "tyndere",
+    "magnitude": -56
+   }
+  ],
+  "key": {
+   "host": "flexible_wall",
+   "family": "plast",
+   "params": [
+    "godstykkelse:tyndere"
+   ]
+  },
+  "precedents": [
+   {
+    "id": "P-2025-101",
+    "title": "PP-afløb 50x1,8 i let skaktvæg",
+    "decision": "BETINGET",
+    "conditions": [
+     "Udførelse efter producentens monteringsvejledning",
+     "Fotodokumentation pr. gennemføring"
+    ],
+    "argument": "EKSEMPEL. Røret er tyndvægget i forhold til den testede række. Afvigelsen er vurderet på baggrund af nærmeste testede dimensioner i samme tabel og manchettens lukkevirkning; løsningen accepteres på de anførte betingelser.",
+    "eta": "ETA-20/1322",
+    "section": "A.1.1.1",
+    "date": "2025-04-11",
+    "score": 5
+   }
+  ],
+  "note": "Præcedens er vejledende; hver sag vurderes konkret af rådgiveren."
+ },
+ "intake": {
+  "region": "VEST",
+  "office": "Kolding",
+  "due": "2026-10-31",
+  "status": "MANGLER_INFO",
+  "items": [
+   {
+    "no": 1,
+    "completeness": 100,
+    "missing": [],
+    "triage": "BESVARET_TESTET",
+    "status": "TESTET",
+    "status_text": "Testet løsning",
+    "action": "Udfør som testet. Følg betingelserne og dokumentér med foto.",
+    "tested_solutions": [
+     {
+      "eta": "ETA-20/1322",
+      "system": "Multicollar Slim",
+      "section": "B.1.1.1",
+      "page": 155,
+      "service": "PVC-U / PVC-C Ø ≤ 110 mm / 2.2-8.2 mm",
+      "classification": "EI 120 U/U",
+      "insulation": "None",
+      "board": null,
+      "wrap": null,
+      "configuration": "perpendicular",
+      "collars_per_face": 1,
+      "deviates": [],
+      "checks": [
+       {
+        "parameter": "konstruktion",
+        "designed": "massivt dæk",
+        "tested": "massivt dæk",
+        "ok": true
+       },
+       {
+        "parameter": "tykkelse",
+        "designed": "200 mm",
+        "tested": "≥ 150 mm",
+        "ok": true
+       },
+       {
+        "parameter": "monteringssituation",
+        "designed": "vinkelret, almindelig",
+        "tested": "vinkelret, almindelig",
+        "ok": true
+       },
+       {
+        "parameter": "diameter",
+        "designed": "Ø 110 mm",
+        "tested": "Ø ≤ 110 mm",
+        "ok": true
+       },
+       {
+        "parameter": "godstykkelse",
+        "designed": "3.2 mm",
+        "tested": "2.2-8.2 mm",
+        "ok": true
+       },
+       {
+        "parameter": "isoleringstype",
+        "designed": "ingen",
+        "tested": "ingen",
+        "ok": true
+       },
+       {
+        "parameter": "klassifikation",
+        "designed": "EI 60 krævet",
+        "tested": "EI 120 U/U",
+        "ok": true
+       },
+       {
+        "parameter": "rørende",
+        "designed": "U/C",
+        "tested": "U/U",
+        "ok": true,
+        "note": "åbent system (afløb/ventilation)"
+       },
+       {
+        "parameter": "ringspalte",
+        "designed": "20 mm",
+        "tested": "≤ 20 mm med fuge, større udfyldes helt med Multimortar (dæk)",
+        "ok": true,
+        "note": "Multisealant A / Multimastic SP, dybde ≥ 10 mm"
+       }
+      ]
+     },
+     {
+      "eta": "ETA-20/1322",
+      "system": "Multicollar Slim",
+      "section": "B.1.1.1",
+      "page": 154,
+      "service": "PE-HD / PE / ABS / SAN+PVC Ø ≤ 110 mm / 2.7-6.6 mm",
+      "classification": "EI 90 U/U",
+      "insulation": "None",
+      "board": null,
+      "wrap": null,
+      "configuration": "perpendicular",
+      "collars_per_face": 1,
+      "deviates": [],
+      "checks": [
+       {
+        "parameter": "konstruktion",
+        "designed": "massivt dæk",
+        "tested": "massivt dæk",
+        "ok": true
+       },
+       {
+        "parameter": "tykkelse",
+        "designed": "200 mm",
+        "tested": "≥ 150 mm",
+        "ok": true
+       },
+       {
+        "parameter": "monteringssituation",
+        "designed": "vinkelret, almindelig",
+        "tested": "vinkelret, almindelig",
+        "ok": true
+       },
+       {
+        "parameter": "diameter",
+        "designed": "Ø 110 mm",
+        "tested": "Ø ≤ 110 mm",
+        "ok": true
+       },
+       {
+        "parameter": "godstykkelse",
+        "designed": "3.2 mm",
+        "tested": "2.7-6.6 mm",
+        "ok": true
+       },
+       {
+        "parameter": "isoleringstype",
+        "designed": "ingen",
+        "tested": "ingen",
+        "ok": true
+       },
+       {
+        "parameter": "klassifikation",
+        "designed": "EI 60 krævet",
+        "tested": "EI 90 U/U",
+        "ok": true
+       },
+       {
+        "parameter": "rørende",
+        "designed": "U/C",
+        "tested": "U/U",
+        "ok": true,
+        "note": "åbent system (afløb/ventilation)"
+       },
+       {
+        "parameter": "ringspalte",
+        "designed": "20 mm",
+        "tested": "≤ 20 mm med fuge, større udfyldes helt med Multimortar (dæk)",
+        "ok": true,
+        "note": "Multisealant A / Multimastic SP, dybde ≥ 10 mm"
+       }
+      ]
+     },
+     {
+      "eta": "ETA-20/1322",
+      "system": "Multicollar Slim",
+      "section": "B.1.1.1",
+      "page": 155,
+      "service": "PVC-U / PVC-C Ø ≤ 125 mm / 2.5-4.8 mm",
+      "classification": "EI 60 U/U",
+      "insulation": "None",
+      "board": null,
+      "wrap": null,
+      "configuration": "perpendicular",
+      "collars_per_face": 1,
+      "deviates": [],
+      "checks": [
+       {
+        "parameter": "konstruktion",
+        "designed": "massivt dæk",
+        "tested": "massivt dæk",
+        "ok": true
+       },
+       {
+        "parameter": "tykkelse",
+        "designed": "200 mm",
+        "tested": "≥ 150 mm",
+        "ok": true
+       },
+       {
+        "parameter": "monteringssituation",
+        "designed": "vinkelret, almindelig",
+        "tested": "vinkelret, almindelig",
+        "ok": true
+       },
+       {
+        "parameter": "diameter",
+        "designed": "Ø 110 mm",
+        "tested": "Ø ≤ 125 mm",
+        "ok": true
+       },
+       {
+        "parameter": "godstykkelse",
+        "designed": "3.2 mm",
+        "tested": "2.5-4.8 mm",
+        "ok": true
+       },
+       {
+        "parameter": "isoleringstype",
+        "designed": "ingen",
+        "tested": "ingen",
+        "ok": true
+       },
+       {
+        "parameter": "klassifikation",
+        "designed": "EI 60 krævet",
+        "tested": "EI 60 U/U",
+        "ok": true
+       },
+       {
+        "parameter": "rørende",
+        "designed": "U/C",
+        "tested": "U/U",
+        "ok": true,
+        "note": "åbent system (afløb/ventilation)"
+       },
+       {
+        "parameter": "ringspalte",
+        "designed": "20 mm",
+        "tested": "≤ 20 mm med fuge, større udfyldes helt med Multimortar (dæk)",
+        "ok": true,
+        "note": "Multisealant A / Multimastic SP, dybde ≥ 10 mm"
+       }
+      ]
+     }
+    ],
+    "nearest_tested": [],
+    "tested_alternatives": [],
+    "conditions": [
+     "Multicollar Slim: 1 manchet pr. side på undersiden af dækket, 3 Multiclips pr. manchet (ETA-20/1322 B.1.1.1, s. 155; afsnit 1, pkt. 5).",
+     "Installationer understøttes højst 450 mm fra væggens begge sider / dækkets overside; min. 10 mm fra manchettens stålbånd til tilstødende konstruktion (ETA-20/1322 afsnit 1, pkt. 3 og afsnit 2, pkt. 3)."
+    ],
+    "questions": [],
+    "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+   },
+   {
+    "no": 2,
+    "completeness": 35,
+    "missing": [
+     "Konstruktionens tykkelse (mm)?",
+     "Krævet brandmodstand (fx EI 60)?",
+     "Udvendig diameter (mm)?",
+     "Godstykkelse (mm)?",
+     "Åbent (afløb) eller lukket (brugsvand/varme) system?",
+     "Isolering: type, fabrikat og tykkelse (eller ingen)?",
+     "Hullets størrelse (mm)?",
+     "Foto: Hullet/udsparingen med mål",
+     "Foto: Røret/kablet med isolering og mærkning",
+     "Foto: Væg/dæk-opbygning (kant, lag)",
+     "Foto: Oversigtsbillede af placeringen"
+    ],
+    "triage": "MANGLER_INFO",
+    "status": "MANGLER_DATA",
+    "status_text": "Mangler data",
+    "action": "Indhent de manglende oplysninger hos projekterende/installatør.",
+    "tested_solutions": [],
+    "nearest_tested": [],
+    "tested_alternatives": [],
+    "conditions": [],
+    "questions": [
+     "Rørets udvendige diameter (mm)?",
+     "Rørets godstykkelse (mm)?",
+     "Er systemet åbent (afløb) eller lukket (brugsvand/varme)?",
+     "Hvilken brandmodstand kræves for væggen/dækket (fx EI 60)?",
+     "Væggens/dækkets tykkelse og opbygning?"
+    ],
+    "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+   }
+  ]
  },
  "search": [
   {
-   "eta": "ETA-21/0110",
-   "section": "A.4.8",
-   "page": 56,
-   "heading": "Multimastic FB2 - 2x60 mm - with copper pipes",
-   "service": "Copper pipe Ø 12-54 mm / 1-1.2 mm wall th.",
-   "classification": "E 240 C/U, EI 60 C/U",
-   "insulation": "9-13 mm Kaiflex ST insulation",
-   "wrap": "50 x 3.6 mm (2 layers)",
-   "seal_max": "2400 x 1200 mm",
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.1.3.1",
+   "page": 46,
+   "heading": "Plastic pipes with an elbow, perpendicular to the wall, with one Mulcol® Multicollar Slim pipe collars to both sides of the wall",
+   "service": "PP/ Elbow Ø ≤ 125 mm / 3.1 mm",
+   "classification": "EI 90 U/C",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "flexible_wall",
+    "rigid_wall"
+   ],
+   "min_thickness_mm": 100
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.1.3.1",
+   "page": 46,
+   "heading": "Plastic pipes with an elbow, perpendicular to the wall, with one Mulcol® Multicollar Slim pipe collars to both sides of the wall",
+   "service": "PVC-U, PVC-C / elbow Ø ≤ 125 mm / 2.5 mm",
+   "classification": "EI 90 U/U",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "flexible_wall",
+    "rigid_wall"
+   ],
+   "min_thickness_mm": 100
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.1.3.2",
+   "page": 48,
+   "heading": "Plastic pipes with an elbow, perpendicular to the wall, with one Mulcol® Multicollar Slim pipe collar to both sides of the wall in an ‘U’ shape.",
+   "service": "PE-HD / PE / ABS / SAN+PVC Ø ≤ 110 mm / 3.4 mm",
+   "classification": "EI 120 U/C",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "flexible_wall",
+    "rigid_wall"
+   ],
+   "min_thickness_mm": 100
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.1.3.2",
+   "page": 48,
+   "heading": "Plastic pipes with an elbow, perpendicular to the wall, with one Mulcol® Multicollar Slim pipe collar to both sides of the wall in an ‘U’ shape.",
+   "service": "PP Ø ≤ 110 mm / 3.4 mm",
+   "classification": "EI 120 U/C",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "flexible_wall",
+    "rigid_wall"
+   ],
+   "min_thickness_mm": 100
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.1.3.2",
+   "page": 48,
+   "heading": "Plastic pipes with an elbow, perpendicular to the wall, with one Mulcol® Multicollar Slim pipe collar to both sides of the wall in an ‘U’ shape.",
+   "service": "PVC-U / PVC-C Ø ≤ 110 mm / 3.4 mm",
+   "classification": "EI 120 U/C",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "flexible_wall",
+    "rigid_wall"
+   ],
+   "min_thickness_mm": 100
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.2.3.1",
+   "page": 63,
+   "heading": "Plastic pipes (silent) with an elbow, perpendicular to the wall, with one Mulcol® Multicollar Slim pipe collar to both sides of the wall in an ‘U’ shape.",
+   "service": "Wavin SiTech+ Ø ≤ 110 mm / 3.6 mm",
+   "classification": "EI 60 U/U",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "flexible_wall",
+    "rigid_wall"
+   ],
+   "min_thickness_mm": 100
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.2.3.1",
+   "page": 63,
+   "heading": "Plastic pipes (silent) with an elbow, perpendicular to the wall, with one Mulcol® Multicollar Slim pipe collar to both sides of the wall in an ‘U’ shape.",
+   "service": "Geberit Silent dB 20 Ø ≤ 110 mm / 6.0 mm",
+   "classification": "E 120 U/U EI 90 U/U",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "flexible_wall",
+    "rigid_wall"
+   ],
+   "min_thickness_mm": 100
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "A.3.3.1",
+   "page": 81,
+   "heading": "PP-R multilayer pipes with an elbow, perpendicular to the wall, with one Mulcol® Multicollar Slim pipe collar to both sides of the wall.",
+   "service": "Aquatherm Blue-MF and elbow PP-R Ø ≤ 110 mm / 10.0 mm",
+   "classification": "E 120 U/C EI 90 U/C",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "flexible_wall",
+    "rigid_wall"
+   ],
+   "min_thickness_mm": 100
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "B.1.4.1",
+   "page": 180,
+   "heading": "Plastic pipes with an elbow, perpendicular to the floor, with one Mulcol® Multicollar Slim pipe collar to the soffit in an ‘U’ shape",
+   "service": "PVC-U, PVC-C Ø ≤ 50 mm / 3.0 mm",
+   "classification": "EI 90 U/U",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": null,
+   "wrap": null,
+   "seal_max": null,
    "construction": [
     "rigid_floor"
    ],
    "min_thickness_mm": 150
   },
   {
-   "eta": "ETA-21/0110",
-   "section": "A.4.8",
-   "page": 56,
-   "heading": "Multimastic FB2 - 2x60 mm - with copper pipes",
-   "service": "Copper pipe Ø 12-54 mm / 1-1.2 mm wall th.",
-   "classification": "E 180 C/U, EI 45 C/U",
-   "insulation": "13-25 mm Kaiflex ST insulation",
-   "wrap": "50 x 3.6 mm (2 layers)",
-   "seal_max": "2400 x 1200 mm",
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "B.1.4.1",
+   "page": 180,
+   "heading": "Plastic pipes with an elbow, perpendicular to the floor, with one Mulcol® Multicollar Slim pipe collar to the soffit in an ‘U’ shape",
+   "service": "PVC-U, PVC-C Ø ≤ 110 mm / 3.2 mm",
+   "classification": "E 60 U/U EI 45 U/U",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": null,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "rigid_floor"
+   ],
+   "min_thickness_mm": 150
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "B.2.3.1",
+   "page": 193,
+   "heading": "Plastic pipes (silent) with an elbow, perpendicular to the floor, with one Mulcol® Multicollar Slim pipe collar to the soffit",
+   "service": "Wavin AS (PP) Ø ≤ 110 mm / 5.3 Wavin AS PP Ø110 mm 2x 45° mm",
+   "classification": "EI 120 U/U",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "rigid_floor"
+   ],
+   "min_thickness_mm": 150
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "B.2.3.1",
+   "page": 193,
+   "heading": "Plastic pipes (silent) with an elbow, perpendicular to the floor, with one Mulcol® Multicollar Slim pipe collar to the soffit",
+   "service": "Geberit Silent dB 20 Ø ≤ 110 mm / 6.0 Geberit Silent dB 20 Ø110 mm 2x 45° mm",
+   "classification": "EI 90 U/U",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
+   "construction": [
+    "rigid_floor"
+   ],
+   "min_thickness_mm": 150
+  },
+  {
+   "eta": "ETA-20/1322",
+   "system": "Multicollar Slim",
+   "section": "B.2.3.2",
+   "page": 195,
+   "heading": "Plastic pipes (silent) with an elbow, perpendicular to the floor, with one Mulcol® Multicollar Slim pipe collar to the soffit in an ‘U’ shape.",
+   "service": "Geberit Silent dB 20 Ø ≤ 110 mm / 6.0 Geberit Silent dB 20 Ø110 mm 2x 45° mm",
+   "classification": "EI 90 U/U",
+   "insulation": "None",
+   "configuration": "elbow",
+   "collars_per_face": 1,
+   "wrap": null,
+   "seal_max": null,
    "construction": [
     "rigid_floor"
    ],
    "min_thickness_mm": 150
   }
  ],
+ "kb": {
+  "systems": [
+   {
+    "eta": "ETA-21/0110",
+    "product": "Mulcol Multimastic C System",
+    "system": "Multimastic C",
+    "kind": "Brandplader, coating og fuge (gennemføringstætning)",
+    "items": [
+     "6476478013",
+     "6476478014",
+     "6476478010",
+     "6476477922"
+    ],
+    "url": "https://s3.beijer-ref-web.cust.servinga.com/production/arm/media/a9/f3/09/1683700778/Mulcol_Multimastic_C_ETA_GB_V2146.pdf",
+    "records": 293,
+    "sections": 38,
+    "pages_with_rows": 38,
+    "overrides": 44
+   },
+   {
+    "eta": "ETA-20/1322",
+    "product": "Mulcol Multicollar Slim",
+    "system": "Multicollar Slim",
+    "kind": "Brandmanchet",
+    "items": [
+     "6476477918"
+    ],
+    "url": "https://www.armadan.dk/media/54/41/2d/1729094696/mulcol-multicollarslim-eta-gb-v2345-ast-2189640.pdf",
+    "records": 385,
+    "sections": 93,
+    "pages_with_rows": 95,
+    "overrides": 0
+   }
+  ],
+  "registered": [
+   {
+    "eta": "ETA-20/1321",
+    "product": "Mulcol Multidisc",
+    "kind": "Kabeldisk",
+    "pages": 49,
+    "status": "registreret, ikke udtrukket"
+   },
+   {
+    "eta": "ETA-17/0977",
+    "product": "Mulcol Multifoam 2K",
+    "kind": "Brandskum",
+    "pages": 36,
+    "status": "registreret, ikke udtrukket"
+   }
+  ],
+  "quality": [
+   {
+    "eta": "ETA-20/1322",
+    "page": 17,
+    "note": "PP Ø ≤ 125 mm: godstykkelse angivet som '7.1-3.6' (formentlig trykfejl for 7.1-14.6). Rækken matcher aldrig; spørg producenten."
+   },
+   {
+    "eta": "ETA-21/0110",
+    "page": 23,
+    "note": "Flettede celler læses forkert af PDF'ens tekstlag; rækkerne er indtastet fra siden og kontrolleret (override)."
+   },
+   {
+    "eta": "ETA-21/0110",
+    "page": 48,
+    "note": "Som ovenfor (override). Kobber ≤ 54 mm i dæk har kun E-klassifikation med stenuld."
+   },
+   {
+    "eta": "ETA-20/1322",
+    "page": 135,
+    "note": "Kabeltabeller angiver kabeltyper (UTP Cat. 5/6, YMVK), ikke diametre: vises i databasen, matches ikke automatisk."
+   }
+  ],
+  "version": "9399b8bb976a"
+ },
+ "cases": [
+  {
+   "id": "BV-2026-0143",
+   "created": "2026-08-05T09:00:00",
+   "due": "2026-08-15",
+   "region": "VEST",
+   "customer": "Nordvest VVS ApS",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "Alupex 16 i let væg",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 2,
+     "title": "Ventilationskanal Ø160 i skaktvæg",
+     "triage": "ANDET_SYSTEM",
+     "decision": null
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0144",
+   "created": "2026-08-08T15:00:00",
+   "due": "2026-08-28",
+   "region": "ØST",
+   "customer": "Midtjysk Isolering",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Øst 2",
+   "items": [
+    {
+     "no": 1,
+     "title": "Kobber 28x1 med stenuld 30 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 2,
+     "title": "Alupex 16 i let væg",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0145",
+   "created": "2026-08-11T14:00:00",
+   "due": "2026-08-14",
+   "region": "ØST",
+   "customer": "Nordvest VVS ApS",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Øst 1",
+   "items": [
+    {
+     "no": 1,
+     "title": "Kobber 28x1 med stenuld 30 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 2,
+     "title": "PE 160 kloak i dæk, EI 90",
+     "triage": "BESVARET_TESTET",
+     "decision": null
+    },
+    {
+     "no": 3,
+     "title": "Ventilationskanal Ø160 i skaktvæg",
+     "triage": "ANDET_SYSTEM",
+     "decision": null
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0146",
+   "created": "2026-08-14T16:00:00",
+   "due": "2026-08-24",
+   "region": "VEST",
+   "customer": "Byggefirmaet Kronborg",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "Kobber 22x1 med Armaflex 13 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 2,
+     "title": "PVC-afløb 110x3,2 i huldæk",
+     "triage": "MANGLER_INFO",
+     "decision": null
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0150",
+   "created": "2026-08-25T12:00:00",
+   "due": "2026-08-28",
+   "region": "VEST",
+   "customer": "Kolding Klima ApS",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "Kobber 22x1 med Armaflex 13 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0151",
+   "created": "2026-08-28T13:00:00",
+   "due": "2026-09-07",
+   "region": "ØST",
+   "customer": "Byggefirmaet Kronborg",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Øst 1",
+   "items": [
+    {
+     "no": 1,
+     "title": "PP 75x2,6 i dæk",
+     "triage": "MANGLER_INFO",
+     "decision": null
+    },
+    {
+     "no": 2,
+     "title": "Kobber 22x1 med Armaflex 13 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0152",
+   "created": "2026-08-31T09:00:00",
+   "due": "2026-09-10",
+   "region": "VEST",
+   "customer": "Amager Entreprise A/S",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "Kobber 28x1 med stenuld 30 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 2,
+     "title": "PVC 125 i dæk, EI 90",
+     "triage": "MANGLER_INFO",
+     "decision": null
+    },
+    {
+     "no": 3,
+     "title": "PP-afløb 50x1,8 i let skaktvæg",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0153",
+   "created": "2026-09-02T13:00:00",
+   "due": "2026-09-05",
+   "region": "VEST",
+   "customer": "Østkyst Isolering A/S",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "Kabelbundt i betonvæg",
+     "triage": "BESVARET_TESTET",
+     "decision": null
+    },
+    {
+     "no": 2,
+     "title": "Kobber 28x1 med stenuld 30 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 3,
+     "title": "PE 160 kloak i dæk, EI 90",
+     "triage": "BESVARET_TESTET",
+     "decision": null
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0155",
+   "created": "2026-09-08T08:00:00",
+   "due": "2026-09-11",
+   "region": "VEST",
+   "customer": "Nordvest VVS ApS",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "Alupex 16 i let væg",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0157",
+   "created": "2026-09-14T12:00:00",
+   "due": "2026-10-04",
+   "region": "ØST",
+   "customer": "Nordvest VVS ApS",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Øst 2",
+   "items": [
+    {
+     "no": 1,
+     "title": "PP 75x2,6 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0158",
+   "created": "2026-09-16T08:00:00",
+   "due": "2026-10-06",
+   "region": "ØST",
+   "customer": "Fyns Installation ApS",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Øst 1",
+   "items": [
+    {
+     "no": 1,
+     "title": "Rør uden oplysninger",
+     "triage": "MANGLER_INFO",
+     "decision": null
+    },
+    {
+     "no": 2,
+     "title": "PVC 125 i dæk, EI 90",
+     "triage": "BESVARET_TESTET",
+     "decision": null
+    },
+    {
+     "no": 3,
+     "title": "Kobber 28x1 med stenuld 30 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0159",
+   "created": "2026-09-19T15:00:00",
+   "due": "2026-10-09",
+   "region": "VEST",
+   "customer": "Sjællands Rådgivende Ingeniører",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "Alupex 16 i let væg",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 2,
+     "title": "Kobber 22x1 med Armaflex 13 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0160",
+   "created": "2026-09-22T12:00:00",
+   "due": "2026-10-02",
+   "region": "VEST",
+   "customer": "Fyns Installation ApS",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "PP 75x2,6 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 2,
+     "title": "PP-afløb 50x1,8 i let skaktvæg",
+     "triage": "MANGLER_INFO",
+     "decision": null
+    },
+    {
+     "no": 3,
+     "title": "PE 160 kloak i dæk, EI 90",
+     "triage": "BESVARET_TESTET",
+     "decision": null
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0162",
+   "created": "2026-09-28T15:00:00",
+   "due": "2026-10-18",
+   "region": "VEST",
+   "customer": "Midtjysk Isolering",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "PVC-afløb 110x3,2 i huldæk",
+     "triage": "BESVARET_TESTET",
+     "decision": null
+    },
+    {
+     "no": 2,
+     "title": "Alupex 16 i let væg",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0165",
+   "created": "2026-10-06T15:00:00",
+   "due": "2026-10-26",
+   "region": "VEST",
+   "customer": "Østkyst Isolering A/S",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Vest",
+   "items": [
+    {
+     "no": 1,
+     "title": "PE 160 kloak i dæk, EI 90",
+     "triage": "BESVARET_TESTET",
+     "decision": null
+    },
+    {
+     "no": 2,
+     "title": "Kobber 28x1 med stenuld 30 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0166",
+   "created": "2026-10-09T10:00:00",
+   "due": "2026-10-19",
+   "region": "ØST",
+   "customer": "Midtjysk Isolering",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Øst 1",
+   "items": [
+    {
+     "no": 1,
+     "title": "Kobber 22x1 med Armaflex 13 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0167",
+   "created": "2026-10-12T16:00:00",
+   "due": "2026-10-22",
+   "region": "ØST",
+   "customer": "Nordvest VVS ApS",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Øst 1",
+   "items": [
+    {
+     "no": 1,
+     "title": "Alupex 16 i let væg",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    },
+    {
+     "no": 2,
+     "title": "Stål 60,3 med stenuld 30 i betonvæg",
+     "triage": "BESVARET_TESTET",
+     "decision": null
+    },
+    {
+     "no": 3,
+     "title": "Kobber 28x1 med stenuld 30 i dæk",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  },
+  {
+   "id": "BV-2026-0171",
+   "created": "2026-10-23T11:00:00",
+   "due": "2026-11-02",
+   "region": "ØST",
+   "customer": "Byggefirmaet Kronborg",
+   "status": "UDSENDT",
+   "status_text": "Udsendt",
+   "assignee": "Rådgiver Øst 1",
+   "items": [
+    {
+     "no": 1,
+     "title": "PP-afløb 50x1,8 i let skaktvæg",
+     "triage": "TIL_VURDERING",
+     "decision": "BETINGET"
+    }
+   ]
+  }
+ ],
+ "case": {
+  "id": "BV-2026-0143",
+  "status": "UDSENDT",
+  "status_text": "Udsendt",
+  "region": "VEST",
+  "office": "Kolding",
+  "due": "2026-08-15",
+  "customer": {
+   "company": "Nordvest VVS ApS",
+   "contact": "Kontaktperson",
+   "email": "kontakt@example.dk",
+   "phone": "00 00 00 00"
+  },
+  "project": {
+   "address": "Skolegade 81, 8700 Horsens",
+   "building_type": "Bolig / etageejendom",
+   "timeline": "Uafklaret"
+  },
+  "items": [
+   {
+    "no": 1,
+    "title": "Alupex 16 i let væg",
+    "completeness": 87,
+    "missing": [
+     "Isolering: type, fabrikat og tykkelse (eller ingen)?",
+     "Foto: Røret/kablet med isolering og mærkning",
+     "Foto: Væg/dæk-opbygning (kant, lag)"
+    ],
+    "triage": "TIL_VURDERING",
+    "decision": {
+     "decision": "BETINGET",
+     "conditions": [
+      "Udførelse efter monteringsvejledningen",
+      "Fotodokumentation pr. gennemføring"
+     ],
+     "argument": "EKSEMPEL. Røret er tyndvægget i forhold til den testede række. Afvigelsen er vurderet på baggrund af nærmeste testede dimensioner i samme tabel og manchettens lukkevirkning; løsningen accepteres på de anførte betingelser.",
+     "author": "Rådgiver Vest",
+     "at": "2026-08-06T12:00:00",
+     "precedents": [
+      "P-2025-108"
+     ]
+    },
+    "status": "AFVIGELSE",
+    "status_text": "Afvigelse: brandteknisk vurdering",
+    "action": "Brandteknisk vurdering af afvigelsen, eller ændr til den testede/alternative løsning.",
+    "tested_solutions": [],
+    "nearest_tested": [
+     {
+      "eta": "ETA-20/1322",
+      "system": "Multicollar Slim",
+      "section": "A.4.1.1",
+      "page": 88,
+      "service": "Henco PE-Xc/AL/PE-Xc Ø ≤ 20 mm / 2.0 mm",
+      "classification": "EI 120 U/C",
+      "insulation": "None",
+      "board": null,
+      "wrap": null,
+      "configuration": "perpendicular",
+      "collars_per_face": 1,
+      "deviates": [
+       "godstykkelse"
+      ],
+      "checks": [
+       {
+        "parameter": "konstruktion",
+        "designed": "let væg",
+        "tested": "let væg / massiv væg",
+        "ok": true
+       },
+       {
+        "parameter": "tykkelse",
+        "designed": "100 mm",
+        "tested": "≥ 100 mm",
+        "ok": true
+       },
+       {
+        "parameter": "monteringssituation",
+        "designed": "vinkelret, almindelig",
+        "tested": "vinkelret, almindelig",
+        "ok": true
+       },
+       {
+        "parameter": "diameter",
+        "designed": "Ø 16 mm",
+        "tested": "Ø ≤ 20 mm",
+        "ok": true
+       },
+       {
+        "parameter": "godstykkelse",
+        "designed": "2.25 mm",
+        "tested": "2 mm",
+        "ok": false
+       },
+       {
+        "parameter": "isoleringstype",
+        "designed": "ingen",
+        "tested": "ingen",
+        "ok": true
+       },
+       {
+        "parameter": "klassifikation",
+        "designed": "EI 60 krævet",
+        "tested": "EI 120 U/C",
+        "ok": true
+       },
+       {
+        "parameter": "rørende",
+        "designed": "C/C",
+        "tested": "U/C",
+        "ok": true,
+        "note": "lukket system (brugsvand/varme)"
+       },
+       {
+        "parameter": "ringspalte",
+        "designed": "12 mm",
+        "tested": "≤ 20 mm, Multisealant A / Multimastic SP (ETA-20/1322 afsnit 1, pkt. 4)",
+        "ok": true
+       }
+      ]
+     },
+     {
+      "eta": "ETA-20/1322",
+      "system": "Multicollar Slim",
+      "section": "A.4.1.1",
+      "page": 88,
+      "service": "Henco PE-Xc/AL/PE-Xc Ø ≤ 32 mm / 3.0 mm",
+      "classification": "EI 120 U/C",
+      "insulation": "None",
+      "board": null,
+      "wrap": null,
+      "configuration": "perpendicular",
+      "collars_per_face": 1,
+      "deviates": [
+       "godstykkelse"
+      ],
+      "checks": [
+       {
+        "parameter": "konstruktion",
+        "designed": "let væg",
+        "tested": "let væg / massiv væg",
+        "ok": true
+       },
+       {
+        "parameter": "tykkelse",
+        "designed": "100 mm",
+        "tested": "≥ 100 mm",
+        "ok": true
+       },
+       {
+        "parameter": "monteringssituation",
+        "designed": "vinkelret, almindelig",
+        "tested": "vinkelret, almindelig",
+        "ok": true
+       },
+       {
+        "parameter": "diameter",
+        "designed": "Ø 16 mm",
+        "tested": "Ø ≤ 32 mm",
+        "ok": true
+       },
+       {
+        "parameter": "godstykkelse",
+        "designed": "2.25 mm",
+        "tested": "3 mm",
+        "ok": false
+       },
+       {
+        "parameter": "isoleringstype",
+        "designed": "ingen",
+        "tested": "ingen",
+        "ok": true
+       },
+       {
+        "parameter": "klassifikation",
+        "designed": "EI 60 krævet",
+        "tested": "EI 120 U/C",
+        "ok": true
+       },
+       {
+        "parameter": "rørende",
+        "designed": "C/C",
+        "tested": "U/C",
+        "ok": true,
+        "note": "lukket system (brugsvand/varme)"
+       },
+       {
+        "parameter": "ringspalte",
+        "designed": "12 mm",
+        "tested": "≤ 20 mm, Multisealant A / Multimastic SP (ETA-20/1322 afsnit 1, pkt. 4)",
+        "ok": true
+       }
+      ]
+     }
+    ],
+    "tested_alternatives": [],
+    "conditions": [
+     "Komposit-rør: testet med navngivne fabrikater (fx Henco, Uponor, Geberit Mepla, REHAU, Wavin Tigris, Alpex DUO). Kontrollér rørfabrikatet mod ETA-20/1322 afsnit 2, pkt. 10.",
+     "Installationer understøttes højst 450 mm fra væggens begge sider / dækkets overside (ETA-20/1322 afsnit 1, pkt. 3)."
+    ],
+    "questions": [],
+    "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+   },
+   {
+    "no": 2,
+    "title": "Ventilationskanal Ø160 i skaktvæg",
+    "completeness": 94,
+    "missing": [
+     "Foto: Hullet/udsparingen med mål"
+    ],
+    "triage": "ANDET_SYSTEM",
+    "decision": null,
+    "status": "ANDET_SYSTEM",
+    "status_text": "Andet system (spjæld / kanalisolering)",
+    "action": "Brandspjæld eller brandisolering af kanalen efter producentens dokumentation.",
+    "tested_solutions": [],
+    "nearest_tested": [],
+    "tested_alternatives": [],
+    "conditions": [
+     "Ventilationskanal: brandspjæld eller brandisolering af kanalen (fx ROCKWOOL Conlit) efter dennes dokumentation. Ikke omfattet af en gennemføringstætning efter ETA-21/0110."
+    ],
+    "questions": [],
+    "disclaimer": "Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person."
+   }
+  ],
+  "audit_chain_valid": true,
+  "four_eyes": true,
+  "events": [
+   {
+    "at": "2026-08-05T09:00:00",
+    "actor": "kunde",
+    "action": "forespørgsel_modtaget",
+    "state": "MODTAGET",
+    "kb": "9399b8bb976a",
+    "hash": "b8f2b0e954f7"
+   },
+   {
+    "at": "2026-08-06T01:00:00",
+    "actor": "Rådgiver Vest",
+    "action": "status:MODTAGET->TIL_VURDERING",
+    "state": "TIL_VURDERING",
+    "kb": "9399b8bb976a",
+    "hash": "f8859f4000ba"
+   },
+   {
+    "at": "2026-08-06T12:00:00",
+    "actor": "Rådgiver Vest",
+    "action": "udkast_gemt",
+    "state": "TIL_VURDERING",
+    "kb": "9399b8bb976a",
+    "hash": "0ac92ea4c1ed"
+   },
+   {
+    "at": "2026-08-06T12:00:00",
+    "actor": "Rådgiver Vest",
+    "action": "status:TIL_VURDERING->UDKAST",
+    "state": "UDKAST",
+    "kb": "9399b8bb976a",
+    "hash": "11c19fad923b"
+   },
+   {
+    "at": "2026-08-07T17:00:00",
+    "actor": "Rådgiver Vest",
+    "action": "status:UDKAST->TIL_KONTROL",
+    "state": "TIL_KONTROL",
+    "kb": "9399b8bb976a",
+    "hash": "8edd4dfca99d"
+   },
+   {
+    "at": "2026-08-08T02:00:00",
+    "actor": "Rådgiver Vest 2",
+    "action": "kontrol_godkendt",
+    "state": "TIL_KONTROL",
+    "kb": "9399b8bb976a",
+    "hash": "d1b19702def3"
+   },
+   {
+    "at": "2026-08-08T02:00:00",
+    "actor": "Rådgiver Vest 2",
+    "action": "status:TIL_KONTROL->UDSENDT",
+    "state": "UDSENDT",
+    "kb": "9399b8bb976a",
+    "hash": "3d156297265c"
+   }
+  ]
+ },
+ "verify_ok": {
+  "code": "2C3FA8B3E33D4342",
+  "genuine": true,
+  "case": "BV-2026-0143",
+  "item": 1,
+  "decision": "BETINGET",
+  "issued": "2026-08-06",
+  "valid": true,
+  "kb": "9399b8bb976a",
+  "title": "Alupex 16 i let væg"
+ },
+ "verify_bad": {
+  "code": "0000000000000000",
+  "genuine": false,
+  "message": "Ukendt kode: vurderingen er ikke udstedt af dette system."
+ },
+ "quote": {
+  "lines": [
+   {
+    "no": "6476478013",
+    "name": "Mulcol Multimastic FB1 50 mm, 1-sidet brandplade",
+    "unit": "stk",
+    "size_m2": 0.625,
+    "qty": 1,
+    "basis": "0.59 m² plade inkl. 15 % spild, plader á 0.625 m²"
+   },
+   {
+    "no": "6476478014",
+    "name": "Mulcol Multimastic FB2 60 mm, 2-sidet brandplade",
+    "unit": "stk",
+    "size_m2": 0.625,
+    "qty": 4,
+    "basis": "2.32 m² plade inkl. 15 % spild, plader á 0.625 m²"
+   },
+   {
+    "no": "6476477918",
+    "name": "Mulcol Multicollar Slim 2600x30 mm brandmanchet (174 segmenter)",
+    "unit": "rl",
+    "segments": 174,
+    "qty": 2,
+    "basis": "261 segmenter á 15.0 mm (omkreds af rør inkl. isolering + 2x12 mm indlæg), 27 Multiclips (følger med)"
+   },
+   {
+    "no": "6476478010",
+    "name": "Mulcol Multimastic SP akryl 310 ml brandfuge",
+    "unit": "stk",
+    "ml": 310,
+    "qty": 18,
+    "basis": "5464 ml fuge (kant/ringspalte, 100 mm² tværsnit)"
+   },
+   {
+    "no": "6476477922",
+    "name": "Mulcol Multimastic C coating 6 kg brandmaling",
+    "unit": "stk",
+    "qty": 1,
+    "basis": "3.13 m² pladeflade med ≤ 1 mm coating (mængde efter producentens anvisning; overslag 1.5 kg/m²)"
+   },
+   {
+    "no": "-",
+    "name": "Mulcol Multimortar (brandmørtel)",
+    "unit": "l",
+    "qty": 77.0,
+    "basis": "ringspalte i dæk udfyldes helt (ETA-20/1322 afsnit 1, pkt. 4); mængden følger modellens hul, et kernebor tæt på manchetten sparer mørtel; varenummer efter sortiment"
+   }
+  ],
+  "seals": 39,
+  "per_system": {
+   "Multicollar Slim": 9,
+   "Multimastic C": 30
+  },
+  "factors": {
+   "board_waste": 1.15,
+   "joint_mm2": 100.0,
+   "segment_mm": 15.0,
+   "inlay_mm": 12.0,
+   "coat_kg_m2": 1.5
+  },
+  "not_quoted": [
+   "G-K-10",
+   "G-K-14",
+   "G-K-15",
+   "G-K-16",
+   "G-ST-02",
+   "G-ST-09",
+   "G-ST-11",
+   "G-ST-15",
+   "G-ST-16",
+   "G-ST-17",
+   "G-1-02",
+   "G-1-09",
+   "G-1-12",
+   "G-1-13",
+   "G-1-14",
+   "G-1-15",
+   "G-2-01",
+   "G-2-03",
+   "G-2-04"
+  ]
+ },
+ "rev": {
+  "added": [
+   {
+    "id": "G-ST-09",
+    "service": "Brugsvand koldt Cu 15x1,0 (skakt A2, Stueetage)",
+    "status": "TESTET"
+   }
+  ],
+  "removed": [
+   {
+    "id": "G-ST-09",
+    "service": "Radiatorgren stål 26,9x2,3 (skakt A2, Stueetage)",
+    "status": "AFVIGELSE"
+   }
+  ],
+  "changed": [
+   {
+    "id": "G-K-13",
+    "old_id": "G-K-13",
+    "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over Kælder)",
+    "changes": [
+     {
+      "param": "wall_mm",
+      "old": 3.2,
+      "new": 3.4
+     }
+    ],
+    "old_status": "TESTET",
+    "new_status": "TESTET",
+    "reassess": true
+   },
+   {
+    "id": "G-ST-06",
+    "old_id": "G-ST-06",
+    "service": "Kabelbakke stål 200x60 (lejlighedsskel, stue)",
+    "changes": [
+     {
+      "param": "ei_required",
+      "old": 60,
+      "new": 90
+     }
+    ],
+    "old_status": "TESTET",
+    "new_status": "TESTET",
+    "reassess": true
+   },
+   {
+    "id": "G-ST-07",
+    "old_id": "G-ST-07",
+    "service": "Faldstamme PVC-U 110x3,4 (lejlighedsskel, stue)",
+    "changes": [
+     {
+      "param": "ei_required",
+      "old": 60,
+      "new": 90
+     }
+    ],
+    "old_status": "TESTET",
+    "new_status": "TESTET",
+    "reassess": true
+   },
+   {
+    "id": "G-ST-14",
+    "old_id": "G-ST-14",
+    "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over Stueetage)",
+    "changes": [
+     {
+      "param": "wall_mm",
+      "old": 3.2,
+      "new": 3.4
+     }
+    ],
+    "old_status": "TESTET",
+    "new_status": "TESTET",
+    "reassess": true
+   },
+   {
+    "id": "G-1-10",
+    "old_id": "G-1-10",
+    "service": "Faldstamme PVC-U 110x3,4 (B1, dæk over 1. sal)",
+    "changes": [
+     {
+      "param": "wall_mm",
+      "old": 3.2,
+      "new": 3.4
+     }
+    ],
+    "old_status": "TESTET",
+    "new_status": "TESTET",
+    "reassess": true
+   }
+  ],
+  "unchanged": 52
+ },
  "export": {
-  "register_xlsx": "C:\\Users\\testt\\Desktop\\upwork\\github\\gennemfoert\\out\\Gennemfoeringsregister.xlsx",
-  "register_pdf": "C:\\Users\\testt\\Desktop\\upwork\\github\\gennemfoert\\out\\Gennemfoeringsregister.pdf",
-  "bcf": "C:\\Users\\testt\\Desktop\\upwork\\github\\gennemfoert\\out\\Gennemfoert_afvigelser.bcfzip",
-  "bcf_topics": 22,
-  "ifc": "C:\\Users\\testt\\Desktop\\upwork\\github\\gennemfoert\\out\\blok_c_vvs_gennemfoert.ifc",
+  "register_xlsx": "<repo>\\out\\Gennemfoeringsregister.xlsx",
+  "register_pdf": "<repo>\\out\\Gennemfoeringsregister.pdf",
+  "bcf": "<repo>\\out\\Gennemfoert_afvigelser.bcfzip",
+  "bcf_topics": 19,
+  "ifc": "<repo>\\out\\blok_c_vvs_gennemfoert.ifc",
   "material_estimate": {
-   "seals": 36,
+   "seals": 30,
    "board_m2": {
-    "Multimastic FB2 60": 2.31,
+    "Multimastic FB2 60": 2.02,
     "Multimastic FB1 50": 0.51
    },
-   "sealant_perimeter_m": 65.2,
-   "multiwrap_pcs": 27
+   "sealant_perimeter_m": 54.6,
+   "multiwrap_pcs": 21
   }
  }
 }

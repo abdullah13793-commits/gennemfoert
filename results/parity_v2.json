@@ -1,0 +1,19 @@
+{
+ "queries": 1500,
+ "identical": 1500,
+ "compared": "status, ids, deviations, every check (name, ok, actual, tested, note), conditions, questions",
+ "status_mix": {
+  "IKKE_DAEKKET": 800,
+  "MANGLER_DATA": 37,
+  "AFVIGELSE": 429,
+  "ANDET_SYSTEM": 135,
+  "TESTET": 99
+ },
+ "first_match_system": {
+  "Multimastic C": 75,
+  "Multicollar Slim": 24
+ },
+ "intake_items": 384,
+ "intake_identical": 384,
+ "first_diffs": []
+}

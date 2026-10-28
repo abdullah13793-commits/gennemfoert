@@ -1,0 +1,28 @@
+﻿id;etage;konstruktion;krav;installation;system;eta;afsnit;side;udfoert_af;udfoert_dato;kontrol_af;kontrol_dato;bemaerkning
+G-K-01;Kælder;Huldæk 220 over Kælder;REI 60;PVC-U Ø110x3,4;Multicollar Slim;ETA-20/1322;B.1.1.1;155;Isolatør B;2026-10-05;Kontrollant (bygherre);2026-10-07;
+G-K-02;Kælder;Huldæk 220 over Kælder;REI 60;Kobber Ø22x1, Kaiflex ST 13 mm;Multimastic C;ETA-21/0110;A.4.8;56;Isolatør A;2026-10-06;Kontrollant (bygherre);2026-10-08;
+G-K-03;Kælder;Huldæk 220 over Kælder;REI 60;Stål Ø42,4x2,6, Stenuld rørskål 80 kg/m³ 30 mm;Multimastic C;ETA-21/0110;A.4.4.1;49;Isolatør B;2026-10-07;Kontrollant (bygherre);2026-10-09;
+G-K-04;Kælder;Huldæk 220 over Kælder;REI 60;PVC-U Ø110x3,4;Multicollar Slim;ETA-20/1322;B.1.1.1;155;Isolatør A;2026-10-08;;;Mærkat mangler, genbesøg
+G-K-05;Kælder;Huldæk 220 over Kælder;REI 60;Kobber Ø22x1, Kaiflex ST 13 mm;Multimastic C;ETA-21/0110;A.4.8;56;Isolatør A;2026-10-09;Kontrollant (bygherre);2026-10-11;
+G-K-06;Kælder;Huldæk 220 over Kælder;REI 60;Stål Ø42,4x2,6, Stenuld rørskål 80 kg/m³ 30 mm;Multimastic C;ETA-21/0110;A.4.4.1;49;Isolatør A;2026-10-10;Kontrollant (bygherre);2026-10-12;
+G-K-07;Kælder;Teknikrumsvæg, beton 150;EI 60;Stål Ø60,3x2,9, Stenuld rørskål 80 kg/m³ 30 mm;Multimastic C;ETA-21/0110;A.3.6.1;37;Isolatør B;2026-10-11;Kontrollant (bygherre);2026-10-13;
+G-K-08;Kælder;Teknikrumsvæg, beton 150;EI 60;Stål Ø88,9x3,2, Stenuld rørskål 80 kg/m³ 50 mm;Multimastic C;ETA-21/0110;A.3.4;33;Isolatør A;2026-10-12;Kontrollant (bygherre);2026-10-14;
+G-K-09;Kælder;Teknikrumsvæg, beton 150;EI 60;PE Ø160x6,2;Multimastic C;ETA-21/0110;A.3.5;35;Isolatør A;2026-10-13;Kontrollant (bygherre);2026-10-15;
+G-K-11;Kælder;Teknikrumsvæg, beton 150;EI 60;Alupex (PEX-AL-PEX) Ø16x2,25, Stenuld rørskål 80 kg/m³ 20 mm;Multimastic C;ETA-21/0110;A.3.3.1;32;Isolatør A;2026-10-06;Kontrollant (bygherre);2026-10-08;
+G-K-12;Kælder;Depotvæg, gips på stålskelet 75;EI 30;PVC-U Ø32x1,8;Multimastic C;ETA-21/0110;A.2.1;25;Isolatør A;2026-10-07;Kontrollant (bygherre);2026-10-09;
+G-K-13;Kælder;Huldæk 220 over Kælder;REI 60;PVC-U Ø110x3,2;Multicollar Slim;ETA-20/1322;B.1.1.1;155;Isolatør B;2026-10-08;Kontrollant (bygherre);2026-10-10;
+G-K-17;Kælder;Huldæk 220 over Kælder;REI 60;Kobber Ø22x1, Kaiflex ST 13 mm;Multimastic C;ETA-21/0110;A.4.8;56;Isolatør B;2026-10-12;Kontrollant (bygherre);2026-10-14;
+G-K-18;Kælder;Huldæk 220 over Kælder;REI 60;Stål Ø42,4x2,6, Stenuld rørskål 80 kg/m³ 30 mm;Multimastic C;ETA-21/0110;A.4.4.1;49;Isolatør A;2026-10-13;Kontrollant (bygherre);2026-10-15;
+G-ST-01;Stueetage;Huldæk 220 over Stueetage;REI 60;PVC-U Ø110x3,4;Multicollar Slim;ETA-20/1322;B.1.1.1;155;Isolatør A;2026-10-05;Kontrollant (bygherre);2026-10-07;
+G-ST-03;Stueetage;Huldæk 220 over Stueetage;REI 60;Kobber Ø22x1, Kaiflex ST 13 mm;Multimastic C;ETA-21/0110;A.4.8;56;Isolatør A;2026-10-07;Kontrollant (bygherre);2026-10-09;
+G-ST-04;Stueetage;Skaktvæg A1, gips på stålskelet 100;EI 60;Kobber Ø15x1, Kaiflex ST 9 mm;Multimastic C;ETA-21/0110;A.1.6.2;20;Isolatør B;2026-10-08;Kontrollant (bygherre);2026-10-10;
+G-ST-05;Stueetage;Huldæk 220 over Stueetage;REI 60;Stål Ø42,4x2,6, Stenuld rørskål 80 kg/m³ 30 mm;Multimastic C;ETA-21/0110;A.4.4.1;49;Isolatør A;2026-10-09;Kontrollant (bygherre);2026-10-11;
+G-ST-06;Stueetage;Lejlighedsskel, beton 180;EI 60;Kabelbakke 200x60 mm;Multimastic C;ETA-21/0110;A.1.2;10;Isolatør A;2026-10-10;Kontrollant (bygherre);2026-10-12;
+G-ST-07;Stueetage;Lejlighedsskel, beton 180;EI 60;PVC-U Ø110x3,4;Multimastic C;ETA-21/0110;A.3.5;35;Isolatør A;2026-10-11;Kontrollant (bygherre);2026-10-13;
+G-ST-08;Stueetage;Huldæk 220 over Stueetage;REI 60;PVC-U Ø110x3,4;Multicollar Slim;ETA-20/1322;B.1.1.1;155;Isolatør A;2026-10-12;;;Mærkat mangler, genbesøg
+G-ST-10;Stueetage;Huldæk 220 over Stueetage;REI 60;Kobber Ø22x1, Kaiflex ST 13 mm;Multimastic C;ETA-21/0110;A.4.8;56;Isolatør B;2026-10-05;Kontrollant (bygherre);2026-10-07;
+G-ST-12;Stueetage;Huldæk 220 over Stueetage;REI 60;Stål Ø42,4x2,6, Stenuld rørskål 80 kg/m³ 30 mm;Multimastic C;ETA-21/0110;A.4.4.1;49;Isolatør A;2026-10-07;Kontrollant (bygherre);2026-10-09;
+G-ST-13;Stueetage;Trapperumsvæg, beton 200;REI 60;Kabelbundt Ø80 (kabler ≤ 16 mm);Multimastic C;ETA-21/0110;A.1.2;10;Isolatør A;2026-10-08;Kontrollant (bygherre);2026-10-10;
+G-ST-14;Stueetage;Huldæk 220 over Stueetage;REI 60;PVC-U Ø110x3,2;Multicollar Slim;ETA-20/1322;B.1.1.1;155;Isolatør A;2026-10-09;Kontrollant (bygherre);2026-10-11;
+G-ST-18;Stueetage;Huldæk 220 over Stueetage;REI 60;Kobber Ø22x1, Kaiflex ST 13 mm;Multimastic C;ETA-21/0110;A.4.8;56;Isolatør A;2026-10-13;Kontrollant (bygherre);2026-10-15;
+G-ST-19;Stueetage;Huldæk 220 over Stueetage;REI 60;Stål Ø42,4x2,6, Stenuld rørskål 80 kg/m³ 30 mm;Multimastic C;ETA-21/0110;A.4.4.1;49;Isolatør B;2026-10-05;;;Mærkat mangler, genbesøg

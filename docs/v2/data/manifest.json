@@ -1,0 +1,385 @@
+{
+ "product": "Gennemført 2.0",
+ "generated": "2026-10-28",
+ "inputs": {
+  "model_A": "8f876e7114374feb",
+  "model_B": "3d986d0fab455a9c",
+  "knowledge_base": "9399b8bb976a",
+  "code": "efe21aff5420"
+ },
+ "files": [
+  {
+   "path": "downloads/blok_c_vvs.ifc",
+   "name": "blok_c_vvs.ifc",
+   "bytes": 211556,
+   "sha256": "8f876e7114374feb88775be9faa669681bfe54cdc8279e92b191ac73fe49087f",
+   "producer": "gennemfoert.model",
+   "what": "Demonstrationsmodel, revision A",
+   "how": "Kilde; facitliste i models/planted.json",
+   "tests": [
+    "test_a3_a4_answer_key",
+    "test_b4_answer_key_both_modes"
+   ]
+  },
+  {
+   "path": "downloads/blok_c_vvs_gennemfoert.ifc",
+   "name": "blok_c_vvs_gennemfoert.ifc",
+   "bytes": 449120,
+   "sha256": "774cf7dc310741d73935bc64142f055108cb2b3763adcd0b19545b7c6d0562d6",
+   "producer": "gennemfoert.writeback",
+   "what": "IFC med tætninger (PROVISIONFORVOID + psets)",
+   "how": "Åbn i en IFC-viewer; Gennemfoert_Taetning-pset pr. tætning",
+   "tests": [
+    "test_a5_writeback"
+   ]
+  },
+  {
+   "path": "downloads/blok_c_vvs_revB.ifc",
+   "name": "blok_c_vvs_revB.ifc",
+   "bytes": 211457,
+   "sha256": "3d986d0fab455a9c89dd162fcd775b6d964f3870d14078a0ee0784f2dcd6c454",
+   "producer": "gennemfoert.model",
+   "what": "Demonstrationsmodel, revision B",
+   "how": "Kilde for revisionssammenligningen",
+   "tests": [
+    "test_b9_revision"
+   ]
+  },
+  {
+   "path": "downloads/Dokumentation_brandtaetninger.csv",
+   "name": "Dokumentation_brandtaetninger.csv",
+   "bytes": 4950,
+   "sha256": "4a81446ae6d5c06d6bf2bcc8f94b0c664282e9cf78ac04be00dc85ca9b57c8c9",
+   "producer": "gennemfoert.sitedoc",
+   "what": "Udførelsesdata (CSV)",
+   "how": "Samme rækker som pakken",
+   "tests": [
+    "test_b10_sitedoc"
+   ]
+  },
+  {
+   "path": "downloads/Dokumentationspakke_bygherre.pdf",
+   "name": "Dokumentationspakke_bygherre.pdf",
+   "bytes": 263647,
+   "sha256": "4958191e2efbe4b19eb45f4f4367bd8d57fbdaa8ba2f0b2ee908add1afbbb812",
+   "producer": "gennemfoert.sitedoc",
+   "what": "Dokumentationspakke til bygherren",
+   "how": "Tjekliste pr. tætning genereret fra ETA-rækken",
+   "tests": [
+    "test_b10_sitedoc",
+    "test_b13_browser_workflow_end_to_end"
+   ]
+  },
+  {
+   "path": "downloads/Gennemfoeringsregister.pdf",
+   "name": "Gennemfoeringsregister.pdf",
+   "bytes": 116067,
+   "sha256": "acd3f42e3b8c3daaaaff754b47c3f66b061c7c8117246570b6f00c574d44a4ae",
+   "producer": "gennemfoert.register",
+   "what": "Register med QR-mærkater",
+   "how": "QR på hver mærkat åbner gennemføringen i appen",
+   "tests": [
+    "test_a6_register"
+   ]
+  },
+  {
+   "path": "downloads/Gennemfoeringsregister.xlsx",
+   "name": "Gennemfoeringsregister.xlsx",
+   "bytes": 13366,
+   "sha256": "9371d812b552e4a051af38771aeb26b71a9e4cbb746d82ea49193bf5550e597f",
+   "producer": "gennemfoert.register",
+   "what": "Gennemføringsregister (Excel)",
+   "how": "Én række pr. gennemføring; hver løsning peger på ETA, afsnit og side",
+   "tests": [
+    "test_a6_register"
+   ]
+  },
+  {
+   "path": "downloads/Gennemfoert_afvigelser.bcfzip",
+   "name": "Gennemfoert_afvigelser.bcfzip",
+   "bytes": 28624,
+   "sha256": "58af49bcca94b08ede6baec69c1c68c948178601c89462c74f9b919922069705",
+   "producer": "gennemfoert.writeback",
+   "what": "BCF 2.1-sager for afvigelser",
+   "how": "Åbn i Solibri/BIMcollab; én sag pr. ikke-testet gennemføring",
+   "tests": [
+    "test_a5_writeback"
+   ]
+  },
+  {
+   "path": "downloads/Tilbud_materialeliste.csv",
+   "name": "Tilbud_materialeliste.csv",
+   "bytes": 965,
+   "sha256": "13d0049db2c913264657f90f40d529ae88216fc4a78557c36885211c82ac44a0",
+   "producer": "gennemfoert.quote",
+   "what": "Materialeliste med varenumre",
+   "how": "Hver linje har sit beregningsgrundlag; browseren regner det samme",
+   "tests": [
+    "test_b8_quote_items_and_quantities",
+    "test_b12_browser_quote_and_audit_chain"
+   ]
+  },
+  {
+   "path": "downloads/udstedte/BV-2026-0143-1.pdf",
+   "name": "BV-2026-0143-1.pdf",
+   "bytes": 127808,
+   "sha256": "29e33dffaedf7301876e4e861c1f86aeba2688b93d9eee4398b2d2ff75907028",
+   "producer": "gennemfoert.report",
+   "what": "Udstedt brandteknisk vurdering (PDF)",
+   "how": "Verifikationskoden på PDF'en slås op på denne side",
+   "tests": [
+    "test_b6b_simulated_cases_verify"
+   ]
+  },
+  {
+   "path": "downloads/udstedte/BV-2026-0144-1.pdf",
+   "name": "BV-2026-0144-1.pdf",
+   "bytes": 116003,
+   "sha256": "74e10d706f8c0f1957747d9917271e864822432c57093e817aa57b14af2dc69f",
+   "producer": "gennemfoert.report",
+   "what": "Udstedt brandteknisk vurdering (PDF)",
+   "how": "Verifikationskoden på PDF'en slås op på denne side",
+   "tests": [
+    "test_b6b_simulated_cases_verify"
+   ]
+  },
+  {
+   "path": "downloads/udstedte/BV-2026-0144-2.pdf",
+   "name": "BV-2026-0144-2.pdf",
+   "bytes": 127887,
+   "sha256": "b6262e92f070191633af818f529ebcf075e2380d366570aeae2e7d5bda47df04",
+   "producer": "gennemfoert.report",
+   "what": "Udstedt brandteknisk vurdering (PDF)",
+   "how": "Verifikationskoden på PDF'en slås op på denne side",
+   "tests": [
+    "test_b6b_simulated_cases_verify"
+   ]
+  },
+  {
+   "path": "downloads/udstedte/BV-2026-0145-1.pdf",
+   "name": "BV-2026-0145-1.pdf",
+   "bytes": 115994,
+   "sha256": "14b483f8f418835e09d8c4237a0494771bbf7d59db6a2031f1797c3d39c954ff",
+   "producer": "gennemfoert.report",
+   "what": "Udstedt brandteknisk vurdering (PDF)",
+   "how": "Verifikationskoden på PDF'en slås op på denne side",
+   "tests": [
+    "test_b6b_simulated_cases_verify"
+   ]
+  },
+  {
+   "path": "downloads/vurderinger/GV-01_G-K-10.docx",
+   "name": "GV-01_G-K-10.docx",
+   "bytes": 38442,
+   "sha256": "9bd65c5aba205699be1eadb669e9242f46a1cfbb9c642906d47c7680c7fbca07",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "downloads/vurderinger/GV-02_G-K-14_m.fl.docx",
+   "name": "GV-02_G-K-14_m.fl.docx",
+   "bytes": 38648,
+   "sha256": "6aef8eb0487e7969206bd25f6330a8d253179da18b55a0c68f5e9e4d0d1cdca3",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "downloads/vurderinger/GV-03_G-K-15_m.fl.docx",
+   "name": "GV-03_G-K-15_m.fl.docx",
+   "bytes": 38793,
+   "sha256": "6be6be58c000f4253fd7f826c9a1a02cfc13653765a2dd97c53cf68c3b17f736",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "downloads/vurderinger/GV-04_G-K-16_m.fl.docx",
+   "name": "GV-04_G-K-16_m.fl.docx",
+   "bytes": 38608,
+   "sha256": "b91afb4cc337ed515463df2c982814ad2a33339e191c1184f3f29d97012a8b46",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "downloads/vurderinger/GV-05_G-ST-02_m.fl.docx",
+   "name": "GV-05_G-ST-02_m.fl.docx",
+   "bytes": 38508,
+   "sha256": "71f00608308450153c042a365cbb5abf872da70fa8ae5e1cbc3bd8720f5c5a0d",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "downloads/vurderinger/GV-06_G-ST-09.docx",
+   "name": "GV-06_G-ST-09.docx",
+   "bytes": 38666,
+   "sha256": "621176cfa479e1e758de7a2c9a6e3c47a4a9b6364f662b8358a56183b1cd0693",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "downloads/vurderinger/GV-07_G-1-09.docx",
+   "name": "GV-07_G-1-09.docx",
+   "bytes": 38367,
+   "sha256": "b21e660d0c2c1094ac4d2cc0f40a7b85c9c3db94165b740cfa8acca76d9dd62a",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "downloads/vurderinger/GV-08_G-2-03.docx",
+   "name": "GV-08_G-2-03.docx",
+   "bytes": 38281,
+   "sha256": "30c225fd7b72cd5c8b7855968e408abe0222db5789751033a02f8c6f51e4ae13",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "downloads/vurderinger/GV-09_G-2-04.docx",
+   "name": "GV-09_G-2-04.docx",
+   "bytes": 38370,
+   "sha256": "93f6bb8cd82b7c2d3bb52daa30dd74ef5d514f5eb6e51c65e82ca2a4f2948d99",
+   "producer": "gennemfoert.assess",
+   "what": "Udkast til brandteknisk vurdering (.docx)",
+   "how": "Fakta og sammenligning udfyldt; skønnet står tomt til rådgiveren",
+   "tests": []
+  },
+  {
+   "path": "data/cases.json",
+   "name": "cases.json",
+   "bytes": 364817,
+   "sha256": "339b71794e49a3715036d4cd45bc3b49f8689e958e761447fe1a92665033590b",
+   "producer": "gennemfoert.demo",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": [
+    "test_b6b_simulated_cases_verify",
+    "test_b12_browser_quote_and_audit_chain"
+   ]
+  },
+  {
+   "path": "data/dashboard.json",
+   "name": "dashboard.json",
+   "bytes": 734,
+   "sha256": "f3a24c7aabc78f13392e0147ec1c3981b964a4feac73bb53b963a44a635cc22e",
+   "producer": "gennemfoert.demo",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": []
+  },
+  {
+   "path": "data/precedents.json",
+   "name": "precedents.json",
+   "bytes": 3707,
+   "sha256": "61258b876d039a2b9d6c2f4b37472970e5171da37eb748bad0400bdf24c70e41",
+   "producer": "gennemfoert.demo",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": [
+    "test_b7_precedents"
+   ]
+  },
+  {
+   "path": "data/quote.json",
+   "name": "quote.json",
+   "bytes": 1705,
+   "sha256": "96701b790d0459b772eaf06c96e8b3b2178f3949cd06d7187c780a9b10f05f22",
+   "producer": "gennemfoert.quote",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": [
+    "test_b8_quote_items_and_quantities"
+   ]
+  },
+  {
+   "path": "data/records.json",
+   "name": "records.json",
+   "bytes": 640139,
+   "sha256": "af97cc209cac69c89c044a40d1e3fce579349a3554387db9a269c91f2b7a72df",
+   "producer": "gennemfoert.eta + eta_collar",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": [
+    "test_a1_extraction",
+    "test_b1_collar_extraction"
+   ]
+  },
+  {
+   "path": "data/register.json",
+   "name": "register.json",
+   "bytes": 342184,
+   "sha256": "66524dde0d639c06628beeef1910c8f95c1a1d9f8db318b12942ad3fe3f55631",
+   "producer": "gennemfoert.pipeline",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": [
+    "test_a3_a4_answer_key",
+    "test_b11_browser_parity"
+   ]
+  },
+  {
+   "path": "data/revision.json",
+   "name": "revision.json",
+   "bytes": 1399,
+   "sha256": "eccb9cda71c4971d3a8d592833f1b8ec871d376c7d8114de328f290143814c3b",
+   "producer": "gennemfoert.revision",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": [
+    "test_b9_revision"
+   ]
+  },
+  {
+   "path": "data/site.json",
+   "name": "site.json",
+   "bytes": 5350,
+   "sha256": "81431283a1077d48b77380972654b7c1270e5bea9dced096ce94b26f9b09ae49",
+   "producer": "gennemfoert.sitedoc",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": [
+    "test_b10_sitedoc"
+   ]
+  },
+  {
+   "path": "data/summary.json",
+   "name": "summary.json",
+   "bytes": 17310,
+   "sha256": "4854ce631d937631f333bc6831d07de56abf5cfb805e23b56a5e0c1bf2209a2a",
+   "producer": "gennemfoert.export_web",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": []
+  },
+  {
+   "path": "data/verify.json",
+   "name": "verify.json",
+   "bytes": 4027,
+   "sha256": "be067170dd0eab03c682799ff5943eee7bc549b2c98338d415d3bb8d1feaec85",
+   "producer": "gennemfoert.demo",
+   "what": "Data bag appen",
+   "how": "Samme tal som filerne; testene sammenligner mod facitliste og Python-motoren",
+   "tests": [
+    "test_b6b_simulated_cases_verify"
+   ]
+  }
+ ],
+ "reproduce": "python -m gennemfoert.reproduce",
+ "results": {
+  "answer_key": 59,
+  "parity": 1500
+ }
+}

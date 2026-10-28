@@ -1,7 +1,9 @@
-"""Acceptance tests (SPEC.md A1-A6, A8). Run from the product root: python -m pytest tests"""
+"""v1 acceptance tests (SPEC.md A1-A6), run in board-only mode (ETA-21/0110), which reproduces the v1 register exactly.
+The full product range and browser parity are tested in test_v2.py. Run from the product root: python -m pytest tests"""
 import functools
 import http.server
 import json
+import os
 import random
 import sys
 import threading
@@ -15,8 +17,15 @@ sys.path.insert(0, str(ROOT / "src"))
 from gennemfoert import engine, pipeline  # noqa: E402
 
 RECS = json.loads((ROOT / "data" / "eta" / "records.json").read_text(encoding="utf-8"))
-WEB = ROOT / "web" if (ROOT / "web").exists() else ROOT / "docs" / "app"          # product folder vs published repo
+WEB = ROOT / "web" if (ROOT / "web").exists() else ROOT / "docs" / "v2"          # product folder vs published repo
 OUT = ROOT / "out" if (ROOT / "out").exists() else WEB / "downloads"
+
+
+@pytest.fixture(autouse=True, scope="module")
+def board_only():
+    engine.use_systems(["Multimastic C"])
+    yield
+    engine.use_systems()
 
 
 def Q(host, t, ei, kind="pipe", mat=None, od=None, wall=None, open_=None, ins=None, ap=None):
@@ -103,7 +112,7 @@ def test_a5_writeback():
     wb = json.loads((ROOT / "results" / "writeback.json").read_text())
     assert wb["seals"] == wb["with_psets"] == wb["fills_opening"] == 58
     with zipfile.ZipFile(OUT / "Gennemfoert_afvigelser.bcfzip") as z:
-        assert sum(n.endswith("markup.bcf") for n in z.namelist()) == 22
+        assert sum(n.endswith("markup.bcf") for n in z.namelist()) == wb["bcf_topics"] >= 19     # 22 board-only, 19 full range
 
 
 def test_a6_register():
@@ -111,72 +120,3 @@ def test_a6_register():
     ws = load_workbook(OUT / "Gennemfoeringsregister.xlsx")["Register"]
     assert ws.max_row - 1 == 58
     assert (OUT / "Gennemfoeringsregister.pdf").stat().st_size > 50_000
-
-
-def _random_queries(n=600, seed=7):
-    rng = random.Random(seed)
-    mats = {"pvc-u": [(32, 1.8), (110, 3.4), (110, 3.2), (125, 3.9), (160, 6.2), (40, 2.0)], "pe": [(32, 3.0), (110, 4.2), (160, 6.2)],
-            "pp": [(20, 2.2), (32, 1.8), (50, 1.8), (75, 2.6)], "copper": [(12, 1.0), (15, 1.0), (22, 1.0), (28, 1.0), (54, 1.2)],
-            "steel": [(26.9, 2.3), (42.4, 2.6), (60.3, 2.9), (88.9, 3.2), (114.3, 3.6), (168.3, 4.5), (219.1, 5.9)], "composite": [(16, 2.25), (75, 7.5)]}
-    out = []
-    for _ in range(n):
-        host = rng.choice(["rigid_floor", "rigid_wall", "flexible_wall"])
-        kind = rng.choice(["pipe"] * 6 + ["cable", "cable_bundle", "cable_tray", "duct"])
-        q = {"host_kind": host, "thickness_mm": rng.choice([75, 100, 150, 200]), "ei_required": rng.choice([30, 45, 60, 90, 120]),
-             "service_kind": kind, "hollow_core": rng.random() < 0.3}
-        if kind == "pipe":
-            mat = rng.choice(list(mats))
-            od, wall = rng.choice(mats[mat])
-            ins = rng.choice([None, SW(20), SW(30), SW(50), KF(9), KF(13), KF(13, "Armaflex AF"), KF(19), KF(25)])
-            q.update(material=mat, od_mm=od, wall_mm=wall, open_system=rng.random() < 0.5, insulation=engine.norm_insulation(ins))
-            if rng.random() < 0.05:
-                q["material"] = None
-        elif kind in ("cable", "cable_bundle"):
-            q.update(od_mm=rng.choice([10, 16, 21, 25, 50, 80, 90]), bundle_mm=rng.choice([None, 60, 100, 120]), insulation={"type": "none"})
-        else:
-            q.update(od_mm=160, insulation={"type": "none"})
-        if rng.random() < 0.6:
-            q["aperture_mm"] = rng.choice([[160, 160], [220, 220], [300, 300], [600, 600], [1300, 700]])
-            q["edge_mm"] = rng.choice([10, 30, 60])
-            q["fill"] = round(rng.uniform(0.05, 0.8), 3)
-        if rng.random() < 0.3:
-            q["separation_mm"] = rng.choice([80, 150, 230, 400])
-        out.append(q)
-    return out
-
-
-def _sig(v):
-    def ids(rows):
-        return [(r["id"], sorted(r.get("deviates", []))) for r in rows]
-    return {"status": v["status"], "matches": ids(v["matches"]), "nearest": ids(v["nearest"]), "alternatives": ids(v["alternatives"]),
-            "conditions": v["conditions"], "questions": v["questions"],
-            "checks": [[(c.get("check") or c.get("c"), c["ok"]) for c in (r["checks"])] for r in (v["matches"][:1] + v["nearest"][:1])]}
-
-
-def test_a8_browser_parity():
-    from playwright.sync_api import sync_playwright
-    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(WEB))
-    srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
-    threading.Thread(target=srv.serve_forever, daemon=True).start()
-    qs = _random_queries()
-    py = [_sig(engine.evaluate(q)) for q in qs]
-    try:
-        with sync_playwright() as pw:
-            b = pw.chromium.launch(channel="msedge", headless=True)
-            pg = b.new_page()
-            pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
-            pg.wait_for_function("window.GEngine")
-            pg.evaluate("fetch('data/records.json').then(r => r.json()).then(r => { GEngine.load(r); window._ld = 1; })")
-            pg.wait_for_function("window._ld === 1")
-            js = pg.evaluate("qs => qs.map(q => GEngine.evaluate(q))", qs)
-            b.close()
-    finally:
-        srv.shutdown()
-    js = [_sig(v) for v in js]
-    diff = [(i, qs[i], py[i], js[i]) for i in range(len(qs)) if py[i] != js[i]]
-    stats = {"queries": len(qs), "identical": len(qs) - len(diff), "status_mix": {}}
-    for s in py:
-        stats["status_mix"][s["status"]] = stats["status_mix"].get(s["status"], 0) + 1
-    (ROOT / "results" / "parity.json").write_text(json.dumps({**stats, "first_diffs": diff[:3]}, indent=1, ensure_ascii=False, default=str),
-                                                  encoding="utf-8")
-    assert not diff, diff[:2]

@@ -33,10 +33,23 @@ photo documentation (Hilti Documentation Manager), or a tested-solution selector
 6. **You can ask it.** An MCP server lets any AI assistant answer an enquiry ("110 mm PVC through a 220 mm hollow-core
    deck at EI 60?") from the same engine, with the same citations.
 
+## v2: the workflow around the engine
+v2 adds the parts that sit around the check. Incumbents cover some of them well:
+| Need | Usually done with | What v2 adds |
+|---|---|---|
+| Enquiry intake | Web form with free text + uploads, email | Fields per penetration, completeness score, photo checklist, and a pre-check that answers tested set-ups at once |
+| Case handling | General CRM / helpdesk / shared mailbox | Fire-specific states, four-eyes rule enforced, hash-chained log with knowledge-base version |
+| Consistency between advisers | Experience, colleagues | Deviation signature → precedents with their conditions and argument |
+| Site QA documentation | QA field apps (e.g. Dalux Field, Hilti Documentation Manager) are strong here | The checklist is generated from the ETA row of the solution, so site evidence and assessment refer to the same thing; CSV out to the existing QA tool |
+| Quote | Manual item lookup | Item numbers and quantities from the tested solution, basis per line |
+
+v2 does not try to replace a QA field app or an ERP; it exports to them.
+
 ## Honest gaps (and roadmap)
 | Gap | Plan |
 |---|---|
-| One ETA in the database | Add the brands carried (collars, sealants, duct and steel protection); each new ETA is extracted, then every row checked on a proof sheet |
+| Two ETAs in the database (board seals, collars) | Multidisc and Multifoam 2K are registered next; then the other brands carried. Each ETA is extracted, then checked on a proof sheet |
+| Case log lives in the browser in the demo | Same hash chain server-side (the Python `cases.py` already is), behind the advisory's login |
 | Fictitious demonstration model | Pilot on a real project IFC (MEP consultant's model with openings) |
 | ETA tables need human verification after extraction (merged cells) | Proof sheet per page; rows that the PDF text layer garbles are typed by hand and marked |
 | No field app back-end (photo upload, sign-off) | The IFC pset already has the inspection fields; connect to an existing documentation tool rather than building one |

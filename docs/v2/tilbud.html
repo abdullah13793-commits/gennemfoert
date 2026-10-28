@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tilbud og materialeliste</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23e8a317'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23111' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.qty{font-size:18px;font-weight:800}
+td.no{font:600 12.5px "JetBrains Mono",monospace;color:var(--accent);white-space:nowrap}
+.fac label{font-size:12px}
+@media (min-width:981px){.qsplit{grid-template-columns:minmax(0,1fr) 300px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pagehead">
+    <div><div class="eyebrow">M5 · Tilbud med varenumre</div><h1>Materialeliste for projektet</h1>
+      <p>Fra hver testet løsning i registeret til produkter med grossistens varenumre. Mængderne er geometriske og gennemsigtige: pladeareal ud fra hul og antal lag,
+        fuge ud fra fugelængde, manchetsegmenter ud fra rørets omkreds. Producenten udgiver ikke forbrugstabeller, så faktorerne kan rettes.</p></div>
+    <div class="act noprint"><button class="btn" id="csv">Hent CSV</button><button class="btn" onclick="print()">Udskriv</button><span class="demo">Fiktivt projekt · priser efter kundeaftale</span></div>
+  </div>
+  <div class="grid g4" id="kpis" style="margin-bottom:14px"></div>
+  <div class="split qsplit">
+    <div>
+      <div class="card"><h3>Materialeliste</h3><div class="tablewrap"><table class="t" id="lines"></table></div></div>
+      <div class="card" style="margin-top:14px"><h3>Pr. gennemføring</h3><div class="tablewrap"><table class="t" id="per"></table></div></div>
+    </div>
+    <div>
+      <div class="card fac"><h3>Faktorer</h3><div class="form" style="grid-template-columns:1fr" id="fac"></div>
+        <p class="note">Multiclips efter ETA-20/1322 afsnit 1, pkt. 5. Én rulle Multicollar Slim = 174 segmenter over 2610 mm.</p>
+        <button class="btn sm" id="defaults">Standardværdier</button></div>
+      <div class="card" style="margin-top:14px"><h3>Ikke med i tilbuddet</h3><div id="out"></div></div>
+    </div>
+  </div>
+</main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/quote.js"></script>
+<script>
+(async () => {
+const { $, esc, num, store } = GF;
+await GF.engineReady();
+const [REG] = await GF.load('register');
+const solved = GQuote.solvedFromRegister(REG);
+const FIELDS = [['board_waste', 'Spild på plader (faktor)', 0.01], ['joint_mm2', 'Fugetværsnit (mm²)', 5], ['inlay_mm', 'Indlæg pr. side, manchet (mm)', 1], ['coat_kg_m2', 'Coating (kg/m²)', 0.1]];
+let F = Object.assign({}, GQuote.FACTORS, store.get('quote-factors', {}));
+function factors() {
+  $('#fac').innerHTML = FIELDS.map(([k, l, s]) => `<label>${l}<input type="number" step="${s}" data-k="${k}" value="${F[k]}"></label>`).join('');
+  $('#fac').querySelectorAll('input').forEach(i => i.oninput = () => { const v = parseFloat(i.value); if (v > 0) { F[i.dataset.k] = v; store.set('quote-factors', F); render(); } });
+}
+function render() {
+  const lines = GQuote.materialList(solved, F);
+  window.QLINES = lines;
+  $('#lines').innerHTML = `<tr><th>Varenr.</th><th>Produkt</th><th class="num">Antal</th><th>Enhed</th><th>Grundlag</th></tr>` +
+    lines.map(l => `<tr><td class="no">${esc(l.no)}</td><td>${esc(l.name)}</td><td class="num qty">${num(l.qty)}</td><td>${esc(l.unit)}</td><td class="note">${esc(l.basis)}</td></tr>`).join('');
+  $('#per').innerHTML = `<tr><th>ID</th><th>Installation</th><th>Løsning</th><th class="num">Udv. Ø</th><th>Forbrug</th></tr>` + solved.map(s => {
+    const q = GQuote.linesFor(s, s.best, s.faces, F);
+    const parts = [];
+    if (q.FB1 || q.FB2) parts.push(`${num(q.FB1 || q.FB2, 2)} m² ${q.FB1 ? 'FB1' : 'FB2'}`);
+    if (q.COLLAR_seg) parts.push(`${q.COLLAR_seg} segm. + ${q.clips} clips`);
+    if (q.SP_ml) parts.push(`${num(q.SP_ml, 0)} ml fuge`);
+    if (q.mortar_l) parts.push(`${num(q.mortar_l, 2)} l mørtel`);
+    return `<tr><td class="mono">${s.id}</td><td>${esc(s.p.service.line)}<div class="note">${esc(GF.HOST[s.p.host.kind])} · ${esc(s.p.host.rating)}</div></td>
+      <td>${esc(s.best.system)}<div class="note">${esc(s.best.eta)} ${esc(s.best.section)}, s. ${s.best.page}${s.best.board ? ' · ' + esc(s.best.board) : ''}</div></td><td class="num">${s.p.service.kind === 'cable_tray' ? '–' : num(s.outer_d)}</td><td class="note">${parts.join(' · ')}</td></tr>`;
+  }).join('');
+  const per = {}; solved.forEach(s => per[s.best.system] = (per[s.best.system] || 0) + 1);
+  $('#kpis').innerHTML = [[solved.length, 'tætninger i tilbuddet', 'alle med testet løsning'], [per['Multimastic C'] || 0, 'Multimastic C', 'brandplader, ETA-21/0110'],
+    [per['Multicollar Slim'] || 0, 'Multicollar Slim', 'brandmanchetter, ETA-20/1322'], [lines.length, 'varelinjer', 'med varenummer og grundlag']]
+    .map(([v, l, s]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join('');
+}
+const rest = REG.filter(p => p.status !== 'TESTET');
+$('#out').innerHTML = `<p class="note" style="margin-top:0">${rest.length} gennemføringer har ingen testet løsning endnu. De kommer med, når afvigelsen er vurderet eller løsningen ændret.</p>` +
+  rest.map(p => `<div style="display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid var(--line);font-size:12.5px"><a href="projekt.html#${p.id}" class="mono">${p.id}</a>${GF.badge(p.status)}</div>`).join('');
+$('#defaults').onclick = () => { F = Object.assign({}, GQuote.FACTORS); store.del('quote-factors'); factors(); render(); };
+$('#csv').onclick = () => GF.download('Tilbud_materialeliste.csv', '﻿Varenr.;Tekst;Antal;Enhed;Grundlag\n' + window.QLINES.map(l => [l.no, l.name, String(l.qty).replace('.', ','), l.unit, l.basis].map(x => `"${String(x).replace(/"/g, '""')}"`).join(';')).join('\n'), 'text/csv');
+factors(); render();
+})();
+</script>
+</body>
+</html>

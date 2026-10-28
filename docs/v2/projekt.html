@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projekt i 3D</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23e8a317'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23111' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+html,body{height:100%}
+.subbar{display:flex;align-items:center;gap:12px;padding:8px 16px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+.proj{color:var(--ink2);font-size:13px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:999px;padding:4px 10px;font:600 12.5px Inter,sans-serif;cursor:pointer;text-decoration:none}
+.chip b{font-size:13.5px}
+.chip .d{width:9px;height:9px;border-radius:50%}
+.pmain{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(380px,1fr);height:calc(100vh - 102px)}
+#viewer{position:relative;background:var(--viewer);overflow:hidden}
+#viewer canvas{display:block;width:100%;height:100%}
+.vbar{position:absolute;left:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap;z-index:5}
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px}
+.seg button{border:0;background:none;color:var(--ink2);padding:5px 10px;border-radius:6px;font:600 12px Inter,sans-serif;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.legend{position:absolute;left:12px;bottom:12px;background:color-mix(in srgb,var(--panel) 88%,transparent);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12px;color:var(--ink2);display:flex;gap:12px;flex-wrap:wrap;max-width:calc(100% - 24px)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.legend i.ln{width:14px;height:3px;border-radius:2px}
+.tag{position:absolute;right:12px;top:12px;font-size:11.5px;color:var(--ink3);background:color-mix(in srgb,var(--panel) 80%,transparent);padding:4px 9px;border-radius:7px;border:1px solid var(--line)}
+aside{border-left:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;border:0;background:none;color:var(--ink2);padding:11px 6px;font:600 13px Inter,sans-serif;cursor:pointer;border-bottom:2px solid transparent}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--accent)}
+.pane{overflow:auto;flex:1;min-height:0;padding:12px 14px 30px}
+.pane[hidden]{display:none}
+.row{grid-template-columns:62px 1fr auto}
+.rev{display:grid;grid-template-columns:62px 1fr auto;gap:8px;align-items:start;padding:9px 10px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px;background:var(--panel2);cursor:pointer}
+.rev:hover{border-color:var(--ink3)}
+.rev .chg{font-size:12px;color:var(--ink2)}
+.rev .chg b{color:var(--ink)}
+@media (max-width:900px){
+  .pmain{grid-template-columns:1fr;height:auto}
+  #viewer{height:42vh}
+  aside{border-left:0;border-top:1px solid var(--line)}
+  .chips{margin-left:0}
+  .legend{display:none}
+}
+</style>
+</head>
+<body>
+<div class="subbar"><div class="proj" id="proj"></div><div class="chips" id="chips"></div></div>
+<div class="pmain">
+  <section id="viewer">
+    <div class="vbar">
+      <div class="seg" id="storeys"></div>
+      <div class="seg"><button id="explode">Adskil etager</button></div>
+    </div>
+    <div class="tag">Fiktiv demonstrationsbygning · ETA-21/0110 + ETA-20/1322</div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <aside>
+    <div class="tabs">
+      <button data-tab="reg" class="on">Register</button>
+      <button data-tab="chk">Tjek en gennemføring</button>
+      <button data-tab="rev">Revision A → B</button>
+    </div>
+    <div class="pane" id="pane-reg">
+      <div class="filters">
+        <select id="fStatus"><option value="">Alle statusser</option></select>
+        <select id="fStorey"><option value="">Alle etager</option></select>
+        <select id="fSys"><option value="">Alle systemer</option><option>Multimastic C</option><option>Multicollar Slim</option></select>
+        <input id="fText" placeholder="Søg (fx PVC, G-ST-04)" size="14">
+      </div>
+      <div id="detail"></div>
+      <div id="list"></div>
+    </div>
+    <div class="pane" id="pane-chk" hidden>
+      <div class="form" id="form"></div>
+      <p class="note" style="margin-top:8px">Samme regler som registeret, kørt i browseren mod alle testede rækker i begge ETA'er. Resultatet viser den række, det bygger på.</p>
+      <div id="chkres" class="card flat" style="margin-top:10px"></div>
+    </div>
+    <div class="pane" id="pane-rev" hidden>
+      <div id="revhead"></div>
+      <div id="revlist"></div>
+    </div>
+  </aside>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(() => {
+const { $, esc, css, load, badge, verdictHTML } = GF;
+const COL = GF.COL, ORDER = GF.ORDER, SHORT = GF.SHORT, HOST = GF.HOST;
+const STOREYS = [['','Alle'],['Kælder','K'],['Stueetage','ST'],['1. sal','1'],['2. sal','2']];
+const CODE = {'Kælder':'K','Stueetage':'ST','1. sal':'1','2. sal':'2'};
+const SYS = {DRAINAGE:['Afløb','#9b8a74'], DOMESTICCOLDWATER:['Brugsvand koldt','#3b82f6'], DOMESTICHOTWATER:['Brugsvand varmt','#ef4444'],
+             HEATING:['Varme','#f97316'], VENTILATION:['Ventilation','#a3aab5'], ELECTRICAL:['El','#eab308']};
+let S, REG, REV, sel = null, filt = {status:'', storey:'', sys:'', text:''}, storey = '', exploded = false, revMode = false;
+const T = {};
+const sysOf = p => (p.matches[0] || {}).system || '';
+
+Promise.all([GF.engineReady(), load('register', 'revision')]).then(([s, [r, rev]]) => {
+  S = s; REG = r; REV = rev;
+  $('#proj').textContent = `${S.project} · ${S.count} gennemføringer · ${S.eta.records} testede opbygninger`;
+  chips(); filters(); list(); form(); revision(); initThree(); route();
+  window.addEventListener('hashchange', route);
+  document.addEventListener('themechange', recolor);
+});
+
+function chips() {
+  const c = S.status;
+  $('#chips').innerHTML = ORDER.map(st => `<button class="chip" data-st="${st}"><span class="d" style="background:var(${COL[st]})"></span><b>${c[st]||0}</b>${esc(SHORT[st])}</button>`).join('')
+    + `<a class="chip" href="downloads/Gennemfoeringsregister.pdf" target="_blank">Register PDF</a><a class="chip" href="downloads/Gennemfoeringsregister.xlsx">Excel</a><a class="chip" href="downloads/Gennemfoert_afvigelser.bcfzip">BCF</a>`;
+  $('#chips').querySelectorAll('button').forEach(b => b.onclick = () => { filt.status = filt.status === b.dataset.st ? '' : b.dataset.st;
+    $('#fStatus').value = filt.status; tab('reg'); list(); paintMarkers(); });
+}
+function filters() {
+  $('#fStatus').innerHTML += ORDER.map(s => `<option value="${s}">${esc(GF.STATUS[s])}</option>`).join('');
+  $('#fStorey').innerHTML += STOREYS.slice(1).map(([v]) => `<option>${v}</option>`).join('');
+  $('#fStatus').onchange = e => { filt.status = e.target.value; list(); paintMarkers(); };
+  $('#fStorey').onchange = e => setStorey(e.target.value);
+  $('#fSys').onchange = e => { filt.sys = e.target.value; list(); paintMarkers(); };
+  $('#fText').oninput = e => { filt.text = e.target.value.toLowerCase(); list(); };
+  $('#storeys').innerHTML = STOREYS.map(([v, l]) => `<button data-v="${v}" class="${v===''?'on':''}">${l}</button>`).join('');
+  $('#storeys').querySelectorAll('button').forEach(b => b.onclick = () => setStorey(b.dataset.v));
+  $('#explode').onclick = () => { exploded = !exploded; $('#explode').classList.toggle('on', exploded); layout(); };
+  document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => tab(b.dataset.tab));
+  $('#legend').innerHTML = ORDER.map(st => `<span><i style="background:var(${COL[st]})"></i>${esc(SHORT[st])}</span>`).join('')
+    + Object.values(SYS).map(([n, c]) => `<span><i class="ln" style="background:${c}"></i>${n}</span>`).join('');
+}
+function tab(t) {
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  ['reg','chk','rev'].forEach(k => $('#pane-' + k).hidden = k !== t);
+  revMode = t === 'rev'; paintMarkers();
+}
+function setStorey(v) {
+  storey = v; filt.storey = v; $('#fStorey').value = v;
+  $('#storeys').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  list(); layout();
+}
+function shown(p) {
+  if (filt.status && p.status !== filt.status) return false;
+  if (filt.storey && p.storey !== filt.storey) return false;
+  if (filt.sys && sysOf(p) !== filt.sys) return false;
+  if (filt.text && !(p.id + ' ' + p.service.line + ' ' + p.host.name).toLowerCase().includes(filt.text)) return false;
+  return true;
+}
+function list() {
+  const rows = REG.filter(shown);
+  $('#list').innerHTML = rows.length ? rows.map(p => `<div class="row ${sel && sel.id===p.id?'sel':''}" data-id="${p.id}">
+      <div class="id">${p.id}</div><div><div class="t">${esc(p.service.line)}</div><div class="s">${esc(HOST[p.host.kind])} ${p.host.thickness_mm} mm · ${esc(p.host.rating)} · ${esc(p.storey)}${sysOf(p) ? ' · ' + esc(sysOf(p)) : ''}</div></div>${badge(p.status)}</div>`).join('')
+    : '<div class="empty">Ingen gennemføringer med dette filter.</div>';
+  $('#list').querySelectorAll('.row').forEach(r => r.onclick = () => { location.hash = r.dataset.id; });
+}
+function route() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (id === 'revision') { tab('rev'); return; }
+  const p = REG && REG.find(x => x.id === id);
+  if (p) select(p, true);
+}
+function select(p, fly) {
+  sel = p; if (!revMode) tab('reg');
+  const sub = `${HOST[p.host.kind]} ${p.host.thickness_mm} mm (${esc(p.host.name)}) · krav ${esc(p.host.rating)} · ${esc(p.storey)}`;
+  let h = `<div class="card flat" style="margin-bottom:12px">${verdictHTML(p, {title: p.id + ' · ' + p.service.line, sub, nodisc: true})}
+    <div class="act">${p.draft ? `<a class="btn pri" href="downloads/vurderinger/${encodeURIComponent(p.draft)}">Udkast til brandteknisk vurdering (.docx)</a>` : ''}
+    ${p.status === 'TESTET' ? `<a class="btn" href="udfoerelse.html#${p.id}">Udførelse og kontrol</a>` : `<a class="btn" href="forespoergsel.html">Send til vurdering</a>`}</div>
+    <div class="disc">${esc(GF.DISCLAIMER)}</div></div>`;
+  $('#detail').innerHTML = h;
+  list(); paintMarkers();
+  if (fly) flyTo(p);
+  if (!revMode) $('#pane-reg').scrollTop = 0;
+  if (innerWidth < 900 && fly && !revMode) $('#detail').scrollIntoView();
+}
+
+/* ---------------- checker ---------------- */
+function form() {
+  const f = [
+    ['host_kind', 'Konstruktion', 'select', [['rigid_floor','Massivt dæk (beton/letbeton)'],['rigid_wall','Massiv væg (beton/murværk)'],['flexible_wall','Let væg (gips på stålskelet)']]],
+    ['thickness_mm', 'Tykkelse (mm)', 'number', 200], ['ei_required', 'Krav (EI, min.)', 'select', [['30','EI 30'],['45','EI 45'],['60','EI 60'],['90','EI 90'],['120','EI 120']], '60'],
+    ['service_kind', 'Installation', 'select', [['pipe','Rør'],['cable','Kabel'],['cable_bundle','Kabelbundt'],['cable_tray','Kabelbakke'],['duct','Ventilationskanal']]],
+    ['material', 'Materiale', 'select', [['PVC-U','PVC-U'],['PP','PP'],['PE','PE'],['PP-R','PP-R'],['ABS','ABS'],['Kobber','Kobber'],['Stål','Stål'],['Alupex','Alupex (PEX-AL-PEX)']]],
+    ['configuration', 'Monteringssituation', 'select', Object.entries(GEngine.CONF_DA)],
+    ['od_mm', 'Udv. diameter (mm)', 'number', 110], ['wall_mm', 'Godstykkelse (mm)', 'number', 3.2],
+    ['system', 'System', 'select', [['open','Åbent (afløb)'],['closed','Lukket (brugsvand, varme)']]],
+    ['ins_type', 'Isolering', 'select', [['none','Ingen'],['stenuld','Stenuld'],['elastomer','Elastomer (cellegummi)'],['PE-skum','PE-skum']]],
+    ['ins_t', 'Isoleringstykkelse (mm)', 'number', ''], ['ins_p', 'Isoleringsfabrikat', 'select', [['','–'],['Kaiflex ST','Kaiflex ST'],['Armaflex AF','Armaflex AF'],['K-Flex ST','K-Flex ST'],['Stenuld rørskål','Stenuld rørskål'],['Andet','Andet']]],
+    ['bundle_mm', 'Bundtdiameter (mm)', 'number', ''], ['aperture', 'Hul (mm, fx 200x200)', 'text', '150x150']];
+  $('#form').innerHTML = f.map(([k, l, t, o, d]) => t === 'select'
+    ? `<label>${l}<select id="q_${k}">${o.map(([v, n]) => `<option value="${esc(v)}" ${v===d?'selected':''}>${esc(n)}</option>`).join('')}</select></label>`
+    : `<label>${l}<input id="q_${k}" type="${t}" value="${o}" ${t==='number'?'step="any"':''}></label>`).join('');
+  $('#form').querySelectorAll('select,input').forEach(e => e.oninput = runCheck);
+  runCheck();
+}
+function runCheck() {
+  const g = k => $('#q_' + k).value, n = k => g(k) === '' ? null : +g(k);
+  const kind = g('service_kind'), pipe = kind === 'pipe';
+  const ap = (g('aperture') || '').match(/(\d+)\s*[x×]\s*(\d+)/);
+  const item = {construction: {kind: g('host_kind'), thickness_mm: n('thickness_mm'), ei_required: n('ei_required')},
+    service: {kind, material: pipe ? g('material') : null, od_mm: n('od_mm'), wall_mm: pipe ? n('wall_mm') : null, bundle_mm: n('bundle_mm'),
+      system: pipe ? g('system') : null, configuration: g('configuration'),
+      insulation: g('ins_type') === 'none' ? 'none' : {category: g('ins_type'), thickness_mm: n('ins_t'), product: g('ins_p') || null}},
+    aperture_mm: ap ? [+ap[1], +ap[2]] : null};
+  const q = GEngine.itemQuery(item), v = GEngine.evaluate(q);
+  window.lastCheck = {q, v};
+  $('#chkres').innerHTML = verdictHTML(v, {title: 'Resultat', sub: `${HOST[q.host_kind]} ${q.thickness_mm} mm · krav EI ${q.ei_required}`});
+}
+
+/* ---------------- revision ---------------- */
+function revision() {
+  const r = REV, byId = id => REG.find(p => p.id === id);
+  $('#revhead').innerHTML = `<div class="card flat" style="margin-bottom:10px"><h2>Revision B af VVS-modellen</h2>
+    <div class="sub">Gennemføringer matches mellem revisioner på IFC GlobalId (installation + konstruktion). En brandteknisk vurdering gælder kun den beskrevne løsning: ændrede gennemføringer skal vurderes igen.</div>
+    <div class="grid g4" style="margin-top:10px">${[[r.changed.length,'ændret'],[r.added.length,'ny'],[r.removed.length,'fjernet'],[r.unchanged,'uændret']].map(([v,l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('')}</div>
+    <div class="act"><a class="btn sm" href="downloads/blok_c_vvs.ifc">IFC rev. A</a><a class="btn sm" href="downloads/blok_c_vvs_revB.ifc">IFC rev. B</a></div></div>`;
+  const P = {wall_mm: 'godstykkelse (mm)', ei_required: 'brandkrav (EI)', od_mm: 'diameter (mm)', material: 'materiale', thickness_mm: 'konstruktionstykkelse',
+    kind: 'konstruktion', open_system: 'åbent/lukket', aperture_mm: 'hul', separation_mm: 'afstand', insulation: 'isolering', status: 'status'};
+  const fmtv = v => Array.isArray(v) ? v.join(' x ') : v === null ? '–' : v;
+  const rows = [...r.changed.map(c => ({k: 'Ændret', c})), ...r.added.map(c => ({k: 'Ny', c})), ...r.removed.map(c => ({k: 'Fjernet', c}))];
+  $('#revlist').innerHTML = rows.map(({k, c}) => `<div class="rev" data-id="${c.id}"><div class="id mono" style="font-size:12px;color:var(--ink2)">${c.id}</div>
+    <div><div style="font-weight:600;font-size:13px">${esc(c.service)}</div><div class="chg">${c.changes ? c.changes.map(x => `${esc(P[x.param] || x.param)}: <b>${esc(fmtv(x.old))}</b> → <b>${esc(fmtv(x.new))}</b>`).join(' · ')
+      : k === 'Ny' ? 'ny i revision B: ' + esc(SHORT[c.status]) : 'findes ikke i revision B'}</div>
+      ${c.old_status ? `<div class="note">Status: ${esc(SHORT[c.old_status])} → ${esc(SHORT[c.new_status])}${c.reassess ? ' · afgørelse skal vurderes igen' : ''}</div>` : ''}</div>
+    <span class="pill"><i style="background:var(${k === 'Ændret' ? '--dev' : k === 'Ny' ? '--other' : '--miss'})"></i>${k}</span></div>`).join('');
+  $('#revlist').querySelectorAll('.rev').forEach(e => e.onclick = () => { const p = byId(e.dataset.id); if (p) { select(p, true); } });
+}
+const revIds = () => new Set((REV ? [...REV.changed, ...REV.added] : []).map(c => c.id));
+
+/* ---------------- 3D ---------------- */
+function initThree() {
+  const el = $('#viewer');
+  const r = T.renderer = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  r.setPixelRatio(Math.min(2, devicePixelRatio)); el.appendChild(r.domElement);
+  T.scene = new THREE.Scene();
+  T.camera = new THREE.PerspectiveCamera(38, 1, 0.1, 500);
+  T.camera.position.set(32, 26, 40);
+  T.controls = new THREE.OrbitControls(T.camera, r.domElement); T.controls.enableDamping = true; T.controls.target.set(18, 2, -6);
+  T.scene.add(new THREE.HemisphereLight(0xffffff, 0x445566, 1.15));
+  const d = new THREE.DirectionalLight(0xffffff, 0.9); d.position.set(20, 40, 10); T.scene.add(d);
+  const d2 = new THREE.DirectionalLight(0xffffff, 0.35); d2.position.set(-20, 10, -30); T.scene.add(d2);
+  T.root = new THREE.Group(); T.root.rotation.x = -Math.PI / 2; T.scene.add(T.root);
+  T.markers = [];
+  new THREE.GLTFLoader().load('building.glb', g => {
+    T.model = g.scene; T.root.add(T.model);
+    const edges = [];
+    T.model.traverse(o => { if (o.isMesh) { o.userData.key = (o.name || o.parent.name).replace(/_\d+$/, '');
+      o.geometry.computeVertexNormals();
+      if (o.userData.key.startsWith('H_')) edges.push(o); } });
+    edges.forEach(o => { const l = new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 25),
+      new THREE.LineBasicMaterial({transparent: true, opacity: 0.5, depthWrite: false})); l.userData.edge = true; o.add(l); });
+    recolor(); buildMarkers(); layout(); resize(); fit(); window.G.ready = true;
+  });
+  window.addEventListener('resize', resize);
+  r.domElement.addEventListener('pointerdown', e => { T.down = [e.clientX, e.clientY]; });
+  r.domElement.addEventListener('pointerup', e => { if (!T.down || Math.hypot(e.clientX - T.down[0], e.clientY - T.down[1]) > 4) return; pick(e); });
+  (function loop(t) { requestAnimationFrame(loop); if (window.G && window.G.frozen) return; T.controls.update(); pulse(t); r.render(T.scene, T.camera); })(0);
+}
+function resize() {
+  const el = $('#viewer'), w = el.clientWidth, h = el.clientHeight;
+  T.renderer.setSize(w, h); T.camera.aspect = w / h; T.camera.updateProjectionMatrix();
+}
+function matFor(key) {
+  const dark = GF.isDark();
+  if (key.startsWith('H_')) {
+    const rated = key.endsWith('_r'), slab = key.includes('_slab'), light = key.includes('_light');
+    const c = !rated ? (dark ? 0x3a4250 : 0xb8bec8) : slab ? (dark ? 0x6a7386 : 0x9aa3b2) : light ? 0x7aa2d6 : 0xd08a5a;
+    return new THREE.MeshStandardMaterial({color: c, transparent: true, opacity: slab ? 0.16 : rated ? (dark ? 0.26 : 0.22) : 0.06, depthWrite: false,
+      roughness: 0.9, side: THREE.DoubleSide});
+  }
+  if (key.startsWith('I_')) return new THREE.MeshStandardMaterial({color: dark ? 0xf1ece0 : 0xbfb6a2, transparent: true, opacity: 0.42, depthWrite: false, roughness: 1});
+  const sys = key.split('_').slice(2).join('_');
+  const col = new THREE.Color((SYS[sys] || ['', '#888'])[1]);
+  return new THREE.MeshStandardMaterial({color: col, emissive: col.clone().multiplyScalar(dark ? 0.55 : 0.25), roughness: 0.5, metalness: 0.1, side: THREE.DoubleSide});
+}
+function recolor() {
+  if (!T.model) return;
+  const dark = GF.isDark();
+  T.scene.background = new THREE.Color(css('--viewer'));
+  T.model.traverse(o => {
+    if (o.isMesh) { o.material = matFor(o.userData.key || ''); o.renderOrder = (o.userData.key || '').startsWith('H_') ? 2 : 1; }
+    if (o.userData.edge) { const k = o.parent.userData.key || ''; const rated = k.endsWith('_r');
+      o.material.color = new THREE.Color(rated ? (k.includes('_light') ? 0x8fb4e8 : k.includes('_slab') ? (dark ? 0x8a93a3 : 0x6b7280) : 0xe0a070) : (dark ? 0x4a5260 : 0xaab0ba));
+      o.material.opacity = rated ? (dark ? 0.55 : 0.75) : 0.25; }
+  });
+  paintMarkers();
+}
+function fit() {
+  const box = new THREE.Box3().setFromObject(T.model), c = box.getCenter(new THREE.Vector3()), s = box.getSize(new THREE.Vector3());
+  T.home = {target: c.clone(), pos: c.clone().add(new THREE.Vector3(s.x * 0.55, s.y * 1.1, s.z * 2.1))};
+  T.camera.position.copy(T.home.pos); T.controls.target.copy(T.home.target); T.controls.update();
+}
+function buildMarkers() {
+  const ring = new THREE.TorusGeometry(1, 0.16, 12, 40);
+  REG.forEach(p => {
+    const a = p.aperture || [200, 200];
+    const g = new THREE.Group();
+    const r = Math.max(a[0], a[1]) / 2000 * 1.15 + 0.06;
+    const m = new THREE.Mesh(ring, new THREE.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.95, depthTest: false}));
+    m.scale.setScalar(r); m.renderOrder = 10;
+    const halo = new THREE.Mesh(new THREE.CircleGeometry(1, 32), new THREE.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.18, depthTest: false, side: THREE.DoubleSide}));
+    halo.scale.setScalar(r * 1.9); halo.renderOrder = 9;
+    g.add(halo, m);
+    g.position.set(...p.point);
+    if (p.host.kind === 'rigid_floor') { } else if (p.host.axis === 0) g.rotation.y = Math.PI / 2; else g.rotation.x = Math.PI / 2;
+    g.userData = {p, ring: m, halo, base: p.point.slice()};
+    T.root.add(g); T.markers.push(g);
+  });
+  paintMarkers();
+}
+function paintMarkers() {
+  if (!T.markers) return;
+  const ids = revIds();
+  T.markers.forEach(g => {
+    const p = g.userData.p;
+    const c = new THREE.Color(revMode ? (ids.has(p.id) ? css('--other') : css('--miss')) : css(COL[p.status]));
+    const vis = (!storey || p.storey === storey) && (revMode || ((!filt.status || p.status === filt.status) && (!filt.sys || sysOf(p) === filt.sys)));
+    g.visible = vis;
+    g.userData.ring.material.color = c; g.userData.halo.material.color = c;
+    g.userData.ring.material.opacity = revMode && !ids.has(p.id) ? 0.35 : 0.95;
+    const s = sel && sel.id === p.id;
+    g.userData.halo.material.opacity = s ? 0.55 : revMode && !ids.has(p.id) ? 0.05 : 0.18;
+  });
+}
+function pulse(t) {
+  if (!T.markers) return;
+  const ids = revMode ? revIds() : null;
+  T.markers.forEach(g => { const p = g.userData.p; if (ids ? ids.has(p.id) : p.status !== 'TESTET') { const k = 1 + 0.18 * Math.sin(t / 260 + g.position.x); g.userData.halo.scale.setScalar(g.userData.ring.scale.x * 1.9 * k); } });
+}
+function layout() {
+  if (!T.model) return;
+  const lift = c => exploded ? ({K: 0, ST: 2.4, 1: 4.8, 2: 7.2}[c] || 0) : 0;
+  T.model.children.forEach(n => { const code = (n.name.split('_')[1]) || ''; n.visible = !storey || code === CODE[storey]; n.position.z = lift(code); });
+  T.markers.forEach(g => { const c = CODE[g.userData.p.storey]; g.position.z = g.userData.base[2] + lift(c); });
+  paintMarkers();
+}
+function flyTo(p) {
+  const g = T.markers && T.markers.find(m => m.userData.p.id === p.id); if (!g) return;
+  const w = new THREE.Vector3(); g.getWorldPosition(w);
+  const off = new THREE.Vector3(8.5, 6.5, 10.5);
+  const from = T.camera.position.clone(), to = w.clone().add(off), tf = T.controls.target.clone();
+  let k = 0; (function step() { k = Math.min(1, k + 0.06); const e = 1 - Math.pow(1 - k, 3);
+    T.camera.position.lerpVectors(from, to, e); T.controls.target.lerpVectors(tf, w, e); if (k < 1) requestAnimationFrame(step); })();
+}
+function pick(e) {
+  const rect = T.renderer.domElement.getBoundingClientRect();
+  const m = new THREE.Vector2(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
+  const ray = new THREE.Raycaster(); ray.setFromCamera(m, T.camera);
+  const hits = ray.intersectObjects(T.markers.filter(g => g.visible).map(g => g.userData.halo));
+  if (hits.length) { const p = hits[0].object.parent.userData.p; if (revMode) select(p, true); else location.hash = p.id; }
+}
+window.G = {ready: false, render: () => { T.controls.update(); T.renderer.render(T.scene, T.camera); }, three: T, select: id => { location.hash = id; }, setStorey, tab, explode: v => { exploded = v; layout(); },
+  camera: (p, t) => { T.camera.position.set(...p); T.controls.target.set(...t); T.controls.update(); }, check: runCheck,
+  setForm: o => { for (const [k, v] of Object.entries(o)) $('#q_' + k).value = v; runCheck(); }, filter: st => { filt.status = st; $('#fStatus').value = st; list(); paintMarkers(); }};
+})();
+</script>
+</body>
+</html>

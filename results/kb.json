@@ -1,0 +1,74 @@
+{
+ "systems": [
+  {
+   "eta": "ETA-21/0110",
+   "product": "Mulcol Multimastic C System",
+   "system": "Multimastic C",
+   "kind": "Brandplader, coating og fuge (gennemføringstætning)",
+   "items": [
+    "6476478013",
+    "6476478014",
+    "6476478010",
+    "6476477922"
+   ],
+   "url": "https://s3.beijer-ref-web.cust.servinga.com/production/arm/media/a9/f3/09/1683700778/Mulcol_Multimastic_C_ETA_GB_V2146.pdf",
+   "records": 293,
+   "sections": 38,
+   "pages_with_rows": 38,
+   "overrides": 44
+  },
+  {
+   "eta": "ETA-20/1322",
+   "product": "Mulcol Multicollar Slim",
+   "system": "Multicollar Slim",
+   "kind": "Brandmanchet",
+   "items": [
+    "6476477918"
+   ],
+   "url": "https://www.armadan.dk/media/54/41/2d/1729094696/mulcol-multicollarslim-eta-gb-v2345-ast-2189640.pdf",
+   "records": 385,
+   "sections": 93,
+   "pages_with_rows": 95,
+   "overrides": 0
+  }
+ ],
+ "registered": [
+  {
+   "eta": "ETA-20/1321",
+   "product": "Mulcol Multidisc",
+   "kind": "Kabeldisk",
+   "pages": 49,
+   "status": "registreret, ikke udtrukket"
+  },
+  {
+   "eta": "ETA-17/0977",
+   "product": "Mulcol Multifoam 2K",
+   "kind": "Brandskum",
+   "pages": 36,
+   "status": "registreret, ikke udtrukket"
+  }
+ ],
+ "quality": [
+  {
+   "eta": "ETA-20/1322",
+   "page": 17,
+   "note": "PP Ø ≤ 125 mm: godstykkelse angivet som '7.1-3.6' (formentlig trykfejl for 7.1-14.6). Rækken matcher aldrig; spørg producenten."
+  },
+  {
+   "eta": "ETA-21/0110",
+   "page": 23,
+   "note": "Flettede celler læses forkert af PDF'ens tekstlag; rækkerne er indtastet fra siden og kontrolleret (override)."
+  },
+  {
+   "eta": "ETA-21/0110",
+   "page": 48,
+   "note": "Som ovenfor (override). Kobber ≤ 54 mm i dæk har kun E-klassifikation med stenuld."
+  },
+  {
+   "eta": "ETA-20/1322",
+   "page": 135,
+   "note": "Kabeltabeller angiver kabeltyper (UTP Cat. 5/6, YMVK), ikke diametre: vises i databasen, matches ikke automatisk."
+  }
+ ],
+ "version": "9399b8bb976a"
+}

@@ -28,11 +28,16 @@ def run(path=ROOT / "models" / "blok_c_vvs.ifc"):
     return pens, stats
 
 
-def evaluate_against(pens, planted):
-    """Answer-key check: every planted penetration found once, statuses and deviating parameters as expected."""
+def evaluate_against(pens, planted, overrides=None):
+    """Answer-key check: every planted penetration found once, statuses and deviating parameters as expected.
+    overrides: {"<service key>|<host kind>": expectation} for a wider knowledge base (models/planted_fullrange.json)."""
     by_key = {(p["service"]["guid"], p["host"]["guid"]): p for p in pens}
     rows, ok_all = [], True
     for e in planted:
+        o = (overrides or {}).get(f"{e.get('key')}|{e.get('host_kind')}")
+        if o:
+            e = {k: v for k, v in e.items() if k not in ("status", "sections", "deviates", "alternative")}
+            e.update({k: v for k, v in o.items() if k != "why"})
         if e.get("status") == "IKKE_BRANDADSKILLENDE":
             found = any(p["service"]["guid"] == e["service_guid"] for p in pens)
             rows.append({"service": e["service"], "expected": e["status"], "got": "listed" if found else "IKKE_BRANDADSKILLENDE", "ok": not found})
@@ -76,7 +81,9 @@ if __name__ == "__main__":
     print(stats)
     planted_path = path.parent / "planted.json"
     if planted_path.exists():
-        ev = evaluate_against(pens, json.loads(planted_path.read_text(encoding="utf-8")))
+        ov_path = path.parent / "planted_fullrange.json"
+        ov = json.loads(ov_path.read_text(encoding="utf-8"))["overrides"] if ov_path.exists() else None
+        ev = evaluate_against(pens, json.loads(planted_path.read_text(encoding="utf-8")), ov)
         (ROOT / "results" / "evaluation.json").write_text(json.dumps(ev, indent=1, ensure_ascii=False), encoding="utf-8")
         print("answer key:", ev["correct"], "/", ev["planted"], "correct; found", ev["found"], "extra", ev["extra"], "all_ok", ev["all_ok"])
         for r in ev["rows"]:

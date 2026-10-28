@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sager</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23e8a317'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23111' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+@media (min-width:981px){.split{grid-template-columns:minmax(300px,360px) minmax(0,1fr)}}
+.listcol{position:sticky;top:66px;max-height:calc(100vh - 80px);overflow:auto;padding-right:2px}
+.row{grid-template-columns:1fr auto}
+.row .due.late{color:var(--bad);font-weight:700}
+.it{border:1px solid var(--line);border-radius:12px;background:var(--panel2);padding:12px;margin-top:10px}
+.it .ihead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.prec{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px;margin-top:6px}
+.prec .sc{font:600 11.5px "JetBrains Mono",monospace;color:var(--accent)}
+.dec{border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:10px;padding:10px;background:var(--soft);margin-top:8px}
+.radio{display:flex;gap:8px;flex-wrap:wrap}
+.radio label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer;background:var(--panel);font-size:13px;color:var(--ink)}
+.radio input{width:auto}
+.err{color:var(--bad);font-size:12.5px;font-weight:600;margin-top:6px}
+.sig{font:12px "JetBrains Mono",monospace;color:var(--ink2)}
+.flowbtns{display:flex;gap:6px;flex-wrap:wrap}
+@media (max-width:980px){.listcol{position:static;max-height:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pagehead">
+    <div><div class="eyebrow">M3 · M4 · Sagsgang, præcedens og revisionsspor</div><h1>Sager</h1>
+      <p>Hver forespørgsel bliver en sag med frist, region og forhåndstjek. Afvigelser vurderes med den nærmeste testede række og tidligere afgørelser på samme slags afvigelse. Udsendelse kræver kontrol af en anden rådgiver, og hele forløbet er kædet med SHA-256.</p></div>
+    <div class="act"><span class="demo">30 fiktive sager · ændringer gemmes kun i denne browser</span><button class="btn sm" id="reset">Nulstil lokale ændringer</button></div>
+  </div>
+  <div class="grid g4" id="kpis" style="margin-bottom:14px"></div>
+  <div class="split">
+    <div class="listcol">
+      <div class="filters">
+        <select id="fStatus"><option value="">Alle statusser</option></select>
+        <select id="fRegion"><option value="">Alle regioner</option><option>ØST</option><option>VEST</option></select>
+        <input id="fText" placeholder="Søg" size="10">
+      </div>
+      <div id="list"></div>
+    </div>
+    <div id="detail"><div class="card empty">Vælg en sag.</div></div>
+  </div>
+</main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+const { $, $$, esc, store, verdictHTML, triageBadge, caseBadge, badge } = GF;
+const S = await GF.engineReady();
+const [DEMO, LIB, VERIFY] = await GF.load('cases', 'precedents', 'verify');
+const KB = S.kb.version;
+const TRANS = {MODTAGET: ['MANGLER_INFO', 'TIL_VURDERING', 'BESVARET', 'AFVIST'], MANGLER_INFO: ['TIL_VURDERING', 'AFVIST'], TIL_VURDERING: ['UDKAST', 'MANGLER_INFO', 'AFVIST'],
+  UDKAST: ['TIL_KONTROL', 'TIL_VURDERING'], TIL_KONTROL: ['UDSENDT', 'UDKAST'], UDSENDT: ['ARKIVERET', 'TIL_VURDERING'], BESVARET: ['ARKIVERET', 'TIL_VURDERING'], AFVIST: ['ARKIVERET'], ARKIVERET: []};
+const ADVISERS = ['Rådgiver Øst 1', 'Rådgiver Øst 2', 'Rådgiver Vest', 'Rådgiver Vest 2'];
+const CODES = {}; for (const [code, v] of Object.entries(VERIFY)) CODES[v.case + '#' + v.item] = code;
+const DL = new Set(S.downloads || []);
+let filt = {status: '', region: '', text: ''}, cur = null, tamper = null;
+
+const clone = o => JSON.parse(JSON.stringify(o));
+function all() {
+  const over = store.get('cases-local', {}), inbox = store.get('inbox', []);
+  return [...DEMO.map(c => over[c.id] || c), ...inbox.map(c => over[c.id] || c)].sort((a, b) => b.created.localeCompare(a.created));
+}
+function persist(c) { const over = store.get('cases-local', {}); over[c.id] = c; store.set('cases-local', over); }
+const today = new Date().toISOString().slice(0, 10);
+const open = c => !['UDSENDT', 'BESVARET', 'ARKIVERET', 'AFVIST'].includes(c.status);
+
+function kpis() {
+  const cs = all(), op = cs.filter(open);
+  const late = op.filter(c => c.due < today).length;
+  const items = cs.flatMap(c => c.items), defl = items.filter(i => i.triage === 'BESVARET_TESTET').length;
+  $('#kpis').innerHTML = [[op.length, 'åbne sager', late + ' over frist'], [cs.filter(c => c.status === 'TIL_KONTROL').length, 'venter på kontrol', '4-øjne-princippet'],
+    [Math.round(100 * defl / Math.max(1, items.length)) + ' %', 'besvaret uden rådgiver', defl + ' af ' + items.length + ' gennemføringer'],
+    [LIB.length, 'præcedenser i biblioteket', 'fiktive eksempler']].map(([v, l, s]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join('');
+}
+function list() {
+  const cs = all().filter(c => (!filt.status || c.status === filt.status) && (!filt.region || c.region === filt.region) &&
+    (!filt.text || (c.id + ' ' + (c.customer || {}).company + ' ' + (c.project || {}).address + ' ' + c.items.map(i => i.title).join(' ')).toLowerCase().includes(filt.text)));
+  $('#list').innerHTML = cs.map(c => `<div class="row ${cur && cur.id === c.id ? 'sel' : ''}" data-id="${c.id}"><div>
+      <div><span class="id">${c.id}</span>${c.local ? ' <span class="pill">ny</span>' : ''}</div>
+      <div class="t">${esc((c.customer || {}).company || '–')}</div>
+      <div class="s">${c.items.length} gennemf. · ${esc(c.region)} · <span class="due ${open(c) && c.due < today ? 'late' : ''}">frist ${c.due}</span></div></div>${caseBadge(c.status)}</div>`).join('') || '<div class="empty">Ingen sager.</div>';
+  $$('#list .row').forEach(r => r.onclick = () => { location.hash = r.dataset.id; });
+}
+function route() { const id = decodeURIComponent(location.hash.slice(1)); const c = all().find(x => x.id === id) || (!cur && all()[0]); if (c) show(c); }
+
+function precedentsHTML(c, it) {
+  const v = it.verdict; if (!['AFVIGELSE', 'IKKE_DAEKKET'].includes(v.status) || !v.nearest.length) return '';
+  const q = GEngine.itemQuery(it), r = GEngine.findPrecedents(q, v.nearest[0], LIB, 3);
+  const sig = r.signature.map(s => `${s.param}: ${s.direction}${s.magnitude !== null ? ` (${s.magnitude > 0 ? '+' : ''}${s.magnitude}${s.param === 'klassifikation' ? ' min' : ' %'})` : ''}`).join(' · ');
+  return `<div class="sec"><h3>Afvigelsens signatur og præcedens</h3><div class="sig">${esc(sig || '–')}</div>
+    ${r.hits.length ? r.hits.map(h => `<div class="prec"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(h.title)}</b><span class="sc">${h.id} · match ${h.score}</span></div>
+      <div class="sub">${esc(h.decision)} · ${esc(h.eta)} ${esc(h.section)} · ${esc(h.author)} ${esc(h.date)}</div>
+      <div class="note" style="margin-top:4px">${esc(h.argument)}</div>${h.conditions.length ? `<ul class="cond">${h.conditions.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+      <button class="btn sm" data-useprec="${it.no}|${h.id}" style="margin-top:6px">Brug betingelserne</button></div>`).join('')
+      : '<div class="note">Ingen tidligere afgørelse på samme slags afvigelse. Afgørelsen her bliver præcedens for de næste.</div>'}</div>`;
+}
+function decisionHTML(c, it) {
+  const d = it.decision, code = CODES[c.id + '#' + it.no], pdf = `udstedte/${c.id}-${it.no}.pdf`;
+  if (d) return `<div class="dec"><b>${esc(d.decision)}</b> · ${esc(d.author)} · ${esc(d.at.replace('T', ' '))}${d.conditions && d.conditions.length ? `<ul class="cond">${d.conditions.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+    <div class="note" style="margin-top:4px">${esc(d.argument)}</div>
+    <div class="act">${DL.has(pdf) ? `<a class="btn sm pri" href="downloads/${pdf}" target="_blank">Udstedt vurdering (PDF)</a>` : ''}${code ? `<a class="btn sm" href="verify.html#${code}">Verifikationskode ${code}</a>` : ''}</div></div>`;
+  if (!['MODTAGET', 'TIL_VURDERING', 'MANGLER_INFO', 'UDKAST'].includes(c.status) || it.triage !== 'TIL_VURDERING') return '';
+  return `<div class="dec" data-editor="${it.no}"><h3 style="margin-bottom:6px">Afgørelse (udkast)</h3>
+    <div class="form"><label>Rådgiver<select data-f="actor">${ADVISERS.map(a => `<option ${a.includes(c.region === 'VEST' ? 'Vest' : 'Øst') && !a.endsWith('2') ? 'selected' : ''}>${a}</option>`).join('')}</select></label>
+    <div class="radio" style="align-self:end">${['GODKENDT', 'BETINGET', 'AFVIST'].map((x, i) => `<label><input type="radio" name="d${it.no}" value="${x}" ${i === 1 ? 'checked' : ''}>${x.toLowerCase()}</label>`).join('')}</div>
+    <label class="full">Betingelser (én pr. linje)<textarea data-f="conditions" style="min-height:60px"></textarea></label>
+    <label class="full">Faglig begrundelse (min. 40 tegn, skrevet af rådgiveren) <span class="note" data-count>0 tegn</span><textarea data-f="argument" placeholder="Hvorfor er afvigelsen acceptabel eller ikke, med henvisning til testdata, klassifikation og den nærmeste testede opbygning."></textarea></label></div>
+    <div class="act"><button class="btn pri sm" data-save="${it.no}">Gem udkast</button></div><div class="err" data-err></div></div>`;
+}
+function flowHTML(c) {
+  const steps = c.status === 'BESVARET' ? ['MODTAGET', 'BESVARET', 'ARKIVERET'] : GF.CASE_FLOW;
+  const idx = steps.indexOf(c.status);
+  const strip = `<div class="states">${steps.map((s, i) => `<span class="${s === c.status ? 'now' : i < idx ? 'done' : ''}">${esc(GF.CASE[s])}</span>`).join('')}${idx < 0 ? `<span class="now">${esc(GF.CASE[c.status])}</span>` : ''}</div>`;
+  const nexts = TRANS[c.status] || [];
+  let review = '';
+  if (c.status === 'TIL_KONTROL') review = `<div class="dec"><h3 style="margin-bottom:6px">Kontrol (4 øjne)</h3><div class="form"><label>Kontrollant<select id="rv_actor">${ADVISERS.map(a => `<option>${a}</option>`).join('')}</select></label>
+    <label>Kommentar<input id="rv_comment" placeholder="fx Kontrolleret mod ETA og præcedens"></label></div>
+    <div class="act"><button class="btn pri sm" id="rv_ok">Godkend</button><button class="btn sm" id="rv_no">Send tilbage</button></div><div class="err" id="rv_err"></div></div>`;
+  return strip + `<div class="flowbtns">${nexts.map(n => `<button class="btn sm" data-move="${n}">→ ${esc(GF.CASE[n])}</button>`).join('')}</div><div class="err" id="mv_err"></div>` + review;
+}
+async function chainHTML(c) {
+  const evs = tamper || c.events, r = await GF.verifyChain(evs);
+  return `<div class="sec"><h3>Revisionsspor</h3><div class="${r.ok ? 'okline' : 'badline'}">${r.ok ? '✓ Kæden er intakt: ' + evs.length + ' hændelser, ingen ændret, indsat eller slettet' : '✗ Kæden er brudt ved hændelse ' + (r.each.indexOf(false) + 1) + ': loggen er ændret efter at den blev skrevet'}</div>
+    <div class="chain">${evs.map((e, i) => `<div class="ev ${r.each[i] ? '' : 'broken'}"><span>${esc(e.at.replace('T', ' '))}</span><span><b>${esc(e.actor)}</b> · ${esc(e.action)}${Object.keys(e.detail || {}).length ? ' · ' + esc(JSON.stringify(e.detail)) : ''}</span><span class="h">${e.hash.slice(0, 12)}…</span></div>`).join('')}</div>
+    <div class="act">${tamper ? '<button class="btn sm" id="untamper">Gendan</button>' : '<button class="btn sm" id="tamper">Simulér en stille rettelse</button>'}<span class="note" style="align-self:center">Vidensbase-version ${esc(KB)} · samme hash som serverens kvalitetslog</span></div></div>`;
+}
+async function show(c) {
+  cur = c; list();
+  const p = c.project || {}, cu = c.customer || {};
+  let h = `<div class="card"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><span class="id mono" style="color:var(--ink2)">${c.id}</span>
+    <h2 style="font-size:20px;margin:2px 0">${esc(cu.company || '–')}</h2><div class="sub">${esc(p.address || '')} · ${esc(p.building_type || '')} · ${esc(p.timeline || '')}</div></div>
+    <div>${caseBadge(c.status)}<div class="note" style="margin-top:4px">${esc(c.region)} · ${esc(c.office)} · oprettet ${esc(c.created.slice(0, 10))} · frist <b class="${open(c) && c.due < today ? 'badline' : ''}">${esc(c.due)}</b></div></div></div>
+    ${flowHTML(c)}</div>`;
+  h += c.items.map(it => `<div class="it"><div class="ihead"><b>${it.no}. ${esc(it.title || '')}</b>${triageBadge(it.triage)}<span class="pill">komplethed ${it.completeness} %</span>${it.quantity > 1 ? `<span class="pill">${it.quantity} stk.</span>` : ''}</div>
+    ${it.missing && it.missing.length ? `<details class="more"><summary>Mangler (${it.missing.length})</summary><ul class="cond">${it.missing.map(m => `<li>${esc(m)}</li>`).join('')}</ul></details>` : ''}
+    <details class="more" ${it.triage === 'TIL_VURDERING' && !it.decision ? 'open' : ''}><summary>Forhåndstjek: ${esc(GF.STATUS[it.verdict.status])}</summary>${verdictHTML(it.verdict, {nodisc: true})}</details>
+    ${precedentsHTML(c, it)}${decisionHTML(c, it)}</div>`).join('');
+  h += `<div class="card" style="margin-top:12px" id="chainbox">${await chainHTML(c)}</div>`;
+  $('#detail').innerHTML = h;
+  wire(c);
+  if (innerWidth < 980) $('#detail').scrollIntoView();
+}
+function wire(c) {
+  const work = () => { const w = clone(c); return w; };
+  $$('[data-editor]').forEach(ed => {
+    const ta = ed.querySelector('[data-f=argument]'), cnt = ed.querySelector('[data-count]');
+    ta.oninput = () => { cnt.textContent = ta.value.trim().length + ' tegn'; };
+  });
+  $$('[data-useprec]').forEach(b => b.onclick = () => {
+    const [no, pid] = b.dataset.useprec.split('|'), h = LIB.find(x => x.id === pid), ed = $(`[data-editor="${no}"]`); if (!ed || !h) return;
+    ed.querySelector('[data-f=conditions]').value = h.conditions.join('\n');
+    const r = ed.querySelector(`input[value="${h.decision}"]`); if (r) r.checked = true;
+    ed.querySelector('[data-f=argument]').focus();
+  });
+  $$('[data-save]').forEach(b => b.onclick = async () => {
+    const no = +b.dataset.save, ed = $(`[data-editor="${no}"]`), err = ed.querySelector('[data-err]');
+    const actor = ed.querySelector('[data-f=actor]').value, dec = ed.querySelector(`input[name="d${no}"]:checked`).value;
+    const conds = ed.querySelector('[data-f=conditions]').value.split('\n').map(s => s.trim()).filter(Boolean), arg = ed.querySelector('[data-f=argument]').value.trim();
+    if (dec === 'BETINGET' && !conds.length) { err.textContent = 'En betinget godkendelse kræver betingelser.'; return; }
+    if (arg.length < 40) { err.textContent = 'Begrundelsen skal være skrevet af rådgiveren (min. 40 tegn).'; return; }
+    const w = work(); const it = w.items.find(i => i.no === no);
+    if (w.status === 'MODTAGET' || w.status === 'MANGLER_INFO') { const f = w.status; w.status = 'TIL_VURDERING'; await GF.appendEvent(w, actor, `status:${f}->TIL_VURDERING`, {}, KB); }
+    it.decision = {decision: dec, conditions: conds, argument: arg, author: actor, at: new Date().toISOString().slice(0, 19)};
+    await GF.appendEvent(w, actor, 'udkast_gemt', {item: no, decision: dec}, KB);
+    persist(w); show(w);
+  });
+  $$('[data-move]').forEach(b => b.onclick = async () => {
+    const to = b.dataset.move, err = $('#mv_err'), w = work();
+    const last = a => [...w.events].reverse().find(e => e.action === a);
+    if (to === 'UDKAST' && !w.items.some(i => i.decision)) { err.textContent = 'Gem mindst én afgørelse før udkastet.'; return; }
+    if (to === 'UDSENDT') {
+      const rv = last('kontrol_godkendt'), au = last('udkast_gemt');
+      if (!rv || !au) { err.textContent = 'Kan ikke udsendes uden udkast og godkendt kontrol.'; return; }
+      if (rv.actor === au.actor) { err.textContent = 'Kontrollen skal udføres af en anden rådgiver end forfatteren (4-øjne-princip).'; return; }
+    }
+    const actor = to === 'UDSENDT' ? last('kontrol_godkendt').actor : (last('udkast_gemt') || {}).actor || ADVISERS[c.region === 'VEST' ? 2 : 0];
+    const f = w.status; w.status = to; await GF.appendEvent(w, actor, `status:${f}->${to}`, {}, KB);
+    persist(w); show(w);
+  });
+  const rv = async ok => {
+    const w = work(), actor = $('#rv_actor').value, au = [...w.events].reverse().find(e => e.action === 'udkast_gemt');
+    if (au && au.actor === actor) { $('#rv_err').textContent = 'Forfatteren kan ikke kontrollere sit eget udkast (4-øjne-princip).'; return; }
+    await GF.appendEvent(w, actor, ok ? 'kontrol_godkendt' : 'kontrol_afvist', {comment: $('#rv_comment').value || (ok ? 'Kontrolleret' : 'Tilbage til udkast')}, KB);
+    if (!ok) { w.status = 'UDKAST'; await GF.appendEvent(w, actor, 'status:TIL_KONTROL->UDKAST', {}, KB); }
+    persist(w); show(w);
+  };
+  if ($('#rv_ok')) { $('#rv_ok').onclick = () => rv(true); $('#rv_no').onclick = () => rv(false); }
+  if ($('#tamper')) $('#tamper').onclick = async () => {
+    tamper = clone(c.events); const i = tamper.findIndex(e => e.action === 'udkast_gemt'); const k = i >= 0 ? i : Math.min(1, tamper.length - 1);
+    tamper[k].detail = {...tamper[k].detail, decision: 'GODKENDT', item: (tamper[k].detail || {}).item ?? 1}; if (i < 0) tamper[k].actor = 'Ukendt';
+    $('#chainbox').innerHTML = await chainHTML(c); wire(c);
+  };
+  if ($('#untamper')) $('#untamper').onclick = async () => { tamper = null; $('#chainbox').innerHTML = await chainHTML(c); wire(c); };
+}
+
+$('#fStatus').innerHTML += Object.entries(GF.CASE).map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join('');
+$('#fStatus').onchange = e => { filt.status = e.target.value; list(); };
+$('#fRegion').onchange = e => { filt.region = e.target.value; list(); };
+$('#fText').oninput = e => { filt.text = e.target.value.toLowerCase(); list(); };
+$('#reset').onclick = () => { store.del('cases-local'); store.del('inbox'); tamper = null; cur = null; kpis(); route(); list(); };
+window.addEventListener('hashchange', () => { tamper = null; route(); });
+kpis(); route(); list();
+window.C = {show: id => show(all().find(c => c.id === id)), all};
+})();
+</script>
+</body>
+</html>

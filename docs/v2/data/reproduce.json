@@ -1,0 +1,56 @@
+{
+ "ok": true,
+ "checks": [
+  {
+   "check": "Register: status og citerede ETA-rækker for hver gennemføring",
+   "ok": true,
+   "detail": "58 gennemføringer, 0 forskelle []"
+  },
+  {
+   "check": "Facitliste (håndudledt fra ETA-siderne)",
+   "ok": true,
+   "detail": "59/59"
+  },
+  {
+   "check": "Materialeliste: varenumre, antal, grundlag",
+   "ok": true,
+   "detail": "6 linjer"
+  },
+  {
+   "check": "Revision A→B",
+   "ok": true,
+   "detail": "5 ændret, 1 ny, 1 fjernet"
+  },
+  {
+   "check": "Sagslog: SHA-256-kæde for alle sager",
+   "ok": true,
+   "detail": "30 sager"
+  },
+  {
+   "check": "4-øjne-princip på alle udsendte vurderinger",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "Verifikationskoder genberegnet fra sag, afgørelse, citerede rækker og vidensbase",
+   "ok": true,
+   "detail": "22 koder, 0 afvigende"
+  },
+  {
+   "check": "Manifest: SHA-256 for hver leveret fil",
+   "ok": true,
+   "detail": "32 filer, 0 ændret []"
+  },
+  {
+   "check": "Vidensbase-version som i manifestet",
+   "ok": true,
+   "detail": "9399b8bb976a"
+  }
+ ],
+ "inputs": {
+  "model_A": "8f876e7114374feb",
+  "model_B": "3d986d0fab455a9c",
+  "knowledge_base": "9399b8bb976a",
+  "code": "efe21aff5420"
+ }
+}

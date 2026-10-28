@@ -2,7 +2,7 @@
 STATUS = {
     "TESTET": "Testet løsning",
     "AFVIGELSE": "Afvigelse: brandteknisk vurdering",
-    "IKKE_DAEKKET": "Ingen testet løsning i ETA'en",
+    "IKKE_DAEKKET": "Ingen testet løsning i ETA'erne",
     "ANDET_SYSTEM": "Andet system (spjæld / kanalisolering)",
     "MANGLER_DATA": "Mangler data",
 }
@@ -18,7 +18,7 @@ ACTION = {
 PRIORITY = {"TESTET": "Minor", "AFVIGELSE": "Major", "IKKE_DAEKKET": "Critical", "ANDET_SYSTEM": "Normal", "MANGLER_DATA": "Major"}
 HOST = {"rigid_wall": "Massiv væg", "flexible_wall": "Let væg", "rigid_floor": "Massivt dæk"}
 SERVICE = {"pipe": "Rør", "duct": "Ventilationskanal", "cable": "Kabel", "cable_bundle": "Kabelbundt", "cable_tray": "Kabelbakke"}
-DISCLAIMER = ("Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110) og "
+DISCLAIMER = ("Beslutningsstøtte, ikke godkendelse. Hver løsning kontrolleres mod kildedokumentet (ETA-21/0110, ETA-20/1322) og "
               "producentens monteringsvejledning. En brandteknisk vurdering udarbejdes og underskrives af en person.")
 
 
@@ -44,7 +44,8 @@ def service_line(s):
 def solution_line(v):
     if v["matches"]:
         m = v["matches"][0]
-        return f"{m['eta']} {m['section']} (s. {m['page']}): {m['board']}, {m['classification']}"
+        what = m.get("board") or (f"Multicollar Slim, {m.get('collars_per_face') or 1} pr. side" if m.get("system") == "Multicollar Slim" else m.get("system"))
+        return f"{m['eta']} {m['section']} (s. {m['page']}): {what}, {m['classification']}"
     if v["nearest"]:
         n = v["nearest"][0]
         return f"Nærmeste testede: {n['eta']} {n['section']} (s. {n['page']}), afviger på: {', '.join(n['deviates'])}"

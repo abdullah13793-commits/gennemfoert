@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vidensbase</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23e8a317'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23111' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.sys .v{font-size:26px;font-weight:800;letter-spacing:-.02em}
+.etarow{display:grid;grid-template-columns:76px 1fr auto;gap:8px;padding:7px 8px;border-bottom:1px solid var(--line);cursor:pointer;font-size:12.5px}
+.etarow:hover,.etarow.sel{background:var(--panel2)}
+.etarow .sct{font:600 11.5px "JetBrains Mono",monospace;color:var(--accent)}
+@media (min-width:981px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+#list{max-height:640px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+.viewer{position:sticky;top:66px}
+pre{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px;overflow:auto;font:12px "JetBrains Mono",monospace}
+.tool{display:grid;grid-template-columns:170px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
+.tool code{font:600 12px "JetBrains Mono",monospace;color:var(--accent)}
+@media (max-width:980px){.viewer{position:static}.tool{grid-template-columns:1fr;gap:2px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pagehead">
+    <div><div class="eyebrow">M1 · Vidensbase</div><h1>Testede opbygninger på tværs af ETA'er</h1>
+      <p>Hver række i ETA'ernes tabeller er udtrukket med side og placering, så et svar altid kan føres tilbage til kilden. Tabeller med flettede celler er kontrolleret mod siden; kendte uklarheder i kilderne står nedenfor.</p></div>
+    <span class="demo" id="kbv"></span>
+  </div>
+  <div class="grid g2" id="systems"></div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h3>Næste i importkøen</h3><div id="reg"></div></div>
+    <div class="card"><h3>Datakvalitet i kilderne</h3><div id="qual"></div></div>
+  </div>
+
+  <div class="sec card">
+    <h3>Søg i testede opbygninger</h3>
+    <div class="filters">
+      <input id="q" placeholder="fx PVC 110, Kaiflex, copper, elbow" style="flex:1;min-width:200px">
+      <select id="fSys"><option value="">Alle systemer</option><option>Multimastic C</option><option>Multicollar Slim</option></select>
+      <select id="fHost"><option value="">Alle konstruktioner</option><option value="rigid_floor">Massivt dæk</option><option value="rigid_wall">Massiv væg</option><option value="flexible_wall">Let væg</option></select>
+      <select id="fConf"><option value="">Alle situationer</option></select>
+      <select id="fEI"><option value="">Alle EI</option><option>30</option><option>60</option><option>90</option><option>120</option></select>
+    </div>
+    <div class="split">
+      <div><div class="note" id="info"></div><div id="list"></div></div>
+      <div class="viewer" id="view"><div class="empty">Vælg en række for at se den i ETA'en.</div></div>
+    </div>
+  </div>
+
+  <div class="sec card"><h3>Præcedensbibliotek</h3><p class="note">Afgørelser bruges som præcedens, når en ny sag har samme konstruktionstype og samme afvigende parametre i samme retning. Eksemplerne er fiktive.</p><div class="tablewrap"><table class="t" id="prec"></table></div></div>
+
+  <div class="sec card" id="mcp"><h3>M9 · MCP-server</h3>
+    <p class="sub">Samme regler som siderne, som værktøjer for Claude, Copilot eller en IDE-agent. Rådgiveren kan spørge på dansk: "Er PP 75x2,6 i et 220 mm huldæk EI 60 testet?" eller "Hvilke sager venter på kontrol i Vest?".</p>
+    <div id="tools"></div>
+    <pre>{"mcpServers": {"gennemfoert": {"command": "python", "args": ["&lt;repo&gt;/src/mcp_server.py"]}}}</pre>
+  </div>
+</main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+const { $, $$, esc, num } = GF;
+const S = await GF.engineReady();
+const [LIB] = await GF.load('precedents');
+const R = GEngine.records();
+$('#kbv').textContent = 'vidensbase-version ' + S.kb.version;
+$('#systems').innerHTML = S.kb.systems.map(s => `<div class="card sys"><div class="eyebrow">${esc(s.eta)}</div><h2 style="font-size:19px">${esc(s.product)}</h2><div class="sub">${esc(s.kind)}</div>
+  <div class="grid g3" style="margin-top:12px"><div><div class="v">${s.records}</div><div class="note">testede rækker</div></div><div><div class="v">${s.sections}</div><div class="note">tabeller/afsnit</div></div><div><div class="v">${s.pages_with_rows}</div><div class="note">sider med rækker</div></div></div>
+  <div class="note" style="margin-top:10px">Varenr.: ${s.items.map(esc).join(', ')}${s.overrides ? ` · ${s.overrides} rækker indtastet og kontrolleret manuelt` : ''}</div>
+  <div class="act"><a class="btn sm" href="${esc(s.url)}" target="_blank" rel="noopener">ETA (PDF)</a><button class="btn sm" data-sys="${esc(s.system)}">Vis rækkerne</button></div></div>`).join('');
+$('#reg').innerHTML = S.kb.registered.map(r => `<div style="display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)"><span><b>${esc(r.product)}</b> · ${esc(r.eta)}<div class="note">${esc(r.kind)} · ${r.pages} sider</div></span><span class="pill">${esc(r.status)}</span></div>`).join('')
+  + '<p class="note">Samme udtræk og test som de to første: rækker, side, rækkeplacering, stikprøver mod siderne.</p>';
+$('#qual').innerHTML = S.kb.quality.map(q => `<div style="padding:6px 0;border-bottom:1px solid var(--line)"><span class="mono" style="color:var(--accent);font-size:12px">${esc(q.eta)} s. ${q.page}</span><div class="sub">${esc(q.note)}</div></div>`).join('');
+const confs = [...new Set(R.map(r => r.configuration))];
+$('#fConf').innerHTML += confs.map(c => `<option value="${c}">${esc(GEngine.CONF_DA[c] || c)}</option>`).join('');
+let f = {q: '', sys: '', host: '', conf: '', ei: ''};
+function list() {
+  const words = f.q.toLowerCase().split(/\s+/).filter(Boolean);
+  const rows = R.filter(r => {
+    if (f.sys && r.system !== f.sys) return false;
+    if (f.host && !r.hosts.includes(f.host)) return false;
+    if (f.conf && r.configuration !== f.conf) return false;
+    if (f.ei && (r.classification.EI || 0) < +f.ei) return false;
+    const hay = [r.section, r.heading, r.service.text, r.classification.text, r.insulation.text || '', r.system, GEngine.CONF_DA[r.configuration] || '', r.configuration].join(' ').toLowerCase();
+    return words.every(w => hay.includes(w));
+  });
+  $('#info').textContent = `${rows.length} af ${R.length} rækker${rows.length > 150 ? ' · viser de første 150' : ''}`;
+  $('#list').innerHTML = rows.slice(0, 150).map(r => `<div class="etarow" data-id="${esc(r.id)}"><span class="sct">${esc(r.section)}<br><span class="note">s. ${r.page}</span></span>
+    <span>${esc(r.service.text)}<div class="note">${esc(r.insulation.text || '')}${r.configuration !== 'perpendicular' ? ' · ' + esc(GEngine.CONF_DA[r.configuration]) : ''} · ${esc(r.system)}</div></span><span><b>${esc(r.classification.text)}</b></span></div>`).join('');
+  $$('#list .etarow').forEach(e => e.onclick = () => view(e.dataset.id));
+}
+function view(id) {
+  const r = GEngine.record(id); $$('#list .etarow').forEach(e => e.classList.toggle('sel', e.dataset.id === id));
+  const ref = {eta: r.eta, section: r.section, page: r.page, row_bbox: r.row_bbox};
+  $('#view').innerHTML = `<div class="sol"><div class="ref">${esc(r.eta)} ${esc(r.section)} · side ${r.page}${r.source === 'override' ? ' · indtastet og kontrolleret' : ''}</div><div style="margin-top:4px">${esc(r.heading)}</div>
+    <div class="sub">${esc(r.service.text)} · ${esc(r.classification.text)}</div>
+    <div class="note">Konstruktion: ${r.hosts.map(h => GF.HOST[h]).join(' / ')} ≥ ${r.min_thickness} mm${r.board ? ` · Multimastic ${esc(r.board.type)} ${r.board.layers}x${r.board.thickness} mm` : ''}${r.collars_per_face ? ` · ${r.collars_per_face} manchet pr. side` : ''}${r.seal_max ? ' · max. hul ' + esc(r.seal_max.text) : ''}</div>
+    ${GF.etaImg(ref) || '<div class="note" style="margin-top:8px">Ingen sidegengivelse for denne række.</div>'}</div>`;
+  if (innerWidth < 980) $('#view').scrollIntoView();
+}
+$('#q').oninput = e => { f.q = e.target.value; list(); };
+[['fSys', 'sys'], ['fHost', 'host'], ['fConf', 'conf'], ['fEI', 'ei']].forEach(([id, k]) => $('#' + id).onchange = e => { f[k] = e.target.value; list(); });
+$$('[data-sys]').forEach(b => b.onclick = () => { f.sys = b.dataset.sys; $('#fSys').value = f.sys; list(); $('#q').scrollIntoView({behavior: 'smooth'}); });
+list();
+$('#prec').innerHTML = '<tr><th>ID</th><th>Sag</th><th>Afvigelse</th><th>Afgørelse</th><th>Kilde</th></tr>' + LIB.map(p => `<tr><td class="mono">${esc(p.id)}</td><td>${esc(p.title)}<div class="note">${esc(GF.HOST[p.key.host])} · ${esc(p.key.family)}</div></td>
+  <td>${p.signature.map(s => `${esc(s.param)}: ${esc(s.direction)}${s.magnitude !== null ? ' (' + s.magnitude + ')' : ''}`).join('<br>')}</td><td>${esc(p.decision)}<div class="note">${p.conditions.map(esc).join('; ')}</div></td><td>${esc(p.eta)} ${esc(p.section)}</td></tr>`).join('');
+const TOOLS = [['check_penetration', 'Er opbygningen testet? Alle rækker i begge ETA\'er, med afvigende parametre og alternativer.'], ['precheck_enquiry', 'Forhåndstjek af en hel forespørgsel: komplethed, triage, region, frist.'],
+  ['find_precedents', 'Afvigelsens signatur og tidligere afgørelser på samme slags afvigelse.'], ['search_eta', 'Fritekstsøgning i testede rækker, filtrer på system, konstruktion, EI.'],
+  ['knowledge_base', 'Indhold, versioner, importkø og kendte fejl i kilderne.'], ['list_cases / get_case', 'Sagsliste og sag med revisionsspor; kæden og 4-øjne kontrolleres.'],
+  ['verify_assessment', 'Er en udstedt vurdering ægte og stadig gyldig?'], ['quote_project', 'Materialeliste med varenumre og grundlag.'],
+  ['revision_impact', 'Hvilke afgørelser gælder ikke efter en ny modelrevision?'], ['project_overview / list_penetrations / get_penetration', 'Projektets register fra IFC-modellen.'],
+  ['export_documents', 'Skriver register (XLSX/PDF), BCF og IFC med tætninger.']];
+$('#tools').innerHTML = TOOLS.map(([n, d]) => `<div class="tool"><code>${esc(n)}</code><span>${esc(d)}</span></div>`).join('');
+})();
+</script>
+</body>
+</html>

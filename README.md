@@ -1,141 +1,84 @@
 <div align="center">
 
-<img src="docs/media/cover.jpg" alt="Gennemført" width="100%">
+<img src="docs/media/v2/cover.jpg" alt="Gennemført 2.0" width="100%">
 
-# Gennemført
+# Gennemført 2.0
 
-### Every penetration of a fire separation, checked against the exact tested configuration, with the page to prove it.
+### Penetration seals, valid as tested: from the customer's enquiry to the owner's handover, every step checked and verifiable.
 
-**[▶ Live app](https://abdullah13793-commits.github.io/gennemfoert/app/)** · **[Project page](https://abdullah13793-commits.github.io/gennemfoert/)** · **[Register PDF with QR labels](https://abdullah13793-commits.github.io/gennemfoert/app/downloads/Gennemfoeringsregister.pdf)**
+**[▶ Open the app](https://abdullah13793-commits.github.io/gennemfoert/v2/)** · **[Project page + 60-second tour](https://abdullah13793-commits.github.io/gennemfoert/)** · **[Verify a file](https://abdullah13793-commits.github.io/gennemfoert/v2/verify.html)** · [Version 1](https://abdullah13793-commits.github.io/gennemfoert/app/)
 
-![IFC4](https://img.shields.io/badge/IFC4-IfcOpenShell-b7791f) ![ETA](https://img.shields.io/badge/ETA--21%2F0110-293%20tested%20rows-b7791f) ![BCF](https://img.shields.io/badge/BCF-2.1-b7791f) ![MCP](https://img.shields.io/badge/MCP-server-7b5cd6) ![tests](https://img.shields.io/badge/tests-24%2F24%20passing-16a34a) ![answer key](https://img.shields.io/badge/answer%20key-59%2F59-16a34a) ![parity](https://img.shields.io/badge/browser%20%3D%20server-600%2F600-16a34a) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+[![tests](https://github.com/abdullah13793-commits/gennemfoert/actions/workflows/tests.yml/badge.svg)](https://github.com/abdullah13793-commits/gennemfoert/actions/workflows/tests.yml)
+![ETA](https://img.shields.io/badge/ETA-678%20tested%20rows-b7791f) ![answer key](https://img.shields.io/badge/answer%20key-59%2F59-16a34a) ![parity](https://img.shields.io/badge/browser%20%3D%20server-1500%2F1500-16a34a) ![reproduce](https://img.shields.io/badge/reproduce-9%2F9-16a34a) ![IFC4](https://img.shields.io/badge/IFC4-IfcOpenShell-b7791f) ![MCP](https://img.shields.io/badge/MCP-14%20tools-7b5cd6) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+
+<img src="docs/media/v2/loop.gif" alt="3D register" width="72%">
 
 </div>
 
-> **Decision support, not approval.** Every solution is confirmed against the source document and the manufacturer's
-> installation instructions; every brandteknisk vurdering is written and signed by a person. The demonstration
-> building is fictitious.
+> **Decision support, not approval.** Every match is confirmed against the source document and the installation instructions; a brandteknisk
+> vurdering is written and signed by a person. The demo building, cases, customers and precedents are fictitious.
 
-## Valid only as tested
-
-A penetration seal is approved for the set-up that was fire-tested: construction and thickness, pipe material,
-diameter and wall thickness, insulation type, thickness and product, pipe-end configuration, seal geometry. Projects
-drift in small ways, and the drift is usually found on site, one enquiry at a time. Gennemført finds it in the model.
-
-<p align="center"><img src="docs/media/app_tour.gif" alt="App tour" width="100%"></p>
+## What it does
+A fire-protection adviser answers enquiries about penetration seals: is this pipe, in this wall, at this fire rating, a tested solution,
+and if not, what is the assessment? Gennemført 2.0 turns that work into a checked, traceable workflow.
 
 ```mermaid
 flowchart LR
-    M["🏗️ IFC model<br/>walls, decks, pipes,<br/>insulation, systems, openings"] --> F["Find<br/>every service through<br/>an EI/REI wall or deck"]
-    E["📄 ETA-21/0110<br/>Annex A tables"] --> D[("293 tested rows<br/>page + row")]
-    F --> C{{"Check<br/>14 parameters"}}
-    D --> C
-    C --> T["TESTET"]
-    C --> A["AFVIGELSE<br/>parameter named +<br/>tested alternative"]
-    C --> N["IKKE DÆKKET /<br/>ANDET SYSTEM /<br/>MANGLER DATA"]
-    T --> O["Register XLSX/PDF + QR labels<br/>BCF · seals in IFC<br/>vurdering drafts · web app · MCP"]
-    A --> O
-    N --> O
-    style C fill:#b7791f,color:#fff,stroke:#b7791f
-    style A fill:#d97706,color:#fff,stroke:#d97706
-    style T fill:#16a34a,color:#fff,stroke:#16a34a
+    Q["📝 Structured enquiry<br/>fields per penetration<br/>photos · completeness"] --> P{{"Pre-check<br/>678 tested ETA rows"}}
+    P -->|tested| A["✅ Answer at once<br/>ETA · section · page"]
+    P -->|deviates| C["📁 Case<br/>nearest row · deviation signature<br/>precedents"]
+    C --> D["✍️ Decision<br/>adviser's own argument"] --> R["👀 Four eyes<br/>reviewer ≠ author"] --> I["📄 Issued PDF<br/>ETA excerpt · QR code"]
+    I --> S["🔧 Site checklist<br/>photo · signatures"] --> O["🏠 Owner package"]
+    M["🏗️ IFC model rev. A/B"] --> X["Register · BCF · seals in IFC<br/>revision impact"]
+    L[("🔗 SHA-256 audit chain")] -.- C & D & R & I
+    style P fill:#b7791f,color:#fff,stroke:#b7791f
+    style L fill:#1f2937,color:#fff
 ```
 
-## The answer, with the evidence beside it
-
-<img src="docs/media/app_deviation.png" alt="Detail card: deviation named next to the ETA row" width="100%">
-
-Copper Ø22 with Armaflex AF 13 mm through a 220 mm hollow-core deck, REI 60. The nearest tested configuration is
-**ETA-21/0110 A.4.8, page 56**: same pipe, same diameter, same insulation thickness, tested with Kaiflex ST. The
-insulation product is the deviation, and it is the only one.
-
-<img src="docs/media/app_alternative.png" alt="Tested alternative suggested" width="100%">
-
-When changing one parameter would make it compliant, it says so: copper with 30 mm stone wool through the decks has no
-EI 60 row (only E), the tested alternative is 9-13 mm elastomeric insulation with Multiwrap (A.4.8, EI 60).
-
-**Checked per seal:** construction · thickness · material · diameter (incl. the ETA's intermediate-size graphs) · wall
-thickness · insulation type, thickness and product · classification · pipe-end configuration (open/closed system) ·
-hole size · edge distance · distance between seals (≥ 200 mm) · fill ratio (≤ 60 %).
-
-## Documentation the owner can rely on
-
-<img src="docs/media/register_labels.png" alt="Register and QR labels" width="100%">
-
-| Output | What's in it |
-|---|---|
-| **Register** (Excel + PDF) | ID, storey, construction, service, status, solution with ETA reference, deviations, inspection columns, indicative quantities |
-| **QR site labels** | one per seal: status, ETA reference, sign-off fields; the QR opens the seal's card in the app |
-| **IFC** | one `IfcBuildingElementProxy` (PROVISIONFORVOID) per seal, filling the architect's opening, with `Pset_ProvisionForVoid` and a `Gennemfoert_Taetning` set (status, solution, ETA ref, deviations, inspection fields) |
-| **BCF 2.1** | one issue per seal that is not tested-as-built, service and host selected |
-| **Brandteknisk vurdering drafts** (.docx) | basis with citations, designed-vs-tested table, deviations, tested alternative, the questions the adviser must answer, signature block; one per group of identical deviations |
-
-## On site and on the phone
-
-<table><tr>
-<td width="62%"><img src="docs/media/app_checker.png" alt="Instant checker"></td>
-<td width="38%"><img src="docs/media/app_phone.png" alt="QR label opened on a phone"></td>
-</tr><tr>
-<td>"Tjek en gennemføring": a phone enquiry answered in the browser, with the ETA row.</td>
-<td>Scan the label on site: the seal's card opens.</td>
-</tr></table>
-
-## Ask it (MCP)
-
-`src/mcp_server.py` exposes the engine to any MCP client: `check_penetration`, `search_eta`, `project_overview`,
-`list_penetrations`, `get_penetration`, `export_documents`. A recorded live session
-([`results/mcp_claude_demo.json`](results/mcp_claude_demo.json)): asked in Danish whether a 110×3.2 PVC drain through a
-220 mm hollow-core deck at EI 60 is tested, Claude called `check_penetration` and answered AFVIGELSE on wall thickness
-(A.4.5, p. 52), then listed the project's deviations with sections and pages, and noted that a person signs.
-
-```json
-{"mcpServers": {"gennemfoert": {"command": "python", "args": ["<repo>/src/mcp_server.py"]}}}
-```
-
-## The tested-solution database
-
-`src/gennemfoert/eta.py` turns the Annex A tables of ETA-21/0110 (Mulcol Multimastic C System, ETA-Danmark, 2021,
-publicly available) into **293 records from 38 tables**, each with page, section and the row's rectangle on the page.
-Merged cells are filled down; rows that the PDF text layer garbles (pages 23, 48-50, 56) were typed from the rendered
-page and are marked `source: override` in [`data/eta/overrides.json`](data/eta/overrides.json). The ETA PDF itself is not
-in this repository; see [`data/eta/source/README.md`](data/eta/source/README.md).
-
-## Proof
-
-| Check | Result |
-|---|---|
-| Demonstration model: hand-written answer key (status, deviating parameter, tested alternative) | **59/59**, 0 extra penetrations |
-| Enquiries derived by hand from the ETA pages | **18/18** |
-| Browser engine vs Python engine, random enquiries | **600/600** identical |
-| Write-back | 58 seals with Psets filling their openings; 22 BCF issues parse |
-| MCP | all tools through the official client; live Claude session recorded |
-| Tests | 24/24 (`python -m pytest tests`) |
-
-Demonstration result: 58 penetrations, 36 tested as built, 17 deviations (each named), 3 not covered, 1 duct (other
-system), 1 with missing data; one crossing of an unrated partition correctly ignored.
-
-## Where it fits
-
-| Tool | Strong at | Gennemført adds |
+| Module | | Try it |
 |---|---|---|
-| Revit firestop plug-ins (e.g. Hilti) | Detect penetrations, place one manufacturer's firestops in Revit | Open IFC from any tool, any brand's ETA, the evidence row per seal |
-| Manufacturer selectors | Tested solution in one range | The whole project at once, deviations named, alternatives |
-| Model checkers (e.g. Solibri) | Penetrations without a fire-seal object | Whether the seal is valid as tested, and why not |
-| Documentation tools | Photos and sign-off of installed seals | Register, labels and evidence before installation |
+| **M1 Knowledge base** | ETA-21/0110 board seals (293 rows) + ETA-20/1322 fire collars (385 rows, 12 mounting situations); page images with the row highlighted; known source errors listed | [Viden](https://abdullah13793-commits.github.io/gennemfoert/v2/viden.html) |
+| **M2 Structured intake** | Replaces the free-text form: completeness score, photo checklist, live pre-check, routing east/west, SLA | [Forespørgsel](https://abdullah13793-commits.github.io/gennemfoert/v2/forespoergsel.html) |
+| **M3 Case workflow** | States, deadlines, the adviser's own argument, four-eyes review, hash-chained log verified in the browser | [Sager](https://abdullah13793-commits.github.io/gennemfoert/v2/sager.html) |
+| **M4 Precedents + issue** | Deviation signature → earlier decisions; issued PDF with verification code and QR | [Verificér](https://abdullah13793-commits.github.io/gennemfoert/v2/verify.html) |
+| **M5 Quote** | Material list with the wholesaler's item numbers and the basis on every line | [Tilbud](https://abdullah13793-commits.github.io/gennemfoert/v2/tilbud.html) |
+| **M6 Execution** | Checklist from the ETA row, photo, signatures, inspector ≠ installer, owner package | [Udførelse](https://abdullah13793-commits.github.io/gennemfoert/v2/udfoerelse.html) |
+| **M7 Revisions** | IFC revision diff by GlobalId; decisions that no longer hold | [Projekt](https://abdullah13793-commits.github.io/gennemfoert/v2/projekt.html#revision) |
+| **M8 Dashboard** | Deflection rate, missing info, lead time, recurring deviations | [Ledelse](https://abdullah13793-commits.github.io/gennemfoert/v2/overblik.html) |
+| **M9 MCP** | 14 tools for Claude, Copilot or IDE agents | `src/mcp_server.py` |
 
-Honest gaps and roadmap: [docs/POSITIONING.md](docs/POSITIONING.md). Case study: [docs/CASE_STUDY.md](docs/CASE_STUDY.md).
+## Verifiable by design
+Every output can be checked by a person and is checked automatically on every push ([`docs/VERIFY.md`](docs/VERIFY.md)):
+
+- **The file:** [`MANIFEST.json`](docs/v2/data/manifest.json) holds the SHA-256 of each deliverable, the step that produced it, the
+  model, knowledge-base and code versions, and the tests that cover it. Drag a file onto [Verificér](https://abdullah13793-commits.github.io/gennemfoert/v2/verify.html):
+  it is hashed in your browser and never uploaded.
+- **The answer:** every verdict cites ETA, section and page, shows the page with the tested row highlighted, and links to the official PDF at
+  that page.
+- **The method:** `python -m gennemfoert.reproduce` rebuilds everything from the source model and compares it with what's published (9/9).
+
+## Results
+| | |
+|---|---|
+| Answer key, hand-derived from the ETA pages | **59/59** in board-only mode and full range |
+| Demo register (58 penetrations) | 39 tested (30 board seals, 9 fire collars), 17 deviations named by parameter, 1 duct, 1 missing data |
+| Browser engine vs Python engine | **1,500/1,500** random enquiries identical, every check's text; 384/384 intake items |
+| Workflow simulation (30 fictitious cases) | 35 % answered at intake, 20 % missing info caught before an adviser, median 2.7 days, 30/30 audit chains intact |
+| Revision B | 52 unchanged, 1 added, 1 removed, 5 changed: all flagged for re-assessment |
+| Tests | **42 passing**, incl. an end-to-end browser run: enquiry → decision → refused self-review → review → sent |
 
 ## Run it
-
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt && python -m playwright install chromium
 cd src
-python -m gennemfoert.eta          # ETA PDF -> data/eta/records.json (needs the PDF, see data/eta/source)
-python -m gennemfoert.model        # demonstration IFC + answer key
-python -m gennemfoert.pipeline     # detect -> check -> results/register.json (+ answer-key evaluation)
-python -m gennemfoert.writeback && python -m gennemfoert.register && python -m gennemfoert.assess && python -m gennemfoert.export_web
+python -m gennemfoert.pipeline        # IFC -> verdicts (+ answer key)
+python -m gennemfoert.demo            # cases, precedents, issued PDFs
+python -m gennemfoert.export_web && python -m gennemfoert.manifest && python -m gennemfoert.reproduce
 cd .. && python -m pytest tests
-python src/mcp_server.py           # MCP over stdio
 ```
+MCP client config: `{"mcpServers": {"gennemfoert": {"command": "python", "args": ["<repo>/src/mcp_server.py"]}}}`
 
-<sub>Tested configurations: ETA-21/0110, Mulcol Multimastic C System (ETA-Danmark A/S, 2021); table excerpts shown for citation, the complete document is the reference. The demonstration building and its installations are fictitious.</sub>
+More: [SPEC](SPEC.md) · [Case study](docs/CASE_STUDY.md) · [Positioning](docs/POSITIONING.md) · [Verification](docs/VERIFY.md) ·
+Companion product: [**Isoleret**, technical insulation with a fire cross-check](https://github.com/abdullah13793-commits/isoleret)
+
+MIT licence. ETA documents are the manufacturer's public documents, linked, not redistributed.

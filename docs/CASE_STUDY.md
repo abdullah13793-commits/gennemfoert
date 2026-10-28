@@ -1,51 +1,29 @@
-# Case study: Gennemført on a demonstration apartment block
+# Case study: from a free-text enquiry to a verifiable assessment
 
-## The problem
-A penetration seal is only approved for the exact set-up that was fire-tested: the construction and its thickness,
-the pipe material, diameter and wall thickness, the insulation (type, thickness, even the product), the pipe-end
-configuration and the seal geometry. Projects drift away from the tested set-up in small ways (a 110 mm drain with
-3.2 mm wall instead of 3.4 mm, Armaflex instead of the tested Kaiflex, two seals 120 mm apart), and those drifts are
-usually found on site, late, one enquiry at a time. Since 1 January 2025 the building owner must make sure the work has
-been inspected, so documentation per penetration matters more than before.
+**Situation.** A fire-protection advisory answers enquiries about penetration seals. Customers describe the task in free text; the adviser
+reads it, asks for missing measurements, looks the set-up up in the ETA, and writes a brandteknisk vurdering when it deviates. Advisers sit
+in two offices. Since 2025 the building owner must be able to show that the work was inspected.
 
-## The idea
-Use what the project already has: the IFC model (walls and decks with their fire rating, pipes with material and
-size, insulation as coverings, systems, the architect's openings) and the manufacturer's ETA. Turn the ETA's Annex A
-tables into records, find every penetration in the model, and compare one with the other, parameter by parameter,
-keeping the page and row so a person can confirm every answer.
+**What v1 proved.** Valid-as-tested checking with page-and-row citations works on an IFC model: 59/59 planted penetrations right,
+deviations named by parameter.
 
-## What it does
-1. **ETA to records.** 293 tested configurations from 38 tables of ETA-21/0110, with page, section and row rectangle.
-   Merged cells are filled down; rows the PDF text layer garbles were typed from the page and marked.
-2. **Find.** Every pipe, duct, cable and tray whose axis passes through a fire-rated wall or deck, with its opening,
-   insulation and system type. A crossing of an unrated partition is ignored.
-3. **Check.** 14 checks per tested row; the steel tables' intermediate-size graphs are interpolated; open vs closed
-   systems set the pipe-end configuration that must be covered.
-4. **Explain.** Tested rows that match, or the nearest row with the deviating parameter named, and a tested
-   alternative where changing one parameter (usually the insulation) would make it compliant.
-5. **Document.** Excel register, PDF register with QR labels, BCF issues, seal objects in the IFC, and brandteknisk
-   vurdering drafts grouped by identical deviation.
-6. **Ask.** A browser checker for phone enquiries and an MCP server for AI assistants, both on the same rules.
+**What v2 changes.**
+1. *The enquiry becomes data.* In the demo, a customer enters three penetration types. The PVC-U 110 × 3.2 drain in a hollow-core deck is
+   answered immediately as tested with a fire collar (ETA-20/1322 B.1.1.1, p. 155, one collar on the underside, 3 Multiclips, annular gap
+   filled with Multimortar). The PP 75 × 2.6 drain is flagged: wall thickness below the tested 2.7 mm. The copper pipe is missing two
+   photos, and the customer sees that before sending.
+2. *The case gets a trail.* The west office picks it up. The precedent library shows an earlier conditional approval for a thin-walled PP
+   drain in the same kind of construction. The adviser writes their own argument (the system refuses copy-paste-short text) and saves the
+   draft. The system refuses the adviser's attempt to review it; a colleague approves; it is sent. Every step is hash-chained. Editing any
+   line afterwards turns the chain red, in the browser, for anyone.
+3. *The answer travels.* The issued PDF carries the ETA excerpt and a verification code. The same solution produces the material list
+   (item numbers, quantities, basis) and the installer's checklist on site; the inspector must be a different person; the owner gets
+   the handover package.
+4. *Revisions don't slip through.* Revision B of the model changes three drains' wall thickness and raises one party wall to EI 90. Five
+   penetrations are flagged; their decisions need re-assessment.
 
-## What it found (demonstration block, 58 penetrations)
-- 36 seals tested as built.
-- 110x3.2 PVC drains in the hollow-core decks: nearest test is 110x3.4 (A.4.5, p. 52), wall thickness deviates.
-- Copper water pipes insulated with Armaflex where the tested deck solution names Kaiflex ST (A.4.8, p. 56).
-- Copper hot-water pipes with 30 mm stone wool through the decks: the stone-wool deck rows give E only or EI 45 (A.4.4,
-  p. 48); the tested alternative is 9-13 mm elastomeric insulation with Multiwrap (A.4.8, EI 60).
-- PP 50 branches through the 100 mm shaft walls: tested only up to Ø32 (A.1.4, p. 14).
-- A tray and a cable bundle 120 mm apart: the ETA requires 200 mm between seals.
-- PP 75 stacks in the decks: no tested PP configuration in floors in this ETA.
-- A ventilation duct: fire damper or duct fire insulation instead.
-- One pipe with no material in the model: returned as questions, not guessed.
+**Numbers (simulation, fictitious data).** 35 % of penetrations answered without an adviser, 20 % of missing information caught at intake,
+median 2.7 days from receipt to sent, four eyes on every issued assessment, 30/30 audit chains intact.
 
-## How we know it works
-- A hand-written answer key for every planted case (status, deviating parameter, alternative): 59/59, no extra finds.
-- 18 enquiries derived by hand from the ETA pages: all correct.
-- The browser engine and the Python engine agree on 600 of 600 random enquiries.
-- The MCP server passes an end-to-end test through the official client, and a live Claude session answered a phone
-  enquiry correctly with section and page.
-
-## What it is not
-Not an approval and not a replacement for the certified fire consultant or the adviser's judgement. It is the
-groundwork: the facts, the comparison and the documentation, so the adviser's time goes to the judgement.
+**Engineering.** One rules engine in Python, ported to the browser and held identical by tests (1,500 random queries, every check's text).
+MCP server with 14 tools so an assistant can do the same lookups with the same citations.

@@ -17,6 +17,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
 from . import text
+from . import fonts
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "out"
@@ -114,8 +115,8 @@ def write_xlsx(pens, stats, out=None):
 
 
 def _font():
-    pdfmetrics.registerFont(TTFont("Seg", r"C:\Windows\Fonts\segoeui.ttf"))
-    pdfmetrics.registerFont(TTFont("SegB", r"C:\Windows\Fonts\segoeuib.ttf"))
+    pdfmetrics.registerFont(TTFont("Seg", fonts.path()))
+    pdfmetrics.registerFont(TTFont("SegB", fonts.path(True)))
 
 
 def write_pdf(pens, stats, project="Blok C, etageboliger (demonstration)", out=None):
